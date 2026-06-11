@@ -200,9 +200,12 @@
 
   /* ABOUT */
   .about-grid { display: grid; grid-template-columns: 300px 1fr; gap: 4rem; align-items: start; }
-  .about-photo { aspect-ratio: 3/4; border-radius: 150px 150px var(--r) var(--r); overflow: hidden; border: 2px solid var(--rose-mid); background: var(--rose-bg); position: relative; box-shadow: 0 12px 40px rgba(200,116,138,0.12); }
-  .about-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .about-photo { aspect-ratio: 3/4; border-radius: 150px 150px var(--r) var(--r); overflow: hidden; border: 3px solid var(--rose-mid); background: var(--rose-bg); position: relative; box-shadow: 0 12px 40px rgba(200,116,138,0.12); }
+  .about-photo2 { aspect-ratio: 8/10; border-radius: 200px 200px var(--r) var(--r); overflow: hidden; border: 3px solid var(--rose-mid); background: var(--rose-bg); position: relative; box-shadow: 0 12px 40px rgba(200,116,138,0.12); }
+  .about-photo img { width: 120%; height: 120%; object-fit: cover; display: block; }
+  .about-photo2 img { width: 120%; height: 120%; object-fit: cover; display: block; }
   .about-photo-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; }
+  .about-photo2-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; }
   .about-photo-placeholder::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(200,116,138,0.15) 1px, transparent 1px); background-size: 18px 18px; }
   .about-photo-placeholder span { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--ink-light); letter-spacing: 0.1em; text-transform: uppercase; position: relative; z-index: 1; text-align: center; }
   .about-content p { color: var(--ink-mid); line-height: 1.82; margin-bottom: 1rem; font-size: 0.95rem; }
@@ -211,6 +214,16 @@
   .stat-num { font-family: 'DM Serif Display', serif; font-size: 2rem; font-weight: 400; color: var(--rose); letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.3rem; }
   .stat-label { font-size: 0.75rem; color: var(--ink-light); letter-spacing: 0.04em; }
 
+  @media (max-width: 860px) {
+  .about-photo {
+    display: none;
+    }
+  }
+  @media (min-width: 860px) {
+  .about-photo2 {
+    display: none;
+    }
+  }
   /* FOOTER */
   footer { border-top: 1px solid var(--rule); padding: 2.5rem 3rem; display: flex; align-items: center; justify-content: space-between; background: var(--cream2); }
   .footer-sig { font-family: 'DM Serif Display', serif; font-size: 0.9rem; color: var(--ink-light); }
@@ -985,9 +998,16 @@ Pump → Radiator → Inverter → Motor cooling jackets (in series). </li>
     <div class="about-photo">
       <!-- TO ADD PHOTO: replace the div below with <img src="your-photo.jpg" alt="Ruodi Yuan"> -->
       <div class="about-photo-placeholder">
-         <img src="https://i.imgur.com/wVbuWB3.png" alt="Ruodi Yuan">
+         <img src="https://i.imgur.com/zrjNh3K.jpeg" alt="Ruodi Yuan">
       </div>
     </div>
+    <div class="about-photo2">
+      <!-- TO ADD PHOTO: replace the div below with <img src="your-photo.jpg" alt="Ruodi Yuan"> -->
+      <div class="about-photo2-placeholder">
+         <img src="https://i.imgur.com/zrjNh3K.jpeg" alt="Ruodi Yuan">
+      </div>
+    </div>
+
     <div class="about-content">
       <p>I'm Ruodi Yuan, a Mechanical Engineering student at the University of Toronto St. George, pursuing a Certificate in Engineering Business and a minor in Bioengineering and Robotics & Mechatronics. I transferred into engineering from Life Sciences, and I believe that cross-disciplinary background gives me a unique perspective — blending biological intuition with rigorous mechanical and systems thinking. I'm proficient in industry-standard tools including SolidWorks (Certified SOLIDWORKS Associate), MATLAB, Simulink, ANSYS FEA, and Simscape, which I apply regularly to real-world design and simulation challenges.</p>
       <p>As Drivetrain Lead for the University of Toronto Formula SAE Racing team, I oversee mechanical design, manufacturing documentation, and thermal system simulation, including developing a standalone cooling loop model and working on motor assembly with permanent magnets. My work extends well beyond the computer — I'm actively involved in hands-on machining and manufacturing, coordinating fabrication processes and ensuring designs translate effectively from CAD to physical components. I also contribute to the UofT Aerospace team, where I design and iterate arming plug housing and a modular nose landing gear subassembly for a hybrid V/STOL aircraft. On the build side, I work hands-on with materials and fabrication processes including aircraft construction, and laser cutting, gaining practical experience in the full cycle from concept to physical assembly. Beyond hardware, I have strong programming skills in Python, C/C++, JavaScript, HTML, and MySQL, with  experience in machine learning, data preprocessing, and web application development through both academic competitions and professional work.</p>
