@@ -219,7 +219,7 @@
   .footer-links a:hover { color: var(--rose); }
   .divider { max-width: 1120px; margin: 0 auto; height: 1px; background: var(--rule); }
 
-  .hero-floating-img {
+  /* .hero-floating-img {
   position: absolute;
   width: 220px;
   height: 140px;
@@ -228,6 +228,20 @@
   box-shadow: 0 10px 25px rgba(0,0,0,0.12);
   border: 2px solid rgba(200, 116, 138, 0.2);
   backdrop-filter: blur(6px);
+} */
+.hero-floating-img {
+  position: absolute;
+  width: clamp(180px, 15vw, 220px);
+  height: clamp(100px, 10vw, 140px);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+
+@media (max-width: 700px) {
+  .hero-floating-img {
+    display: none;
+  }
 }
 
 .hero-floating-img img {
@@ -238,7 +252,7 @@
 
 /* position them in the empty right-side space */
 .img-1 {
-  top: 90px;
+  top: 100px;
   right: 120px;
   transform: rotate(-6deg);
 }
@@ -247,6 +261,30 @@
   bottom: 110px;
   right: 60px;
   transform: rotate(5deg);
+}
+
+.hero-floating-img-circle {
+  position: absolute;
+  width: 140px;
+  height: 140px;
+  border-radius: 70px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+}
+.hero-floating-img-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media (min-width: 650px) {
+  .hero-floating-img-circle {
+    display: none;
+  }
+}
+/* Position */
+.img-circle {
+  top: 142px;
+  left: 280px;
 }
 
   /* RESPONSIVE */
@@ -305,6 +343,10 @@
     <line x1="150" y1="265" x2="150" y2="275" stroke="#7A9E8E" stroke-width="0.7" opacity="0.25"/>
     <line x1="390" y1="265" x2="390" y2="275" stroke="#7A9E8E" stroke-width="0.7" opacity="0.25"/>
   </svg>
+
+  <div class="hero-floating-img-circle img-circle">
+  <img src="https://i.imgur.com/MQpvvmF.jpeg" alt="headshot">
+</div>
   <!-- SMALL FLOATING IMAGES -->
 <div class="hero-floating-img img-1">
   <img src="https://i.imgur.com/GgVHXx3.jpeg" alt="project 1">
@@ -317,8 +359,10 @@
   <div class="hero-inner">
     <div class="hero-text">
       <p class="hero-eyebrow">Engineering Portfolio · University of Toronto</p>
+       <br>
       <h1 class="hero-name">Hi, I'm<br><em>Ruodi Yuan</em><br></h1>
       <p class="hero-sub">
+  
        I am a mechanical engineering student at the University of Toronto pursuing minors in Bioengineering and Mechatronics &amp; Robotics, who is passionate about learning racing cars 🏎️, aerospace systems and biomedical devices designs.
       </p>
       <div class="hero-tags">
@@ -928,6 +972,7 @@ Pump → Radiator → Inverter → Motor cooling jackets (in series). </li>
     <div class="skill-card"><p class="skill-label"><span class="skill-dot sg"></span>Fabrication</p><ul class="skill-list"><li>3D Printing (FDM)</li><li>Basic Machining</li><li>Composite Assembly</li><li>Iterative Prototyping</li></ul></div>
     <div class="skill-card"><p class="skill-label"><span class="skill-dot"></span>Data &amp; ML</p><ul class="skill-list"><li>Machine Learning</li><li>OpenCV</li><li>Data Preprocessing</li><li>Load Spectrum Analysis</li></ul></div>
     <div class="skill-card"><p class="skill-label"><span class="skill-dot sg"></span>Certifications</p><ul class="skill-list"><li>CSWA — Dassault Systèmes</li><li>Basic Machining — George Brown</li><li>CPR &amp; First Aid — Red Cross</li></ul></div>
+    <div class="skill-card"><p class="skill-label"><span class="skill-dot sg"></span>Languages</p><ul class="skill-list"><li>English (Native)</li><li>Chinese (Native)</li><li>Japanese (Elementary)</li></ul></div>
   </div>
 </section>
 
@@ -944,9 +989,8 @@ Pump → Radiator → Inverter → Motor cooling jackets (in series). </li>
       </div>
     </div>
     <div class="about-content">
-      <p>I'm a second-year Mechanical Engineering student at the University of Toronto, pursuing a Certificate in Engineering Business and minors in Bioengineering and Robotics & Mechatronics.</p>
-      <p>My work sits at the intersection of hardware and software — I design mechanical systems in SolidWorks, simulate and validate them in MATLAB and ANSYS, then get hands-on with physical prototypes. Whether it's a race car drivetrain or an emotionally aware robot, I care most about systems that hold up under real-world constraints.</p>
-      <p>I'm bilingual in English and Chinese, and I've worked remotely with development teams in Singapore since 2021. I'm currently open to engineering internships for Summer/Fall 2026.</p>
+      <p>I'm Ruodi Yuan, a Mechanical Engineering student at the University of Toronto St. George, pursuing a Certificate in Engineering Business and a minor in Bioengineering and Robotics & Mechatronics. I transferred into engineering from Life Sciences, and I believe that cross-disciplinary background gives me a unique perspective — blending biological intuition with rigorous mechanical and systems thinking. I'm proficient in industry-standard tools including SolidWorks (Certified SOLIDWORKS Associate), MATLAB, Simulink, ANSYS FEA, and Simscape, which I apply regularly to real-world design and simulation challenges.</p>
+      <p>As Drivetrain Lead for the University of Toronto Formula SAE Racing team, I oversee mechanical design, manufacturing documentation, and thermal system simulation, including developing a standalone cooling loop model and working on motor assembly with permanent magnets. My work extends well beyond the computer — I'm actively involved in hands-on machining and manufacturing, coordinating fabrication processes and ensuring designs translate effectively from CAD to physical components. I also contribute to the UofT Aerospace team, where I design and iterate arming plug housing and a modular nose landing gear subassembly for a hybrid V/STOL aircraft. On the build side, I work hands-on with materials and fabrication processes including aircraft construction, and laser cutting, gaining practical experience in the full cycle from concept to physical assembly. Beyond hardware, I have strong programming skills in Python, C/C++, JavaScript, HTML, and MySQL, with  experience in machine learning, data preprocessing, and web application development through both academic competitions and professional work.</p>
       <div class="about-stats">
         <div class="stat"><div class="stat-num">2+</div><div class="stat-label">Years in FSAE</div></div>
         <div class="stat"><div class="stat-num">3+</div><div class="stat-label">Competition awards</div></div>
