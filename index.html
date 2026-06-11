@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruodi (Tinah) Yuan — Engineering Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #FAF8F4;
+    --cream2: #F4F0EA;
+    --cream3: #EDE7DC;
+    --white: #FFFFFF;
+    --rose: #C8748A;
+    --rose-light: #F2DADE;
+    --rose-mid: #E0A3AD;
+    --rose-bg: #FBF0F1;
+    --lavender: #9B8FC2;
+    --lavender-light: #EAE6F5;
+    --lavender-mid: #C5BCDF;
+    --sage: #7A9E8E;
+    --sage-light: #E4EFEA;
+    --ink: #2C2520;
+    --ink-mid: #5C5249;
+    --ink-light: #8C847C;
+    --rule: rgba(100,80,70,0.10);
+    --r: 10px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--cream); color: var(--ink); font-family: 'DM Sans', sans-serif; font-size: 16px; line-height: 1.65; overflow-x: hidden; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1rem 3rem; background: rgba(250,248,244,0.90); backdrop-filter: blur(14px); border-bottom: 1px solid var(--rule); }
+  .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--rose); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--ink-mid); text-decoration: none; font-size: 0.85rem; letter-spacing: 0.04em; transition: color 0.2s; font-weight: 500; }
+  .nav-links a:hover { color: var(--rose); }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: flex; align-items: center; padding: 7rem 3rem 5rem; position: relative; overflow: hidden; }
+  .hero-bg { position: absolute; right: -40px; top: 50%; transform: translateY(-50%); width: min(520px, 50vw); opacity: 0.50; pointer-events: none; }
+  .hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr auto; gap: 4rem; align-items: center; max-width: 1080px; width: 100%; }
+
+  .hero-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.18em; color: var(--rose); text-transform: uppercase; margin-bottom: 1.6rem; display: flex; align-items: center; gap: 0.8rem; }
+  .hero-eyebrow::before { content: ''; display: inline-block; width: 28px; height: 1.5px; background: var(--rose-mid); }
+  .hero-name { font-family: 'DM Serif Display', serif; font-size: clamp(3rem, 7vw, 5.5rem); font-weight: 400; line-height: 0.95; letter-spacing: -0.01em; margin-bottom: 0.4rem; color: var(--ink); }
+  .hero-name em { font-style: italic; color: var(--rose); }
+  .hero-sub { font-size: 1rem; color: var(--ink-mid); max-width: 500px; line-height: 1.8; margin-bottom: 2rem; margin-top: 1.2rem; }
+  .hero-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2.4rem; }
+  .hero-tag { font-size: 0.77rem; padding: 0.3rem 0.85rem; border-radius: 100px; font-weight: 500; letter-spacing: 0.02em; }
+  .tag-rose { background: var(--rose-light); color: var(--rose); }
+  .tag-lavender { background: var(--lavender-light); color: var(--lavender); }
+  .tag-sage { background: var(--sage-light); color: var(--sage); }
+  .tag-cream { background: var(--cream3); color: var(--ink-mid); }
+  .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  /* PROFILE PHOTO in hero */
+  .hero-photo-wrap { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 0.8rem; }
+  .hero-photo {
+    width: 280px; height: 380px;
+    border-radius: 120px 120px 14px 14px;
+    overflow: hidden;
+    border: 3px solid var(--rose-mid);
+    background: var(--rose-bg);
+    position: relative;
+    box-shadow: 0 12px 40px rgba(200,116,138,0.15);
+  }
+  .hero-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  /* placeholder state */
+  .hero-photo-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem;
+    position: relative;
+  }
+  .hero-photo-placeholder::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image: radial-gradient(circle, rgba(200,116,138,0.15) 1px, transparent 1px);
+    background-size: 16px 16px;
+  }
+  .hero-photo-placeholder .ph-icon { font-size: 2.8rem; position: relative; z-index: 1; }
+  .hero-photo-placeholder .ph-label { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--ink-light); letter-spacing: 0.1em; text-transform: uppercase; position: relative; z-index: 1; text-align: center; }
+  .hero-photo-note { font-family: 'DM Mono', monospace; font-size: 0.63rem; color: var(--ink-light); letter-spacing: 0.06em; text-align: center; max-width: 200px; line-height: 1.5; }
+
+  /* BUTTONS */
+  .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--rose); color: var(--white); text-decoration: none; padding: 0.75rem 1.8rem; font-weight: 600; font-size: 0.88rem; border-radius: 100px; letter-spacing: 0.03em; transition: background 0.2s, transform 0.15s; }
+  .btn-primary:hover { background: #b5607a; transform: translateY(-1px); }
+  .btn-secondary { display: inline-flex; align-items: center; gap: 0.5rem; background: transparent; color: var(--ink-mid); text-decoration: none; padding: 0.75rem 1.8rem; font-weight: 500; font-size: 0.88rem; border-radius: 100px; border: 1.5px solid var(--cream3); letter-spacing: 0.03em; transition: border-color 0.2s, color 0.2s; }
+  .btn-secondary:hover { border-color: var(--rose-mid); color: var(--rose); }
+
+  /* SECTION */
+  .section-shell { padding: 6rem 3rem; max-width: 1120px; margin: 0 auto; }
+  .section-label { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.22em; color: var(--rose); text-transform: uppercase; margin-bottom: 0.65rem; display: flex; align-items: center; gap: 0.7rem; }
+  .section-label::before { content: ''; display: inline-block; width: 20px; height: 1.5px; background: var(--rose-mid); }
+  .section-title { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 4.5vw, 3.2rem); font-weight: 400; letter-spacing: -0.01em; margin-bottom: 3rem; line-height: 1.05; color: var(--ink); }
+  .section-title em { font-style: italic; color: var(--rose); }
+
+  /* PROJECT GRID */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(480px, 1fr)); gap: 1.4rem; }
+
+  /* PROJECT CARD */
+  .card { background: var(--white); border: 1px solid var(--rule); border-radius: var(--r); overflow: hidden; transition: box-shadow 0.25s, transform 0.2s, border-color 0.25s; }
+  .card:hover { box-shadow: 0 8px 32px rgba(200,116,138,0.10); transform: translateY(-2px); border-color: var(--rose-mid); }
+  .card.featured { grid-column: 1 / -1;}
+  .card img,
+  .card video {
+    width: 100%;
+    height: auto;
+    aspect-ratio: auto;
+    display: block;
+}
+
+  /* MEDIA CAROUSEL */
+  .card-media { position: relative; width: 100%; background: var(--rose-bg); border-bottom: 1px solid var(--rule); overflow: hidden; }
+  .card-media.lavender-bg { background: var(--lavender-light); }
+  .card-media.sage-bg { background: var(--sage-light); }
+  .card-media.cream-bg { background: var(--cream2); }
+  .media-track { display: flex; transition: transform 0.38s cubic-bezier(0.4,0,0.2,1); }
+  .media-slide { flex-shrink: 0; width: 100%; aspect-ratio: 4/3; position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; overflow: hidden; }
+  .media-slide img, .media-slide video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  /* dot grid on placeholder slides */
+  .media-slide.placeholder::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(100,80,70,0.12) 1px, transparent 1px); background-size: 20px 20px; }
+  .ph-icon { width: 44px; height: 44px; border-radius: 50%; background: rgba(255,255,255,0.75); display: flex; align-items: center; justify-content: center; position: relative; z-index: 1; font-size: 19px; color: var(--rose); }
+  .ph-icon.lav { color: var(--lavender); }
+  .ph-icon.sage-c { color: var(--sage); }
+  .ph-icon.cream-c { color: var(--ink-light); }
+  .ph-text { font-family: 'DM Mono', monospace; font-size: 0.63rem; color: var(--ink-light); letter-spacing: 0.12em; text-transform: uppercase; position: relative; z-index: 1; }
+  /* nav arrows */
+  .media-nav { position: absolute; top: 50%; transform: translateY(-50%); z-index: 10; background: rgba(255,255,255,0.82); border: none; cursor: pointer; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; color: var(--ink-mid); transition: background 0.2s, opacity 0.2s; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+  .media-nav:hover { background: var(--white); }
+  .media-nav.prev { left: 10px; }
+  .media-nav.next { right: 10px; }
+  .media-nav.hidden { opacity: 0; pointer-events: none; }
+  /* dots */
+  .media-dots { position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); display: flex; gap: 5px; z-index: 10; }
+  .media-dot { width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,0.5); transition: background 0.2s, transform 0.2s; cursor: pointer; }
+  .media-dot.active { background: var(--rose); transform: scale(1.25); }
+  .media-count { position: absolute; top: 8px; right: 10px; font-family: 'DM Mono', monospace; font-size: 0.62rem; background: rgba(255,255,255,0.80); color: var(--ink-mid); padding: 2px 7px; border-radius: 100px; z-index: 10; }
+
+  /* CARD BODY */
+  .card-body { padding: 1.6rem; }
+  .card-meta { display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.7rem; flex-wrap: wrap; gap: 0.4rem; }
+  .card-date { font-family: 'DM Mono', monospace; font-size: 0.67rem; color: var(--ink-light); letter-spacing: 0.08em; }
+  .badge { font-size: 0.65rem; padding: 0.2rem 0.6rem; border-radius: 100px; font-weight: 600; letter-spacing: 0.04em; }
+  .badge-award { background: #d2d1cf; color: #66645d; }
+  .badge-award-3 { background: #FFF3E0; color: #a76a19; }
+  .badge-lead { background: var(--lavender-light); color: var(--lavender); }
+  .badge-ongoing { background: var(--sage-light); color: var(--sage); }
+  .card-title { font-family: 'DM Serif Display', serif; font-size: 1.3rem; font-weight: 400; letter-spacing: -0.01em; margin-bottom: 0.35rem; line-height: 1.25; color: var(--ink); }
+  .card-org { font-size: 0.8rem; color: var(--rose); font-weight: 600; margin-bottom: 0.85rem; }
+  .card-desc { font-size: 0.88rem; color: var(--ink-mid); line-height: 1.7; margin-bottom: 0.9rem; }
+  .card-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .card-tag { font-size: 0.68rem; padding: 0.2rem 0.65rem; background: var(--cream2); color: var(--ink-mid); border-radius: 100px; font-weight: 500; }
+
+  /* EXPAND BUTTON */
+  .expand-btn { display: flex; align-items: center; gap: 0.45rem; background: none; border: none; cursor: pointer; font-family: 'DM Sans', sans-serif; font-size: 0.8rem; font-weight: 600; color: var(--rose); padding: 0.6rem 0; letter-spacing: 0.02em; transition: color 0.2s; margin-top: 0.6rem; }
+  .expand-btn:hover { color: #b5607a; }
+  .expand-arrow { font-size: 0.75rem; transition: transform 0.3s; display: inline-block; }
+  .expand-btn.open .expand-arrow { transform: rotate(180deg); }
+
+  /* EXPANDED PANEL */
+  .expanded-panel { max-height: 0; overflow: hidden; transition: max-height 0.45s cubic-bezier(0.4,0,0.2,1); border-top: 1px solid transparent; }
+  .expanded-panel.open { max-height: 900px; border-top-color: var(--rule); }
+  .panel-inner { padding: 1.4rem 1.6rem 1.6rem; }
+  .panel-section-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--ink-light); letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 0.8rem; margin-top: 1.2rem; }
+  .panel-section-label:first-child { margin-top: 0; }
+  .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+  .bullet-list li { font-size: 0.86rem; color: var(--ink-mid); line-height: 1.65; padding-left: 1.2rem; position: relative; }
+  .bullet-list li::before { content: '◇'; position: absolute; left: 0; color: var(--rose-mid); font-size: 0.6rem; top: 0.35em; }
+
+  /* FEATURED layout override */
+  .card.featured .card-media { min-height: 280px; }
+  .card.featured .card-media .media-slide { aspect-ratio: auto; min-height: 280px; }
+  .card.featured .card-title { font-size: 1.65rem; }
+
+  /* AWARDS */
+  .awards-strip { background: var(--cream2); border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 3.5rem 3rem; }
+  .awards-inner { max-width: 1120px; margin: 0 auto; }
+  .awards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1rem; margin-top: 2.5rem; }
+  .award-card { background: var(--white); border: 1px solid var(--rule); border-radius: var(--r); padding: 1.4rem; display: flex; gap: 1rem; align-items: flex-start; }
+  .award-icon { width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; font-size: 17px; }
+  .award-icon.gold { background: #FFF3E0; color: #B06B10; }
+  .award-icon.silver { background: #F3F4F6; color: #6B7280; }
+  .award-icon.star { background: var(--lavender-light); color: var(--lavender); }
+  .award-name { font-family: 'DM Serif Display', serif; font-size: 0.95rem; color: var(--ink); line-height: 1.3; margin-bottom: 0.2rem; }
+  .award-sub { font-size: 0.75rem; color: var(--ink-light); }
+
+  /* SKILLS */
+  .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+  .skill-card { background: var(--white); border: 1px solid var(--rule); border-radius: var(--r); padding: 1.3rem; transition: border-color 0.2s; }
+  .skill-card:hover { border-color: var(--rose-mid); }
+  .skill-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--rose); letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 0.9rem; display: flex; align-items: center; gap: 0.5rem; }
+  .skill-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--rose-mid); flex-shrink: 0; }
+  .skill-dot.lav { background: var(--lavender-mid); }
+  .skill-dot.sg { background: var(--sage); }
+  .skill-list { list-style: none; display: flex; flex-direction: column; gap: 0.42rem; }
+  .skill-list li { font-size: 0.84rem; color: var(--ink-mid); }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 300px 1fr; gap: 4rem; align-items: start; }
+  .about-photo { aspect-ratio: 3/4; border-radius: 150px 150px var(--r) var(--r); overflow: hidden; border: 2px solid var(--rose-mid); background: var(--rose-bg); position: relative; box-shadow: 0 12px 40px rgba(200,116,138,0.12); }
+  .about-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .about-photo-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 0.6rem; }
+  .about-photo-placeholder::before { content: ''; position: absolute; inset: 0; background-image: radial-gradient(circle, rgba(200,116,138,0.15) 1px, transparent 1px); background-size: 18px 18px; }
+  .about-photo-placeholder span { font-family: 'DM Mono', monospace; font-size: 0.62rem; color: var(--ink-light); letter-spacing: 0.1em; text-transform: uppercase; position: relative; z-index: 1; text-align: center; }
+  .about-content p { color: var(--ink-mid); line-height: 1.82; margin-bottom: 1rem; font-size: 0.95rem; }
+  .about-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 2rem; }
+  .stat { background: var(--white); border: 1px solid var(--rule); border-radius: var(--r); padding: 1.1rem 1.2rem; }
+  .stat-num { font-family: 'DM Serif Display', serif; font-size: 2rem; font-weight: 400; color: var(--rose); letter-spacing: -0.03em; line-height: 1; margin-bottom: 0.3rem; }
+  .stat-label { font-size: 0.75rem; color: var(--ink-light); letter-spacing: 0.04em; }
+
+  /* FOOTER */
+  footer { border-top: 1px solid var(--rule); padding: 2.5rem 3rem; display: flex; align-items: center; justify-content: space-between; background: var(--cream2); }
+  .footer-sig { font-family: 'DM Serif Display', serif; font-size: 0.9rem; color: var(--ink-light); }
+  .footer-links { display: flex; gap: 1.8rem; }
+  .footer-links a { font-size: 0.82rem; color: var(--ink-light); text-decoration: none; transition: color 0.2s; font-weight: 500; }
+  .footer-links a:hover { color: var(--rose); }
+  .divider { max-width: 1120px; margin: 0 auto; height: 1px; background: var(--rule); }
+
+  .hero-floating-img {
+  position: absolute;
+  width: 220px;
+  height: 140px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+  border: 2px solid rgba(200, 116, 138, 0.2);
+  backdrop-filter: blur(6px);
+}
+
+.hero-floating-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* position them in the empty right-side space */
+.img-1 {
+  top: 90px;
+  right: 120px;
+  transform: rotate(-6deg);
+}
+
+.img-2 {
+  bottom: 110px;
+  right: 60px;
+  transform: rotate(5deg);
+}
+
+  /* RESPONSIVE */
+  @media (max-width: 860px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { padding: 6rem 1.5rem 4rem; }
+    .hero-bg { display: none; }
+    .hero-inner { grid-template-columns: 1fr; }
+    .hero-photo-wrap { display: none; }
+    .section-shell { padding: 4rem 1.5rem; }
+    .projects-grid { grid-template-columns: 1fr; }
+    .card.featured { grid-column: auto; }
+    .about-grid { grid-template-columns: 1fr; }
+    .about-photo { aspect-ratio: 4/3; border-radius: var(--r); }
+    .awards-strip { padding: 3rem 1.5rem; }
+    footer { flex-direction: column; gap: 1rem; padding: 2rem 1.5rem; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Hi, I'm Ruodi (Tinah) Yuan</div>
+  <ul class="nav-links">
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#awards">Awards</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="mailto:ruodi.yuan@mail.utoronto.ca">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <svg class="hero-bg" viewBox="0 0 540 540" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <circle cx="270" cy="270" r="240" stroke="#C8748A" stroke-width="0.6" stroke-dasharray="4 6" opacity="0.35"/>
+    <circle cx="270" cy="270" r="180" stroke="#C8748A" stroke-width="0.6" stroke-dasharray="4 6" opacity="0.28"/>
+    <circle cx="270" cy="270" r="120" stroke="#9B8FC2" stroke-width="0.6" stroke-dasharray="2 8" opacity="0.35"/>
+    <circle cx="270" cy="270" r="60" stroke="#9B8FC2" stroke-width="0.6" stroke-dasharray="2 8" opacity="0.3"/>
+    <line x1="270" y1="0" x2="270" y2="540" stroke="#C8748A" stroke-width="0.5" opacity="0.2"/>
+    <line x1="0" y1="270" x2="540" y2="270" stroke="#C8748A" stroke-width="0.5" opacity="0.2"/>
+    <line x1="80" y1="80" x2="460" y2="460" stroke="#9B8FC2" stroke-width="0.5" opacity="0.15" stroke-dasharray="6 8"/>
+    <line x1="460" y1="80" x2="80" y2="460" stroke="#9B8FC2" stroke-width="0.5" opacity="0.15" stroke-dasharray="6 8"/>
+    <circle cx="270" cy="270" r="5" fill="#C8748A" opacity="0.45"/>
+    <circle cx="270" cy="30" r="2.5" fill="#C8748A" opacity="0.3"/>
+    <circle cx="270" cy="510" r="2.5" fill="#C8748A" opacity="0.3"/>
+    <circle cx="30" cy="270" r="2.5" fill="#C8748A" opacity="0.3"/>
+    <circle cx="510" cy="270" r="2.5" fill="#C8748A" opacity="0.3"/>
+    <circle cx="270" cy="90" r="12" stroke="#9B8FC2" stroke-width="0.8" opacity="0.3" fill="none"/>
+    <circle cx="450" cy="270" r="12" stroke="#9B8FC2" stroke-width="0.8" opacity="0.3" fill="none"/>
+    <circle cx="270" cy="450" r="12" stroke="#9B8FC2" stroke-width="0.8" opacity="0.3" fill="none"/>
+    <circle cx="90" cy="270" r="12" stroke="#9B8FC2" stroke-width="0.8" opacity="0.3" fill="none"/>
+    <line x1="150" y1="270" x2="390" y2="270" stroke="#7A9E8E" stroke-width="0.7" opacity="0.25"/>
+    <line x1="150" y1="265" x2="150" y2="275" stroke="#7A9E8E" stroke-width="0.7" opacity="0.25"/>
+    <line x1="390" y1="265" x2="390" y2="275" stroke="#7A9E8E" stroke-width="0.7" opacity="0.25"/>
+  </svg>
+  <!-- SMALL FLOATING IMAGES -->
+<div class="hero-floating-img img-1">
+  <img src="https://i.imgur.com/GgVHXx3.jpeg" alt="project 1">
+</div>
+
+<div class="hero-floating-img img-2">
+  <img src="https://i.imgur.com/BhzyIN6.png" alt="project 2">
+</div>
+
+  <div class="hero-inner">
+    <div class="hero-text">
+      <p class="hero-eyebrow">Engineering Portfolio · University of Toronto</p>
+      <h1 class="hero-name">Hi, I'm<br><em>Ruodi Yuan</em><br></h1>
+      <p class="hero-sub">
+       I am a mechanical engineering student at the University of Toronto pursuing minors in Bioengineering and Mechatronics &amp; Robotics, who is passionate about learning racing cars 🏎️, aerospace systems and biomedical devices designs.
+      </p>
+      <div class="hero-tags">
+        <span class="hero-tag tag-rose">Mechanical Design</span>
+        <span class="hero-tag tag-lavender">Mechatronic & Robotics</span>
+        <span class="hero-tag tag-sage">Simulation &amp; FEA</span>
+        <span class="hero-tag tag-rose">Formula Student</span>
+        <span class="hero-tag tag-lavender">CAD / SolidWorks</span>
+        <span class="hero-tag tag-cream">Bioengineering Minor</span>
+        <span class="hero-tag tag-rose">Aero Design</span>
+        <span class="hero-tag tag-sage">Python</span>
+      </div>
+      <div class="hero-ctas">
+        <a href="#projects" class="btn-primary">View Projects →</a>
+        <a href="mailto:ruodi.yuan@mail.utoronto.ca" class="btn-secondary">Get in touch</a>
+      </div>
+    </div>
+
+    <!-- PROFILE PHOTO -->
+    <div class="hero-photo-wrap">
+      <div class="hero-photo" id="heroPhotoFrame">
+        <!-- TO ADD YOUR PHOTO: replace the div below with <img src="your-photo.jpg" alt="Ruodi Yuan"> -->
+        <img src="https://i.imgur.com/MQpvvmF.jpeg" alt="Ruodi Yuan">
+          <div class="ph-icon" style="width:60px;height:60px;font-size:2rem;background:rgba(255,255,255,0.8);">👤</div>
+          <div class="ph-label">Your photo here<br><span style="font-size:0.55rem;opacity:0.7;">replace with &lt;img&gt; tag</span></div>
+        </div>
+      </div>
+      <p class="hero-photo-note">ruodi.yuan@mail.utoronto.ca</p>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section class="section-shell" id="projects">
+  <p class="section-label">Work</p>
+  <h2 class="section-title">Selected <em>Projects</em></h2>
+
+  <div class="projects-grid">
+
+    <!-- ══ FORMULA SAE ══ -->
+    <div class="card featured">
+      <!-- MEDIA: add more slides by duplicating .media-slide blocks -->
+      <div class="card-media lavender-bg" data-carousel>
+        <div class="media-track">
+          <div class="media-slide placeholder">
+            <!-- TO ADD IMAGE: <img src="your-img.jpg" alt="..."> -->
+            <img src="https://i.imgur.com/8qLKQCk.png" alt="cooling sim">
+          </div>
+          <div class="media-slide placeholder">
+            <!-- TO ADD IMAGE: <img src="your-img.jpg" alt="..."> -->
+             <img src="https://i.imgur.com/SCPSP5B.png" alt="motor temp">
+          </div>
+        </div>
+        <button class="media-nav prev" aria-label="Previous">‹</button>
+        <button class="media-nav next" aria-label="Next">›</button>
+        <div class="media-dots"></div>
+        <div class="media-count"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-date">April 2026 — May 2026</span>
+        </div>
+        <h3 class="card-title"> Dual Cooling Loop System Simulation</h3>
+        <p class="card-org">University of Toronto Formula SAE Racing</p>
+        <p class="card-desc">Developed a physics-based MATLAB/Simulink thermal model of a dual inverter cooling loop to predict motor temperatures under endurance race conditions. The model was validated using historical endurance run data and used to evaluate cooling system performance under varying vehicle and thermal loads.</p>
+        <div class="card-tags">
+          <span class="card-tag">Simulink</span>
+          <span class="card-tag">MATLAB</span>
+          <span class="card-tag">Thermal Management</span>
+          <span class="card-tag">Simulation</span>
+        </div>
+        <button class="expand-btn" onclick="toggleExpand(this)">
+          Details &amp; highlights <span class="expand-arrow">▾</span>
+        </button>
+      </div>
+      <div class="expanded-panel">
+        <div class="panel-inner">
+    
+          <ul class="bullet-list">
+            <li>Developed a MATLAB/Simulink thermal model of the dual-inverter cooling loop to predict motor temperatures under endurance race operating conditions.
+            <li>Modeled heat transfer throughout the cooling circuit, including heat addition from powertrain components and heat rejection through the radiator.</li>
+            <li>Used historical endurance run telemetry and component data to provide realistic operating inputs and thermal loading conditions.</li>
+            <li>Validated the cooling loop model by comparing simulated motor temperatures against measured endurance run temperature data.</li>
+            <li>Evaluated cooling system performance across varying vehicle speeds and thermal loads to assess temperature regulation capability.</li>
+            <li>Generated motor temperature predictions that support cooling system design decisions and thermal management optimization.</li>
+            <li>Established a simulation framework that can be used to analyze the impact of future cooling system modifications on motor thermal performance.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+
+        <div class="card img">
+      <!-- MEDIA: add more slides by duplicating .media-slide blocks -->
+      <div class="card-media lavender-bg" data-carousel>
+        <div class="media-track">
+          <div class="media-slide placeholder">
+            <!-- TO ADD IMAGE: <img src="your-img.jpg" alt="..."> -->
+            <img src="https://i.imgur.com/JLfQIhv.png" alt="cooling loop render">
+          </div>
+          <div class="media-slide placeholder">
+            <!-- TO ADD IMAGE: <img src="your-img.jpg" alt="..."> -->
+             <img src="https://i.imgur.com/I6R2xE2.jpeg" alt="cooling lop ">
+          </div>
+            <div class="media-slide placeholder">
+              <video width="320" height="240" controls>
+              <source src="https://i.imgur.com/BbGiFTU.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <button class="media-nav prev" aria-label="Previous">‹</button>
+        <button class="media-nav next" aria-label="Next">›</button>
+        <div class="media-dots"></div>
+        <div class="media-count"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+         <span class="card-date"> 2025 — 2026</span>
+        </div>
+        <h3 class="card-title">Dual Series Cooling Loop</h3>
+        <p class="card-org">University of Toronto Formula SAE Racing</p>
+        <p class="card-desc">Designed, built, and tested a full dual cooling loop system for an electric powertrain, integrating CAD design, fabrication, and real-world validation. The project included tubing assembly, sensor integration, pump priming, and bench testing to ensure reliable thermal performance under race conditions.
+</p>
+        <div class="card-tags">
+          <span class="card-tag">SolidWorks</span>
+          <span class="card-tag">Thermal Management</span>
+          <span class="card-tag">Manufacturing</span>
+        </div>
+        <button class="expand-btn" onclick="toggleExpand(this)">
+          Details &amp; highlights <span class="expand-arrow">▾</span>
+        </button>
+      </div>
+      <div class="expanded-panel">
+        <div class="panel-inner">
+          <ul class="bullet-list">
+            <li>A dual-loop architecture with independent cooling loops for left and right sides of the vehicle.</li>
+          <li>This design enhances reliability and simplifies plumbing by minimizing long coolant runs.</li>
+          <li>Key considerations: Radiator placement and component ordering within the cooling loop</li>
+          <li>The rear was identified by the aerodynamics team as the optimal location for the radiator. Benefiting from high-energy airflow while preserving front aerodynamics.</li>
+            <li>Performed multiple bench tests to evaluate cooling system performance, verify component operation, and troubleshoot issues prior to vehicle deployment.</li>
+            <li>Manufactured and assembled the physical cooling system by cutting and routing coolant tubing, installing sensors, fittings, pumps, and other cooling components.</li>
+            <li>Conducted cooling loop integration and commissioning activities, including system priming, leak checks, and flow verification.</li>
+            <li>Collaborated with team members to optimize cooling loop packaging, assembly procedures, and overall system reliability for endurance competition conditions.</li>
+            <li>Components are ordered to prioritize cooling of the inverter, which is temperature-sensitive and positioned downstream of the radiator.
+Pump → Radiator → Inverter → Motor cooling jackets (in series). </li>
+            <li>The pump's placement before the radiator improves reliability by maintaining positive pressure at the pump inlet, reducing cavitation risk. </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ UAV ══ -->
+    <div class="card">
+      <div class="card-media lavender-bg" data-carousel>
+        <div class="media-track">
+          <div class="media-slide placeholder">
+            <img src="https://i.imgur.com/nBqKiDG.jpeg" alt="red lamp">
+          </div>
+
+          <div class="media-slide placeholder">
+            <video width="320" height="240" controls>
+              <source src="https://i.imgur.com/V2GeKK2.mp4" type="video/mp4">
+
+            </video>
+          </div>
+                    <div class="media-slide placeholder">
+            <img src="https://i.imgur.com/e1Jl9mT.jpeg" alt="red lamp">
+          </div>
+                    <div class="media-slide placeholder">
+            <img src="https://i.imgur.com/NxiYCGL.jpeg" alt="red lamp">
+          </div>
+            <div class="media-slide placeholder">
+            <img src="https://i.imgur.com/Uuju7Zj.jpeg" alt="red lamp">
+          </div>
+        </div>
+        <button class="media-nav prev" aria-label="Previous">‹</button>
+        <button class="media-nav next" aria-label="Next">›</button>
+        <div class="media-dots"></div>
+        <div class="media-count"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-date"> 2025 — 2026</span>
+        </div>
+        <h3 class="card-title">UT26 MAPLE - Structures</h3>
+        <p class="card-org">University of Toronto Aerospace Team — UAS</p>
+        <p class="card-desc">Worked on the structures team for a UAS aircraft, responsible for manufacturing and assembly of the fuselage and landing gear systems. This included fabrication planning, composite integration, and hands-on assembly of airframe components to ensure structural integrity and flight readiness.</p>
+        <div class="card-tags">
+          <span class="card-tag">SolidWorks</span>
+          <span class="card-tag">3D Printing</span>
+          <span class="card-tag">Lasercutting</span>
+          <span class="card-tag">Manufacture</span>
+          <span class="card-tag">Aircraft Construction</span>
+          <span class="card-tag">AutoCAD</span>
+        </div>
+        <button class="expand-btn" onclick="toggleExpand(this)">
+          Details &amp; highlights <span class="expand-arrow">▾</span>
+        </button>
+      </div>
+      <div class="expanded-panel">
+        <div class="panel-inner">
+          <p class="panel-section-label">Payload Mechanism</p>
+          <ul class="bullet-list">
+            <li>Worked on the UAS structures team responsible for the design, manufacturing, and assembly of the aircraft fuselage and landing gear systems.</li>
+            <li>Created laser-cut templates and fabrication guides to support accurate and repeatable fuselage construction processes.</li>
+            <li>Built and assembled the fuselage structure, including alignment, bonding, and reinforcement of airframe components.</li>
+            <li>Applied Monokote covering to the fuselage to improve aerodynamic finish and structural surface protection.</li>
+            <li>Cut, drilled, and prepared carbon fibre tubes for structural use while maintaining dimensional accuracy and material integrity.</li>
+            <li>Installed and integrated landing gear systems into the airframe, ensuring secure mounting and proper load distribution during landing conditions.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+
+            <div class="card img">
+      <!-- MEDIA: add more slides by duplicating .media-slide blocks -->
+      <div class="card-media lavender-bg" data-carousel>
+        <div class="media-track">
+          <div class="media-slide placeholder">
+            <!-- TO ADD IMAGE: <img src="your-img.jpg" alt="..."> -->
+            <img src="https://i.imgur.com/KEhkIMK.jpeg" alt="cooling loop render">
+          </div>
+          <div class="media-slide placeholder">
+             <img src="https://i.imgur.com/7yG87nk.jpeg" alt="cooling lop ">
+          </div>
+
+          <div class="media-slide placeholder">
+            <!-- TO ADD IMAGE: <img src="your-img.jpg" alt="..."> -->
+             <img src="https://i.imgur.com/kMlO5JT.jpeg" alt="cooling lop ">
+          </div>
+          <div class="media-slide placeholder">
+             <img src="https://i.imgur.com/DMUPH1I.jpeg" alt="cooling lop ">
+          </div>
+
+            <div class="media-slide placeholder">
+             <img src="https://i.imgur.com/FmMC2kx.jpeg" alt="cooling lop ">
+          </div>
+        </div>
+        <button class="media-nav prev" aria-label="Previous">‹</button>
+        <button class="media-nav next" aria-label="Next">›</button>
+        <div class="media-dots"></div>
+        <div class="media-count"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+         <span class="card-date"> 2025 — 2026</span>
+        </div>
+        <h3 class="card-title">UT26 Drivetain System</h3>
+        <p class="card-org">University of Toronto Formula SAE Racing</p>
+        <p class="card-desc">Contributed to the design, manufacturing, and assembly of the UT26 drivetrain system, supporting the integration of motors, gearbox components, and drivetrain hardware. The project involved hands-on manufacturing, fixture design, and assembly process development to improve reliability and ease of installation.
+</p>
+        <div class="card-tags">
+          <span class="card-tag">SolidWorks</span>
+          <span class="card-tag">Machining</span>
+          <span class="card-tag">Hydraulic Pressure Press</span>
+          <span class="card-tag">Gearbox</span>
+          <span class="card-tag">Manufacturing</span>
+        </div>
+        <button class="expand-btn" onclick="toggleExpand(this)">
+          Details &amp; highlights <span class="expand-arrow">▾</span>
+        </button>
+      </div>
+      <div class="expanded-panel">
+        <div class="panel-inner">
+          <ul class="bullet-list">
+            <li>Designed and manufactured an assembly jig to facilitate safe and accurate rotor installation in permanent magnet motors, ensuring proper alignment during assembly.</li>
+              <li>Assisted in the assembly and integration of the drivetrain system, including motors, gearbox components, and supporting hardware.</li>
+              <li>Machined drivetrain components such as inboard motor mounts, planet shafts, and retainers to meet design specifications and assembly requirements.</li>
+              <li>Participated in gearbox assembly and verification, ensuring proper fitment and alignment of drivetrain components.</li>
+              <li>Worked with team members to troubleshoot assembly challenges and develop practical solutions to improve manufacturing and integration processes.</li>
+              <li>Supported the transition from CAD designs to physical components through machining, fabrication, and hands-on assembly.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+
+     <div class="card">
+      <div class="card-media" data-carousel>
+        <div class="media-track">
+          <div class="media-slide placeholder">
+            <img src="https://i.imgur.com/erKFIL5.png" alt="red lamp">
+
+          </div>
+          <div class="media-slide placeholder">
+              <video width="320" height="240" controls>
+              <source src="https://i.imgur.com/S9GidPP.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="media-slide placeholder">
+              <video width="320" height="240" controls>
+              <source src="https://i.imgur.com/0AzJEpz.mp4" type="video/mp4">
+          </div>
+        </div>
+
+        <button class="media-nav prev" aria-label="Previous">‹</button>
+        <button class="media-nav next" aria-label="Next">›</button>
+        <div class="media-dots"></div>
+        <div class="media-count"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-date">May 2026</span>
+        </div>
+        <h3 class="card-title">UT26 Nose Landing Gear Integration</h3>
+        <p class="card-org">University of Toronto Aerospace Team — UAS</p>
+        <p class="card-desc">Redesigned the nose landing gear system to convert it from a fuselage-integrated structure into a modular, independent subassembly to improve maintainability and manufacturability. This redesign significantly simplified maintenance procedures and reduced system integration and repair complexity.</p>
+        <div class="card-tags">
+          <span class="card-tag">SolidWorks</span>
+          <span class="card-tag">3D Printing</span>
+          <span class="card-tag">Mechanical Design</span>
+
+        </div>
+        <button class="expand-btn" onclick="toggleExpand(this)">
+          Details &amp; highlights <span class="expand-arrow">▾</span>
+        </button>
+      </div>
+      <div class="expanded-panel">
+        <div class="panel-inner">
+          <ul class="bullet-list">
+            <li>Redesigned and integrated the nose landing gear system to improve maintainability, manufacturability, and assembly efficiency.</li>
+            <li>Converted the landing gear from a fuselage-dependent installation into a modular subassembly, significantly reducing maintenance, replacement, and aircraft turnaround time.</li>
+            <li>Redesigned critical mounting and interface components to enable independent fabrication, testing, and installation of the landing gear assembly.</li>
+            <li>Developed a modular architecture that simplified repairs and future design iterations, reducing integration complexity during aircraft assembly.</li>
+            <li>Manufactured and assembled the housing using additive manufacturing (3D printing), performing hands-on installation and fitment verification on the aircraft.</li>
+            <li>Iterated the design through multiple development cycles, progressing to Version 2 based on testing feedback, manufacturability considerations, and cross-team requirements.</li>
+            <li>Collaborated with avionics, structures, and manufacturing subteams to ensure compatibility with aircraft systems and streamline integration. </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+        <div class="card">
+      <div class="card-media lavender-bg" data-carousel>
+        <div class="media-track">
+          <div class="media-slide placeholder">
+            <img src="https://i.imgur.com/7kMY9MU.png" alt="red lamp">
+          </div>
+          <div class="media-slide placeholder">
+            <img src="https://i.imgur.com/jWDbH4I.jpeg" alt="red lamp">
+          </div>
+          <div class="media-slide placeholder">
+            <img src="https://i.imgur.com/VW5z6yn.jpegg" alt="red lamp">
+            </video>
+          </div>
+        </div>
+        <button class="media-nav prev" aria-label="Previous">‹</button>
+        <button class="media-nav next" aria-label="Next">›</button>
+        <div class="media-dots"></div>
+        <div class="media-count"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-date">Mar 2026</span>
+        </div>
+        <h3 class="card-title">UT26 MAPLE - Arming Housing Design</h3>
+        <p class="card-org">University of Toronto Aerospace Team — UAS</p>
+        <p class="card-desc">Designed and manufactured a modular arming housing system for a UAS platform, enabling safe and efficient electrical system activation and integration. The design was 3D printed and iteratively improved through multiple design cycles in collaboration with other subteams.</p>
+        <div class="card-tags">
+          <span class="card-tag">SolidWorks</span>
+          <span class="card-tag">3D Printing</span>
+          <span class="card-tag">Mechanical Design</span>
+
+        </div>
+        <button class="expand-btn" onclick="toggleExpand(this)">
+          Details &amp; highlights <span class="expand-arrow">▾</span>
+        </button>
+      </div>
+      <div class="expanded-panel">
+        <div class="panel-inner">
+          <ul class="bullet-list">
+            <li>Designed and CAD-modeled a custom arming housing assembly for the UAS electrical system, ensuring secure integration with the airframe and accessibility during pre-flight operations.</li>
+            <li>Manufactured and assembled the housing using additive manufacturing (3D printing), performing hands-on installation and fitment verification on the aircraft.</li>
+            <li>Iterated the design through multiple development cycles, progressing to Version 2 based on testing feedback, manufacturability considerations, and cross-team requirements.</li>
+            <li>Collaborated with avionics subteams to ensure compatibility with aircraft systems and streamline integration. </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+        <div class="card">
+      <div class="card-media lavender-bg" data-carousel>
+        <div class="media-track">
+          <div class="media-slide placeholder">
+            <img src="https://i.imgur.com/MBdr8uD.png" alt="red lamp">
+          </div>
+                    <div class="media-slide placeholder">
+            <img src="https://i.imgur.com/SifFkCD.png" alt="red lamp">
+          </div>
+            <div class="media-slide placeholder">
+            <img src="https://i.imgur.com/vt1Wl1O.jpeg" alt="red lamp">
+          </div>
+        </div>
+        <button class="media-nav prev" aria-label="Previous">‹</button>
+        <button class="media-nav next" aria-label="Next">›</button>
+        <div class="media-dots"></div>
+        <div class="media-count"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-date"> Feb 2026 - April 2026</span>
+        </div>
+        <h3 class="card-title">Planet Shafts Redesign</h3>
+        <p class="card-org">University of Toronto Formula SAE Racing</p>
+        <p class="card-desc">Worked on the structures team for a UAS aircraft, responsible for manufacturing and assembly of the fuselage and landing gear systems. This included fabrication planning, composite integration, and hands-on assembly of airframe components to ensure structural integrity and flight readiness.</p>
+        <div class="card-tags">
+          <span class="card-tag">SolidWorks</span>
+          <span class="card-tag">ANSYS</span>
+          <span class="card-tag">FEA</span>
+          <span class="card-tag">Machining</span>
+        </div>
+        <button class="expand-btn" onclick="toggleExpand(this)">
+          Details &amp; highlights <span class="expand-arrow">▾</span>
+        </button>
+      </div>
+      <div class="expanded-panel">
+        <div class="panel-inner">
+          <p class="panel-section-label">Payload Mechanism</p>
+          <ul class="bullet-list">
+            <li>Redesigned the planet shaft to improve assembly efficiency, manufacturability, and serviceability.</li>
+            <li>Used FEA to evaluate stresses and verify that the redesigned shaft could safely withstand operating loads.</li>
+            <li>Machined the planet shaft within tight tolerances and ensured proper fit with mating drivetrain components during assembly..</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+    <!-- ══ RED LAMP ══ -->
+    <div class="card">
+      <div class="card-media" data-carousel>
+        <div class="media-track">
+          <div class="media-slide placeholder">
+            <img src="https://i.imgur.com/uzTcc8S.png" alt="red lamp">
+
+          </div>
+          <div class="media-slide placeholder">
+            <img src="https://i.imgur.com/AFc0Zrx.jpeg" alt="red lamp">
+          </div>
+          <!-- <div class="media-slide placeholder">
+
+              <iframe width="560" height="315" src="https://youtu.be/gwU1twqMq40?si=ej82HYAu7YEZYd1F"></iframe>
+          </div> -->
+        </div>
+        <button class="media-nav prev" aria-label="Previous">‹</button>
+        <button class="media-nav next" aria-label="Next">›</button>
+        <div class="media-dots"></div>
+        <div class="media-count"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-date">Jan 2026</span>
+          <span class="badge badge-award">🏆 2nd Place · Hack the Human–Robot Experience</span>
+        </div>
+        <h3 class="card-title">Red Lamp — Companion Robot</h3>
+        <p class="card-org">UofTHacks 13</p>
+        <p class="card-desc">A companion robot that detects student emotion during solo study sessions and provides encouragement against isolation and burnout.</p>
+        <div class="card-tags">
+          <span class="card-tag">Raspberry Pi</span>
+          <span class="card-tag">Arduino</span>
+          <span class="card-tag">3D Printing</span>
+          <span class="card-tag">Embedded Systems</span>
+          <span class="card-tag">Sensor Integration</span>
+        </div>
+        <button class="expand-btn" onclick="toggleExpand(this)">
+          Details &amp; highlights <span class="expand-arrow">▾</span>
+        </button>
+      </div>
+      <div class="expanded-panel">
+        <div class="panel-inner">
+          <ul class="bullet-list">
+            <li>Integrated hardware systems using a LeLamp kit, Raspberry Pi, sensors, LEDs, and custom 3D-printed components, transforming a standard lamp robot into a responsive companion device.</li>
+            <li>Debugged and optimized hardware–software interaction by troubleshooting power instability, loose wiring, and faulty components through voltage testing and iterative assembly.</li>
+            <li>Achieved reliable real-time responsiveness under hackathon constraints after resolving power instability and component failures.</li>
+            <li>Adapted system architecture mid-build by incorporating Arduino components after Raspberry Pi connectivity failures, improving overall system stability.</li>
+            <li>Designed and fabricated custom 3D-printed structural and aesthetic components for the robot chassis.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+        <div class="card">
+      <div class="card-media" data-carousel>
+        <div class="media-track">
+          <div class="media-slide placeholder">
+            <img src="https://i.imgur.com/2ZwO3PV.png" alt="red lamp">
+
+          </div>
+          <div class="media-slide placeholder">
+            <img src="https://i.imgur.com/OIXbUgq.jpeg" alt="red lamp">
+          </div>
+
+        </div>
+        <button class="media-nav prev" aria-label="Previous">‹</button>
+        <button class="media-nav next" aria-label="Next">›</button>
+        <div class="media-dots"></div>
+        <div class="media-count"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-date">Jan 2026</span>
+          <span class="badge badge-award-3">🏆 3rd Place</span>
+        </div>
+        <h3 class="card-title">P&G Marketing Campaign</h3>
+        <p class="card-org">2025 Engineering Business Future Case Competition </p>
+        <p class="card-desc">Worked in a team of four to develop a marketing strategy for Vicks Early Defense Nasal Spray, targeting increased household penetration using Porter’s Five Forces and PESTLE, and delivered a clear, evidence-based presentation praised for its clarity and feasibility.</p>
+        <div class="card-tags">
+          <span class="card-tag">Marketing</span>
+          <span class="card-tag">Public Speaking</span>
+        </div>
+        <button class="expand-btn" onclick="toggleExpand(this)">
+          Details &amp; highlights <span class="expand-arrow">▾</span>
+        </button>
+      </div>
+      <div class="expanded-panel">
+        <div class="panel-inner">
+          <ul class="bullet-list">
+            <li>Worked in a group of 4 engineering students to develop a marketing campaign for Vick’s Early Defense Nasal Spray, aiming to increase household penetration from 10% to 20% in a year.</li>
+            <li>Identified a key gap — a lack of exposure and reliability — and built our strategy around tackling it by using frameworks like Porter’s Five Forces and PESTLE.</li>
+            <li>Delivered an evidence-based presentation that impressed judges with its clarity, feasibility, and analytical depth.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+     <div class="card">
+      <div class="card-media sage-bg" data-carousel>
+        <div class="media-track">
+          <div class="media-slide placeholder">
+            <img src="https://i.imgur.com/OUoI3R9.jpeg" alt="red lamp">
+          </div>
+          <div class="media-slide placeholder">
+            <img src="https://i.imgur.com/8edXN5r.png" alt="red lamp">
+          </div>
+        </div>
+        <button class="media-nav prev" aria-label="Previous">‹</button>
+        <button class="media-nav next" aria-label="Next">›</button>
+        <div class="media-dots"></div>
+        <div class="media-count"></div>
+      </div>
+      <div class="card-body">
+        <div class="card-meta">
+          <span class="card-date">Feb 2026</span>
+          <span class="badge badge-ongoing">Hackathon</span>
+        </div>
+        <h3 class="card-title">Autonomous Face-Tracking Robot</h3>
+        <p class="card-org">MakeUofT Hackathon 2026</p>
+        <p class="card-desc">Autonomous robot with real-time face detection and navigation, integrating computer vision, motor control, and 3D-printed structure.</p>
+        <div class="card-tags">
+          <span class="card-tag">OpenCV</span>
+          <span class="card-tag">Raspberry Pi</span>
+          <span class="card-tag">Arduino</span>
+          <span class="card-tag">Computer Vision</span>
+          <span class="card-tag">3D Printing</span>
+        </div>
+        <button class="expand-btn" onclick="toggleExpand(this)">
+          Details &amp; highlights <span class="expand-arrow">▾</span>
+        </button>
+      </div>
+      <div class="expanded-panel">
+        <div class="panel-inner">
+          <ul class="bullet-list">
+            <li>Built an autonomous robot using Raspberry Pi, OpenCV, and Arduino for real-time face detection, directional navigation, and expressive interaction.</li>
+            <li>Integrated motor control for differential drive, servo-driven head tilting for emotional expression, and dual power management (Pi + Arduino separate rails).</li>
+            <li>Implemented a smartphone-based animated face display for engaging visual feedback during interactions.</li>
+            <li>Resolved networking issues and improved face detection accuracy through iterative tuning of OpenCV parameters.</li>
+            <li>Developed both hardware prototype and a 3D-printable robot case.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+ 
+
+
+  </div>
+</section>
+
+<!-- AWARDS -->
+<div class="awards-strip" id="awards">
+  <div class="awards-inner">
+    <p class="section-label">Recognition</p>
+    <h2 class="section-title" style="margin-bottom:0;">Honors <em>&amp; Awards</em></h2>
+    <div class="awards-grid">
+      <div class="award-card"><div class="award-icon gold">🥈</div><div><p class="award-name">2nd Place — Hack the Human–Robot Experience</p><p class="award-sub">UofTHacks 13 · 2026</p></div></div>
+      <div class="award-card"><div class="award-icon" style="background:#FDF3EE;color:#C8748A;">🥉</div><div><p class="award-name">3rd Place — Engineering Business Future Case</p><p class="award-sub">EBF Case Competition · 2025</p></div></div>
+      <div class="award-card"><div class="award-icon star">★</div><div><p class="award-name">Dean's List</p><p class="award-sub">University of Toronto Scarborough · 2025 · cGPA 3.90</p></div></div>
+      <div class="award-card"><div class="award-icon silver">📐</div><div><p class="award-name">Waterloo Euclid — Top 25%</p><p class="award-sub">Centre for Education in Mathematics · 2024</p></div></div>
+      <div class="award-card"><div class="award-icon silver">📐</div><div><p class="award-name">Canadian Open Math — Distinction</p><p class="award-sub">COMC · 2023</p></div></div>
+      <div class="award-card"><div class="award-icon silver">📐</div><div><p class="award-name">Waterloo Fermat &amp; Hypatia — Top 25%</p><p class="award-sub">Centre for Education in Mathematics · 2023</p></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section class="section-shell" id="skills">
+  <p class="section-label">Capabilities</p>
+  <h2 class="section-title">Skills <em>&amp; Tools</em></h2>
+  <div class="skills-grid">
+    <div class="skill-card"><p class="skill-label"><span class="skill-dot lav"></span>Engineering Software</p><ul class="skill-list"><li>SolidWorks (CSWA certified)</li><li>MATLAB &amp; Simulink</li><li>ANSYS FEA</li><li>Simscape</li></ul></div>
+    <div class="skill-card"><p class="skill-label"><span class="skill-dot"></span>Programming</p><ul class="skill-list"><li>Python</li><li>C / C++</li><li>JavaScript</li><li>HTML / MySQL</li></ul></div>
+    <div class="skill-card"><p class="skill-label"><span class="skill-dot lav"></span>Embedded &amp; Hardware</p><ul class="skill-list"><li>Arduino</li><li>Raspberry Pi</li><li>Sensor Integration</li><li>Motor Control</li></ul></div>
+    <div class="skill-card"><p class="skill-label"><span class="skill-dot sg"></span>Fabrication</p><ul class="skill-list"><li>3D Printing (FDM)</li><li>Basic Machining</li><li>Composite Assembly</li><li>Iterative Prototyping</li></ul></div>
+    <div class="skill-card"><p class="skill-label"><span class="skill-dot"></span>Data &amp; ML</p><ul class="skill-list"><li>Machine Learning</li><li>OpenCV</li><li>Data Preprocessing</li><li>Load Spectrum Analysis</li></ul></div>
+    <div class="skill-card"><p class="skill-label"><span class="skill-dot sg"></span>Certifications</p><ul class="skill-list"><li>CSWA — Dassault Systèmes</li><li>Basic Machining — George Brown</li><li>CPR &amp; First Aid — Red Cross</li></ul></div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section-shell" id="about" style="padding-top:0;">
+  <div class="divider" style="margin-bottom:5rem;"></div>
+  <p class="section-label">Background</p>
+  <h2 class="section-title">About <em>Me</em></h2>
+  <div class="about-grid">
+    <div class="about-photo">
+      <!-- TO ADD PHOTO: replace the div below with <img src="your-photo.jpg" alt="Ruodi Yuan"> -->
+      <div class="about-photo-placeholder">
+         <img src="https://i.imgur.com/wVbuWB3.png" alt="Ruodi Yuan">
+      </div>
+    </div>
+    <div class="about-content">
+      <p>I'm a second-year Mechanical Engineering student at the University of Toronto, pursuing a Certificate in Engineering Business and minors in Bioengineering and Robotics & Mechatronics.</p>
+      <p>My work sits at the intersection of hardware and software — I design mechanical systems in SolidWorks, simulate and validate them in MATLAB and ANSYS, then get hands-on with physical prototypes. Whether it's a race car drivetrain or an emotionally aware robot, I care most about systems that hold up under real-world constraints.</p>
+      <p>I'm bilingual in English and Chinese, and I've worked remotely with development teams in Singapore since 2021. I'm currently open to engineering internships for Summer/Fall 2026.</p>
+      <div class="about-stats">
+        <div class="stat"><div class="stat-num">2+</div><div class="stat-label">Years in FSAE</div></div>
+        <div class="stat"><div class="stat-num">3+</div><div class="stat-label">Competition awards</div></div>
+        <div class="stat"><div class="stat-num">10+</div><div class="stat-label">Projects</div></div>
+        <div class="stat"><div class="stat-num">2</div><div class="stat-label">Engineering design teams</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-sig">Ruodi (Tinah) Yuan · BASc Mechanical Engineering · UofT</span>
+  <div class="footer-links">
+    <a href="mailto:ruodi.yuan@mail.utoronto.ca">Email</a>
+    <a href="https://www.linkedin.com/in/ruodiyuan" target="_blank">LinkedIn</a>
+    <a href="https://devpost.com/tinayuan060123" target="_blank">Devpost</a>
+  </div>
+</footer>
+
+<script>
+function toggleExpand(btn) {
+  var panel = btn.closest('.card-body').nextElementSibling;
+  var isOpen = panel.classList.contains('open');
+  panel.classList.toggle('open', !isOpen);
+  btn.classList.toggle('open', !isOpen);
+}
+
+function initCarousel(el) {
+  var track = el.querySelector('.media-track');
+  var slides = track.querySelectorAll('.media-slide');
+  var prevBtn = el.querySelector('.media-nav.prev');
+  var nextBtn = el.querySelector('.media-nav.next');
+  var dotsEl = el.querySelector('.media-dots');
+  var countEl = el.querySelector('.media-count');
+  var total = slides.length;
+  var cur = 0;
+
+  if (total <= 1) {
+    prevBtn.style.display = 'none';
+    nextBtn.style.display = 'none';
+    countEl.style.display = 'none';
+    return;
+  }
+
+  // build dots
+  for (var i = 0; i < total; i++) {
+    var d = document.createElement('div');
+    d.className = 'media-dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('data-i', i);
+    d.addEventListener('click', (function(idx){ return function(){ go(idx); }; })(i));
+    dotsEl.appendChild(d);
+  }
+
+  function update() {
+    track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+    dotsEl.querySelectorAll('.media-dot').forEach(function(d, i){ d.classList.toggle('active', i === cur); });
+    prevBtn.classList.toggle('hidden', cur === 0);
+    nextBtn.classList.toggle('hidden', cur === total - 1);
+    countEl.textContent = (cur + 1) + ' / ' + total;
+  }
+  function go(n) { cur = Math.max(0, Math.min(total - 1, n)); update(); }
+  prevBtn.addEventListener('click', function(){ go(cur - 1); });
+  nextBtn.addEventListener('click', function(){ go(cur + 1); });
+  update();
+}
+
+document.querySelectorAll('[data-carousel]').forEach(initCarousel);
+</script>
+</body>
+</html>
