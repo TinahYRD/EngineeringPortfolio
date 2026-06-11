@@ -41,7 +41,7 @@
   /* HERO */
   .hero { min-height: 100vh; display: flex; align-items: center; padding: 7rem 3rem 5rem; position: relative; overflow: hidden; }
   .hero-bg { position: absolute; right: -40px; top: 50%; transform: translateY(-50%); width: min(520px, 50vw); opacity: 0.50; pointer-events: none; }
-  .hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr auto; gap: 4rem; align-items: center; max-width: 1080px; width: 100%; }
+  .hero-inner { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr auto auto; gap: 5rem; align-items: center; max-width: 1500px; width: 100%; }
 
   .hero-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.72rem; letter-spacing: 0.18em; color: var(--rose); text-transform: uppercase; margin-bottom: 1.6rem; display: flex; align-items: center; gap: 0.8rem; }
   .hero-eyebrow::before { content: ''; display: inline-block; width: 28px; height: 1.5px; background: var(--rose-mid); }
@@ -57,7 +57,18 @@
   .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
 
   /* PROFILE PHOTO in hero */
-  .hero-photo-wrap { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 0.8rem; }
+  /* .hero-photo-wrap { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 0.8rem; }
+  .hero-small-photo-wrap { flex-shrink: 0; display: flex; flex-direction: column; align-items: center; gap: 0.8rem; } */
+
+.hero-photo-wrap {
+  flex-shrink: 0;
+}
+
+.hero-small-photo-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
   .hero-photo {
     width: 280px; height: 380px;
     border-radius: 120px 120px 14px 14px;
@@ -226,7 +237,7 @@
   }
 
   .floating-shape {
-  position: absolute;
+  position: relative;
   width: 120px;
   height: 120px;
   border-radius: 16px;
@@ -239,12 +250,6 @@
   height: 100%;
   object-fit: cover;
   transform: rotate(8deg);
-
-}
-
-.floating-shape {
-  top: 160px;
-  left: 330px;
 }
 
 .about-title-wrap {
@@ -277,26 +282,36 @@
 
 
 @keyframes floatNatural {
-  0% {
-    transform: translate(0, 0);
-  }
-
-  25% {
-    transform: translate(6px, -10px);
-  }
-
-  50% {
-    transform: translate(0, -20px);
-  }
-
-  75% {
-    transform: translate(-6px, -10px);
-  }
-
-  100% {
-    transform: translate(0, 0);
-  }
+  0% {transform: translate(0, 0);}
+  25% {transform: translate(6px, -10px);}
+  50% {transform: translate(0, -20px);}
+  75% {transform: translate(-6px, -10px);}
+  100% {transform: translate(0, 0);}
 }
+.floating-shape-flower {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  overflow: hidden;
+
+  animation: floatNatural2 6s ease-in-out infinite;
+}
+.floating-shape-flower img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: rotate(8deg);
+}
+
+@keyframes floatNatural2 {
+  0% {transform: translate(0, 0);}
+  25% {transform: translate(-6px, 10px);}
+  50% {transform: translate(0, 20px);}
+  75% {transform: translate(6px, 10px);}
+  100% {transform: translate(0, 0);}
+}
+
   /* FOOTER */
   footer { border-top: 1px solid var(--rule); padding: 2.5rem 3rem; display: flex; align-items: center; justify-content: space-between; background: var(--cream2); }
   .footer-sig { font-family: 'DM Serif Display', serif; font-size: 0.9rem; color: var(--ink-light); }
@@ -305,58 +320,58 @@
   .footer-links a:hover { color: var(--rose); }
   .divider { max-width: 1120px; margin: 0 auto; height: 1px; background: var(--rule); }
 
-  /* .hero-floating-img {
-  position: absolute;
-  width: 220px;
-  height: 140px;
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
-  border: 2px solid rgba(200, 116, 138, 0.2);
-  backdrop-filter: blur(6px);
-} */
-.hero-floating-img {
-  position: absolute;
+
+.hero-floating-img1 {
+  position: relative;
   width: clamp(180px, 15vw, 220px);
   height: clamp(100px, 10vw, 140px);
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(0,0,0,0.12);
 }
-
-@media (max-width: 700px) {
-  .hero-floating-img {
-    display: none;
-  }
-  .floating-shape {
-    display: none;
-  }
+.hero-floating-img2 {
+  position: relative;
+  width: clamp(200px, 15vw, 250px);
+  height: clamp(105px, 10vw, 145px);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.12);
 }
 
-.hero-floating-img img {
+
+.hero-floating-img1 img {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
-
-/* position them in the empty right-side space */
+.hero-floating-img2 img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 .img-1 {
-  top: 120px;
-  right: 110px;
   transform: rotate(-6deg);
+  animation: float1 5s ease-in-out infinite;
 }
 
 .img-2 {
-  bottom: 110px;
-  right: 60px;
-  transform: rotate(5deg);
+  transform: rotate(-6deg);
+  animation: float2 6s ease-in-out infinite;
+}
+
+@keyframes float1 {
+  50% { transform: translateY(-12px); }
+}
+
+@keyframes float2 {
+  50% { transform: translateY(12px); }
 }
 
 .hero-floating-img-circle {
-  position: absolute;
+  position: relative;
   width: 140px;
   height: 140px;
-  border-radius: 70px;
+  border-radius: 80px;
   overflow: hidden;
   box-shadow: 0 10px 25px rgba(0,0,0,0.12);
 }
@@ -365,16 +380,20 @@
   height: 100%;
   object-fit: cover;
 }
-@media (min-width: 700px) {
+@media (min-width: 860px) {
   .hero-floating-img-circle {
     display: none;
   }
 }
-/* Position */
-.img-circle {
-  top: 142px;
-  left: 280px;
+
+.hero-title-wrap {
+  display: flex;
+  align-items: center;
+  gap: clamp(10px, 8vw, 30px);
+  margin-bottom: 2rem;
 }
+/* Position */
+
 
   /* RESPONSIVE */
   @media (max-width: 860px) {
@@ -384,6 +403,8 @@
     .hero-bg { display: none; }
     .hero-inner { grid-template-columns: 1fr; }
     .hero-photo-wrap { display: none; }
+    .hero-small-photo-wrap { display: none; }
+    .floating-shape {display: none;}
     .section-shell { padding: 4rem 1.5rem; }
     .projects-grid { grid-template-columns: 1fr; }
     .card.featured { grid-column: auto; }
@@ -432,26 +453,20 @@
     <line x1="150" y1="265" x2="150" y2="275" stroke="#7A9E8E" stroke-width="0.7" opacity="0.25"/>
     <line x1="390" y1="265" x2="390" y2="275" stroke="#7A9E8E" stroke-width="0.7" opacity="0.25"/>
   </svg>
-<div class="floating-shape">
-  <img src="https://i.imgur.com/wIY2nUf.png" alt="headshot">
-</div>
-  <div class="hero-floating-img-circle img-circle">
-  <img src="https://i.imgur.com/MQpvvmF.jpeg" alt="headshot">
-</div>
-  <!-- SMALL FLOATING IMAGES -->
-<div class="hero-floating-img img-1">
-  <img src="https://i.imgur.com/GgVHXx3.jpeg" alt="project 1">
-</div>
-
-<div class="hero-floating-img img-2">
-  <img src="https://i.imgur.com/BhzyIN6.png" alt="project 2">
-</div>
 
   <div class="hero-inner">
     <div class="hero-text">
       <p class="hero-eyebrow">Engineering Portfolio · University of Toronto</p>
        <br>
+       <div class="hero-title-wrap">
       <h1 class="hero-name">Hi, I'm<br><em>Ruodi Yuan</em><br></h1>
+        <div class="hero-floating-img-circle img-circle">
+        <img src="https://i.imgur.com/MQpvvmF.jpeg" alt="headshot">
+      </div>
+      <div class="floating-shape">
+        <img src="https://i.imgur.com/wIY2nUf.png" alt="headshot">
+      </div>
+      </div>
       <p class="hero-sub">
   
        I am a mechanical engineering student at the University of Toronto pursuing minors in Bioengineering and Mechatronics &amp; Robotics, who is passionate about learning racing cars 🏎️, aerospace systems and biomedical devices designs.
@@ -469,17 +484,32 @@
       <div class="hero-ctas">
         <a href="#projects" class="btn-primary">View Projects →</a>
         <a href="mailto:ruodi.yuan@mail.utoronto.ca" class="btn-secondary">Get in touch</a>
+        <div class="floating-shape-flower">
+        <img src="https://i.imgur.com/rO6Mx4q.png" alt="headshot">
+      </div>
       </div>
     </div>
 
     <!-- PROFILE PHOTO -->
+
     <div class="hero-photo-wrap">
       <div class="hero-photo" id="heroPhotoFrame">
         <!-- TO ADD YOUR PHOTO: replace the div below with <img src="your-photo.jpg" alt="Ruodi Yuan"> -->
         <img src="https://i.imgur.com/MQpvvmF.jpeg" alt="Ruodi Yuan">
-          <div class="ph-icon" style="width:60px;height:60px;font-size:2rem;background:rgba(255,255,255,0.8);">👤</div>
-          <div class="ph-label">Your photo here<br><span style="font-size:0.55rem;opacity:0.7;">replace with &lt;img&gt; tag</span></div>
-        </div>
+      </div>
+      </div>
+      
+    <div class="hero-small-photo-wrap">
+        <!-- SMALL FLOATING IMAGES -->
+      <div class="hero-floating-img2 img-1">
+        <img src="https://i.imgur.com/GgVHXx3.jpeg" alt="project 1">
+      </div>
+      <br>
+      <br>
+      <br>
+    <div class="hero-floating-img2 img-2">
+        <img src="https://i.imgur.com/BhzyIN6.png" alt="project 2">
+    </div>
       </div>
       <p class="hero-photo-note">ruodi.yuan@mail.utoronto.ca</p>
     </div>
