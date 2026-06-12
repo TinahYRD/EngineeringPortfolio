@@ -288,6 +288,16 @@
   75% {transform: translate(-6px, -10px);}
   100% {transform: translate(0, 0);}
 }
+
+.floating-shape-flower-fixed{
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  border-radius: 16px;
+  overflow: hidden;
+  animation: floatNatural2 6s ease-in-out infinite;
+
+}
 .floating-shape-flower {
   position: relative;
   width: 60px;
@@ -302,6 +312,29 @@
   height: 100%;
   object-fit: cover;
   transform: rotate(8deg);
+}
+.floating-shape-flower-fixed img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: rotate(8deg);
+}
+
+.floating-shape-flower-fixed{
+  bottom: 230px;
+  right: 10px;
+}
+
+@media (min-width: 480px) {
+  .floating-shape-flower-fixed {
+    display: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .floating-shape-flower {
+    display: none;
+  }
 }
 
 @keyframes floatNatural2 {
@@ -453,7 +486,9 @@
     <line x1="150" y1="265" x2="150" y2="275" stroke="#7A9E8E" stroke-width="0.7" opacity="0.25"/>
     <line x1="390" y1="265" x2="390" y2="275" stroke="#7A9E8E" stroke-width="0.7" opacity="0.25"/>
   </svg>
-
+    <div class="floating-shape-flower-fixed">
+        <img src="https://i.imgur.com/rO6Mx4q.png" alt="headshot">
+  </div>
   <div class="hero-inner">
     <div class="hero-text">
       <p class="hero-eyebrow">Engineering Portfolio · University of Toronto</p>
@@ -480,6 +515,7 @@
         <span class="hero-tag tag-cream">Bioengineering Minor</span>
         <span class="hero-tag tag-rose">Aero Design</span>
         <span class="hero-tag tag-sage">Python</span>
+        
       </div>
       <div class="hero-ctas">
         <a href="#projects" class="btn-primary">View Projects →</a>
@@ -487,6 +523,7 @@
         <div class="floating-shape-flower">
         <img src="https://i.imgur.com/rO6Mx4q.png" alt="headshot">
       </div>
+
       </div>
     </div>
 
