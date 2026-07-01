@@ -955,7 +955,7 @@
             </div>
             <h3 class="card-title">Dual Cooling Loop System Simulation</h3>
             <p class="card-org">University of Toronto Formula SAE Racing</p>
-            <p class="card-desc">Developed a physics-based MATLAB/Simulink thermal model of a dual inverter cooling loop to predict motor temperatures under endurance race conditions. The model was validated using historical endurance run data and used to evaluate cooling system performance under varying vehicle and thermal loads.</p>
+            <p class="card-desc">Developed a physics-based MATLAB/Simulink thermal model of a dual-inverter cooling loop to predict motor temperatures under endurance race conditions, digitizing the Fischer motor's power-efficiency map into a high-resolution lookup table to establish the system's thermal boundary condition. The simulated endurance run returned a mean motor efficiency of 95.84% (ranging 86.09%–97.97%), corresponding to an average thermal loss of ~5.5 kW that the cooling system was sized to reject. The model was validated against historical endurance-run telemetry and used to evaluate cooling performance across varying vehicle speeds and thermal loads.</p>
             <div class="card-tags">
               <span class="card-tag">Simulink</span>
               <span class="card-tag">MATLAB</span>
@@ -968,11 +968,12 @@
             <div class="panel-inner">
               <ul class="bullet-list">
                 <li>Developed a MATLAB/Simulink thermal model of the dual-inverter cooling loop to predict motor temperatures under endurance race operating conditions.</li>
+                <li>Digitized the Fischer motor's power-efficiency map into a high-resolution lookup table using automated MATLAB tools, then integrated it into the Simulink vehicle model for continuous efficiency evaluation through a simulated endurance event.</li>
+                <li>Calculated electrical losses using P<sub>loss</sub> = P<sub>input</sub>(1 − η), yielding a mean motor efficiency of 95.84% (min 86.09%, max 97.97%) and an average thermal loss of ~5.5 kW — the heat-removal target used to size the cooling system.</li>
                 <li>Modeled heat transfer throughout the cooling circuit, including heat addition from powertrain components and heat rejection through the radiator.</li>
                 <li>Used historical endurance run telemetry and component data to provide realistic operating inputs and thermal loading conditions.</li>
                 <li>Validated the cooling loop model by comparing simulated motor temperatures against measured endurance run temperature data.</li>
                 <li>Evaluated cooling system performance across varying vehicle speeds and thermal loads to assess temperature regulation capability.</li>
-                <li>Generated motor temperature predictions that support cooling system design decisions and thermal management optimization.</li>
                 <li>Established a simulation framework that can be used to analyze the impact of future cooling system modifications on motor thermal performance.</li>
               </ul>
             </div>
@@ -1051,7 +1052,7 @@
             </div>
             <h3 class="card-title">UT26 Drivetrain System</h3>
             <p class="card-org">University of Toronto Formula SAE Racing</p>
-            <p class="card-desc">Contributed to the design, manufacturing, and assembly of the UT26 drivetrain system, supporting the integration of motors, gearbox components, and drivetrain hardware. The project involved hands-on manufacturing, fixture design, and assembly process development to improve reliability and ease of installation.</p>
+            <p class="card-desc">Contributed to the design, manufacturing, and assembly of the UT26 in-hub AWD drivetrain system, engineered against corner-level targets of <40 kg mass, <0.25 kg·m² moment of inertia, and <3 h assembly time, ultimately achieving a 22.304 kg unsprung mass and 0.197 kg·m² mass moment of inertia. Supported integration of motors, gearbox components, and drivetrain hardware, including FEA-validated components such as the inboard motor mount (9.24 MPa max von Mises stress, safety factor >15). The project involved hands-on manufacturing, fixture design, and assembly process development to improve reliability and ease of installation.</p>
             <div class="card-tags">
               <span class="card-tag">SolidWorks</span>
               <span class="card-tag">Machining</span>
@@ -1064,10 +1065,10 @@
           <div class="expanded-panel">
             <div class="panel-inner">
               <ul class="bullet-list">
-                <li>Designed and manufactured an assembly jig to facilitate safe and accurate rotor installation in permanent magnet motors, ensuring proper alignment during assembly.</li>
-                <li>Assisted in the assembly and integration of the drivetrain system, including motors, gearbox components, and supporting hardware.</li>
-                <li>Machined drivetrain components such as inboard motor mounts, planet shafts, and retainers to meet design specifications and assembly requirements.</li>
-                <li>Participated in gearbox assembly and verification, ensuring proper fitment and alignment of drivetrain components.</li>
+                <li>Designed and manufactured an assembly jig to facilitate safe and accurate rotor installation in permanent magnet motors, addressing strong magnetic attraction forces between rotor and stator to ensure proper alignment during assembly.</li>
+                <li>Assisted in the assembly and integration of the drivetrain system, including motors, gearbox components, and supporting hardware, engineered to corner-level targets of <40 kg mass and <0.25 kg·m² moment of inertia — achieving 22.304 kg unsprung mass and 0.197 kg·m² mass moment of inertia in the final design.</li>
+                <li>Machined drivetrain components such as inboard motor mounts, planet shafts, and retainers to meet design specifications and assembly requirements, including the inboard motor mount validated by FEA to a maximum von Mises stress of 9.24 MPa and a safety factor greater than 15.</li>
+                <li>Participated in gearbox assembly and verification, ensuring proper fitment and alignment of drivetrain components across all four identical corner assemblies.</li>
                 <li>Worked with team members to troubleshoot assembly challenges and develop practical solutions to improve manufacturing and integration processes.</li>
                 <li>Supported the transition from CAD designs to physical components through machining, fabrication, and hands-on assembly.</li>
               </ul>
@@ -1280,7 +1281,7 @@
             </div>
             <h3 class="card-title">Planet Shafts Redesign</h3>
             <p class="card-org">University of Toronto Formula SAE Racing</p>
-            <p class="card-desc">Redesigned the planet shaft component within the drivetrain gearbox to improve manufacturability and serviceability, validating the new geometry against operating loads using FEA before machining to tight tolerances.</p>
+            <p class="card-desc">Redesigned the planet shaft component within the drivetrain's 11.97:1 compound planetary gearbox to improve manufacturability and serviceability, validating the new geometry against peak planetary-stage torque using FEA — achieving a maximum von Mises stress of 77.99 MPa with a minimum safety factor of 15 — before machining to tight tolerances. Gearbox-wide webbing optimization contributed to a 14% weight reduction (830.7 g → 711.49 g) while maintaining a predicted gearbox fatigue life of 580 hours.</p>
             <div class="card-tags">
               <span class="card-tag">SolidWorks</span>
               <span class="card-tag">ANSYS</span>
@@ -1292,8 +1293,9 @@
           <div class="expanded-panel">
             <div class="panel-inner">
               <ul class="bullet-list">
-                <li>Redesigned the planet shaft to improve assembly efficiency, manufacturability, and serviceability.</li>
-                <li>Used FEA to evaluate stresses and verify that the redesigned shaft could safely withstand operating loads.</li>
+                <li>Redesigned the planet shaft to improve assembly efficiency, manufacturability, and serviceability within the gearbox's 11.97:1 compound planetary reduction (59 sun teeth, 23/84 planet teeth).</li>
+                <li>Evaluated the shaft under peak planetary-stage torque, applying contact loads at needle-bearing interfaces with fixed supports at pin-retention features across all planet pins, using FEA to confirm a maximum von Mises stress of 77.99 MPa and a minimum safety factor of 15.</li>
+                <li>Supported gearbox-wide webbing optimization in KISSsoft that removed unnecessary material while preserving gear strength, contributing to a 14% weight reduction (830.7 g → 711.49 g) and a predicted gearbox fatigue life of 580 hours.</li>
                 <li>Machined the planet shaft within tight tolerances and ensured proper fit with mating drivetrain components during assembly.</li>
               </ul>
             </div>
