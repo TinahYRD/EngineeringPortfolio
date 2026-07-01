@@ -328,10 +328,15 @@
   .floating-shape img { width: 100%; height: 100%; object-fit: cover; transform: rotate(8deg); }
   .about-title-wrap, .project-title-wrap, .exp-title-wrap { display: flex; align-items: center; }
   .floating-emoji { display: inline-block; font-size: 1.9rem; margin-left: 0.9rem; animation: floatNatural 5s ease-in-out infinite; }
-  .floating-shape-small { position: relative; width: 120px; height: 120px; border-radius: 16px; overflow: hidden; margin-left: auto; animation: floatNatural 6s ease-in-out infinite; }
-  .floating-shape-small img { width: 100%; height: 100%; object-fit: cover; transform: rotate(8deg); }
+  .floating-shape-small, .floating-shape-small-about, .exp-title-wrap-element { position: relative; width: 120px; height: 120px; border-radius: 16px; overflow: hidden; margin-left: auto; animation: floatNatural 6s ease-in-out infinite; }
+  .floating-shape-small img, .floating-shape-small-about img, .exp-title-wrap-element img { width: 100%; height: 100%; object-fit: cover; transform: rotate(8deg); }
   .floating-shape-car { position: relative; width: 280px; height: 150px; border-radius: 16px; overflow: hidden; margin-left: auto; animation: floatNatural 6s ease-in-out infinite; }
   .floating-shape-car img { width: 100%; height: 100%; object-fit: cover;}
+  /* .exp-title-wrap-element { position: relative; width: 120px; height: 120px; border-radius: 16px; overflow: hidden; margin-left: auto; animation: floatNatural 6s ease-in-out infinite; }
+  .floating-shape-small-about { position: relative; width: 120px; height: 120px; border-radius: 16px; overflow: hidden; margin-left: auto; animation: floatNatural 6s ease-in-out infinite; } */
+
+  @media (min-width: 860px) { .exp-title-wrap-element { display: none; } }
+  @media (max-width: 860px) { .floating-shape-small-about { display: none; } }
 
 
   @keyframes floatNatural { 0% {transform: translate(0, 0);} 25% {transform: translate(6px, -10px);} 50% {transform: translate(0, -20px);} 75% {transform: translate(-6px, -10px);} 100% {transform: translate(0, 0);} }
@@ -1939,8 +1944,14 @@
           </h2>
           <p class="ph-sub">Mechanical Engineering student at UofT — with minors in Bioengineering and Mechatronics &amp; Robotics. I transferred from Life Sciences and I think that matters.</p>
         </div>
+      <div class="exp-titel-wrap">
+        <div class="exp-title-wrap-element">
+          <img src="https://i.imgur.com/wIY2nUf.png" alt="headshot">
+        </div>
+        </div>
+
         <div class="ph-right">
-        <div class="floating-shape-small">
+        <div class="floating-shape-small-about">
           <img src="https://i.imgur.com/wIY2nUf.png" alt="headshot">
         </div>
 
