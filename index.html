@@ -37,12 +37,12 @@
   #loader.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
   .loader-ring { width: 64px; height: 64px; position: relative; }
   .loader-ring svg { width: 100%; height: 100%; animation: spin 1.6s linear infinite; }
-  .loader-ring circle { fill: none; stroke: var(--rose-mid); stroke-width: 2.4; stroke-dasharray: 130; stroke-dashoffset: 90; stroke-linecap: round; }
+  .loader-ring circle { fill: none; stroke: var(--rose-mid); stroke-width: 3; stroke-dasharray: 130; stroke-dashoffset: 90; stroke-linecap: round; }
   .loader-ring .inner-c { stroke: var(--lavender-mid); animation: spin 2.2s linear infinite reverse; }
   @keyframes spin { 100% { transform: rotate(360deg); } }
-  .loader-word { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--ink); letter-spacing: 0.02em; }
+  .loader-word { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--ink); letter-spacing: 0.02em; }
   .loader-word em { color: var(--rose); font-style: italic; }
-  .loader-sub { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--ink-light); letter-spacing: 0.18em; text-transform: uppercase; }
+  .loader-sub { font-family: 'DM Mono', monospace; font-size: 0.85rem; color: var(--ink-light); letter-spacing: 0.18em; text-transform: uppercase; }
 
   /* NAV */
   nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; height: var(--nav-h); display: flex; align-items: center; justify-content: space-between; padding: 0 3rem; background: rgba(250,248,244,0.92); backdrop-filter: blur(14px); border-bottom: 1px solid var(--rule); }
@@ -61,10 +61,25 @@
   .nav-burger.open span:nth-child(2) { opacity: 0; }
   .nav-burger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  /* APP / PAGE SYSTEM */
+  /* APP / PAGE SYSTEM — directional transitions */
   #appMain { position: relative; height: 100vh; padding-top: var(--nav-h); overflow: hidden; }
-  .page { position: absolute; top: var(--nav-h); left: 0; right: 0; bottom: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; opacity: 0; visibility: hidden; transform: translateY(22px); transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1), transform 0.5s cubic-bezier(0.4,0,0.2,1), visibility 0s linear 0.5s; pointer-events: none; }
-  .page.active { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; transition: opacity 0.5s cubic-bezier(0.4,0,0.2,1), transform 0.5s cubic-bezier(0.4,0,0.2,1); z-index: 2; }
+  .page { position: absolute; top: var(--nav-h); left: 0; right: 0; bottom: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; opacity: 0; visibility: hidden; pointer-events: none;
+    transition: opacity 0.46s cubic-bezier(0.4,0,0.2,1), transform 0.46s cubic-bezier(0.4,0,0.2,1), visibility 0s linear 0.46s; }
+  .page.active { opacity: 1; visibility: visible; transform: none !important; pointer-events: auto;
+    transition: opacity 0.46s cubic-bezier(0.4,0,0.2,1), transform 0.46s cubic-bezier(0.4,0,0.2,1); z-index: 2; }
+  /* enter directions */
+  .page[data-enter="up"]    { transform: translateY(36px); }
+  .page[data-enter="down"]  { transform: translateY(-36px); }
+  .page[data-enter="left"]  { transform: translateX(48px); }
+  .page[data-enter="right"] { transform: translateX(-48px); }
+  .page[data-enter="scale"] { transform: scale(0.96) translateY(16px); }
+  /* leaving directions */
+  .page.leaving[data-leave="up"]    { transform: translateY(-28px) !important; opacity: 0 !important; }
+  .page.leaving[data-leave="down"]  { transform: translateY(28px) !important; opacity: 0 !important; }
+  .page.leaving[data-leave="left"]  { transform: translateX(-36px) !important; opacity: 0 !important; }
+  .page.leaving[data-leave="right"] { transform: translateX(36px) !important; opacity: 0 !important; }
+  .page.leaving[data-leave="scale"] { transform: scale(1.03) !important; opacity: 0 !important; }
+  .page.leaving { visibility: visible; z-index: 1; transition: opacity 0.36s ease, transform 0.36s ease !important; }
   .page-pad { padding-bottom: 5rem; }
 
   /* HERO */
@@ -99,6 +114,8 @@
   .btn-primary:hover { background: #b5607a; transform: translateY(-1px); }
   .btn-secondary { display: inline-flex; align-items: center; gap: 0.5rem; background: transparent; color: var(--ink-mid); text-decoration: none; padding: 0.75rem 1.8rem; font-weight: 500; font-size: 0.88rem; border-radius: 100px; border: 1.5px solid var(--cream3); letter-spacing: 0.03em; transition: border-color 0.2s, color 0.2s; cursor: pointer; font-family: 'DM Sans', sans-serif; }
   .btn-secondary:hover { border-color: var(--rose-mid); color: var(--rose); }
+  .btn-linkedin { display: inline-flex; align-items: center; gap: 0.5rem; background: #0A66C2; color: var(--white); text-decoration: none; padding: 0.75rem 1.5rem; font-weight: 600; font-size: 0.88rem; border-radius: 100px; letter-spacing: 0.03em; transition: background 0.2s, transform 0.15s; }
+  .btn-linkedin:hover { background: #084e96; transform: translateY(-1px); }
 
   /* SECTION */
   .section-shell { padding: 3.5rem 3rem 2rem; max-width: 1120px; margin: 0 auto; }
@@ -233,8 +250,12 @@
   .floating-shape { position: relative; width: 120px; height: 120px; border-radius: 16px; overflow: hidden; animation: floatNatural 6s ease-in-out infinite; }
   .floating-shape img { width: 100%; height: 100%; object-fit: cover; transform: rotate(8deg); }
   .about-title-wrap, .project-title-wrap, .exp-title-wrap { display: flex; align-items: center; }
+  .floating-emoji { display: inline-block; font-size: 1.9rem; margin-left: 0.9rem; animation: floatNatural 5s ease-in-out infinite; }
   .floating-shape-small { position: relative; width: 120px; height: 120px; border-radius: 16px; overflow: hidden; margin-left: auto; animation: floatNatural 6s ease-in-out infinite; }
   .floating-shape-small img { width: 100%; height: 100%; object-fit: cover; transform: rotate(8deg); }
+  .floating-shape-car { position: relative; width: 280px; height: 150px; border-radius: 16px; overflow: hidden; margin-left: auto; animation: floatNatural 6s ease-in-out infinite; }
+  .floating-shape-car img { width: 100%; height: 100%; object-fit: cover;}
+
 
   @keyframes floatNatural { 0% {transform: translate(0, 0);} 25% {transform: translate(6px, -10px);} 50% {transform: translate(0, -20px);} 75% {transform: translate(-6px, -10px);} 100% {transform: translate(0, 0);} }
 
@@ -255,6 +276,31 @@
   .timeline-dot { position: absolute; left: 6px; top: 4px; width: 16px; height: 16px; border-radius: 50%; background: var(--white); border: 3px solid var(--rose-mid); }
   .timeline-item.current .timeline-dot { border-color: var(--sage); background: var(--sage-light); }
   .timeline-card { background: var(--white); border: 1px solid var(--rule); border-radius: var(--r); padding: 1.4rem 1.6rem; }
+  .timeline-gallery { display: flex; gap: 0.7rem; margin-top: 1.1rem; flex-wrap: wrap; }
+.gallery-placeholder {
+    position: relative;          /* ADD THIS */
+    width: 220px;
+    height: 150px;
+    border-radius: 10px;
+    overflow: hidden;            /* ADD THIS */
+    border: 1.5px dashed var(--rose-mid);
+    background: repeating-linear-gradient(
+        135deg,
+        rgba(200,116,138,0.05) 0 10px,
+        rgba(200,116,138,0.09) 10px 20px
+    );
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.3rem;
+    flex-shrink: 0;
+    transition: border-color 0.2s, transform 0.2s;
+    cursor: default;
+}  .gallery-placeholder img, .gallery-placeholder video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+  .gallery-placeholder:hover { border-color: var(--rose); transform: translateY(-2px); }
+  .gallery-placeholder .gp-icon { font-size: 1.3rem; opacity: 0.6; }
+  .gallery-placeholder .gp-label { font-family: 'DM Mono', monospace; font-size: 0.56rem; color: var(--ink-light); letter-spacing: 0.06em; text-transform: uppercase; text-align: center; padding: 0 0.3rem; }
   .timeline-head { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.5rem; align-items: baseline; margin-bottom: 0.5rem; }
   .timeline-role { font-family: 'DM Serif Display', serif; font-size: 1.15rem; color: var(--ink); }
   .timeline-date { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--rose); letter-spacing: 0.05em; white-space: nowrap; }
@@ -267,6 +313,114 @@
   .contact-icon { font-size: 1.6rem; }
   .contact-label { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--ink); }
   .contact-sub { font-size: 0.8rem; color: var(--ink-light); }
+
+  /* ===== CROSS-PAGE BRIDGE ===== */
+  .page-cta-bridge { margin-top: 3.5rem; background: var(--pcb-bg, var(--rose-light)); border-radius: var(--r); padding: 2rem 2.2rem; border: 1.5px solid rgba(0,0,0,0.06); }
+  .pcb-inner { display: flex; flex-direction: column; gap: 0.5rem; }
+  .pcb-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: var(--pcb-c, var(--rose)); letter-spacing: 0.14em; text-transform: uppercase; }
+  .pcb-title { font-family: 'DM Serif Display', serif; font-size: 1.35rem; color: var(--ink); margin-bottom: 0.8rem; line-height: 1.2; }
+
+  /* ===== SKILLS REDESIGN ===== */
+  .skills-cat-row { display: flex; gap: 0.9rem; flex-wrap: wrap; margin-bottom: 2.6rem; }
+  .skills-cat-pill { display: flex; flex-direction: column; align-items: center; gap: 0.3rem; background: var(--cat-bg, var(--rose-light)); color: var(--cat-c, var(--rose)); padding: 0.9rem 1.2rem; border-radius: 14px; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.02em; text-align: center; min-width: 80px; transition: transform 0.2s, box-shadow 0.2s; border: 1.5px solid rgba(0,0,0,0.06); cursor: default; }
+  .skills-cat-pill:hover { transform: translateY(-3px) rotate(-1deg); box-shadow: 0 8px 20px rgba(0,0,0,0.09); }
+  .scp-icon { font-size: 1.5rem; }
+  .skill-section-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+  .skill-section { background: var(--white); border: 1px solid var(--rule); border-radius: var(--r); padding: 1.5rem; }
+  .skill-section-wide { grid-column: 1 / -1; }
+  .skill-section-header { display: flex; align-items: center; gap: 0.7rem; margin-bottom: 1.2rem; padding-bottom: 0.8rem; border-bottom: 1.5px solid var(--rule); }
+  .ssh-icon { font-size: 1.2rem; }
+  .ssh-title { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--hc, var(--ink)); }
+  /* skill bars */
+  .skill-bar-list { display: flex; flex-direction: column; gap: 0.9rem; }
+  .skill-bar-item { display: flex; flex-direction: column; gap: 0.35rem; }
+  .sbi-head { display: flex; justify-content: space-between; align-items: center; }
+  .sbi-name { font-size: 0.84rem; color: var(--ink-mid); font-weight: 500; }
+  .sbi-badge { font-size: 0.6rem; font-weight: 700; padding: 0.18rem 0.55rem; border-radius: 100px; letter-spacing: 0.05em; }
+  .sbi-badge.rose { background: var(--rose-light); color: var(--rose); }
+  .sbi-track { height: 5px; background: var(--cream3); border-radius: 10px; overflow: hidden; }
+  .sbi-fill { height: 100%; width: 0; background: var(--c, var(--rose)); border-radius: 10px; transition: width 1.1s cubic-bezier(0.4,0,0.2,1) 0.3s; }
+  .page.reveal .sbi-fill { width: var(--w, 0%); }
+  /* skill chips */
+  .skill-chip-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .skill-chip { font-size: 0.78rem; font-weight: 600; padding: 0.36rem 0.9rem; border-radius: 100px; background: var(--cbg, var(--cream2)); color: var(--cc, var(--ink-mid)); border: 1.5px solid rgba(0,0,0,0.06); transition: transform 0.18s, box-shadow 0.18s; cursor: default; }
+  .skill-chip:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,0,0,0.08); }
+  /* skill badges */
+  .skill-badge-list { display: flex; flex-direction: column; gap: 0.7rem; }
+  .skill-badge-item { display: flex; align-items: flex-start; gap: 0.7rem; }
+  .sbadge-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+  .sbadge-name { display: block; font-size: 0.84rem; color: var(--ink-mid); font-weight: 500; line-height: 1.3; }
+  .sbadge-cert { display: block; font-size: 0.72rem; color: var(--ink-light); margin-top: 0.1rem; }
+  /* certs row */
+  .cert-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.2rem; }
+  .cert-card { display: flex; align-items: center; gap: 0.8rem; background: var(--cream2); border-radius: 10px; padding: 0.9rem 1rem; flex: 1; min-width: 200px; }
+  .cert-logo { width: 38px; height: 38px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.75rem; flex-shrink: 0; font-family: 'DM Mono', monospace; }
+  .cert-name { font-size: 0.83rem; color: var(--ink); font-weight: 600; line-height: 1.3; }
+  .cert-issuer { font-size: 0.72rem; color: var(--ink-light); margin-top: 0.15rem; }
+  /* language row */
+  .lang-row { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+  .lang-item { display: flex; align-items: center; gap: 0.4rem; background: var(--cream2); padding: 0.4rem 0.9rem; border-radius: 100px; }
+  .lang-flag { font-size: 1rem; }
+  .lang-name { font-size: 0.82rem; font-weight: 600; color: var(--ink-mid); }
+  .lang-level { font-size: 0.65rem; font-weight: 700; padding: 0.15rem 0.5rem; border-radius: 100px; }
+  .lang-level.native { background: var(--sage-light); color: var(--sage); }
+  .lang-level.elementary { background: var(--lavender-light); color: var(--lavender); }
+
+  /* ===== AWARDS REDESIGN ===== */
+  .award-featured { position: relative; background: linear-gradient(135deg, #2C2520 0%, #3d2c38 100%); border-radius: 18px; padding: 2.2rem 2.4rem; margin-bottom: 2.4rem; overflow: hidden; display: flex; gap: 2rem; align-items: flex-start; flex-wrap: wrap; }
+  .af-glow { position: absolute; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(200,116,138,0.3) 0%, transparent 70%); right: -60px; top: -60px; pointer-events: none; animation: blobDrift2 12s ease-in-out infinite; }
+  .af-badge { background: rgba(255,255,255,0.12); color: #F9D58B; font-family: 'DM Mono', monospace; font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em; padding: 0.45rem 1rem; border-radius: 100px; flex-shrink: 0; align-self: flex-start; border: 1px solid rgba(249,213,139,0.3); }
+  .af-body { flex: 1; min-width: 220px; }
+  .af-context { font-family: 'DM Mono', monospace; font-size: 0.68rem; color: rgba(255,255,255,0.5); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .af-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.2rem, 3vw, 1.7rem); color: #FAF8F4; line-height: 1.2; margin-bottom: 0.75rem; }
+  .af-desc { font-size: 0.86rem; color: rgba(255,255,255,0.65); line-height: 1.7; max-width: 600px; margin-bottom: 1rem; }
+  .af-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .af-tags span { font-size: 0.68rem; font-weight: 600; padding: 0.2rem 0.65rem; border-radius: 100px; background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.75); border: 1px solid rgba(255,255,255,0.15); }
+
+  .awards-subhead { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.18em; color: var(--rose); text-transform: uppercase; margin: 2rem 0 1rem; display: flex; align-items: center; gap: 0.7rem; }
+  .awards-subhead::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+
+  .awards-trophy-shelf { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 0.5rem; }
+  .trophy-card { background: var(--white); border: 1px solid var(--rule); border-radius: 14px; padding: 1.6rem 1.4rem; text-align: center; transition: transform 0.2s, box-shadow 0.2s; position: relative; overflow: hidden; }
+  .trophy-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+  .tc-silver::before { background: linear-gradient(90deg, #B0B0B0, #D8D8D8, #B0B0B0); }
+  .tc-bronze::before { background: linear-gradient(90deg, #CD7F32, #E8A06A, #CD7F32); }
+  .tc-special::before { background: linear-gradient(90deg, var(--rose), var(--lavender)); }
+  .trophy-card:hover { transform: translateY(-4px) rotate(0.5deg); box-shadow: 0 12px 32px rgba(200,116,138,0.14); }
+  .tc-medal { font-size: 2.2rem; margin-bottom: 0.5rem; display: block; }
+  .tc-place { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 0.3rem; }
+  .tc-name { font-family: 'DM Serif Display', serif; font-size: 0.95rem; color: var(--ink); line-height: 1.3; margin-bottom: 0.3rem; }
+  .tc-event { font-size: 0.75rem; color: var(--ink-mid); margin-bottom: 0.2rem; }
+  .tc-year { font-family: 'DM Mono', monospace; font-size: 0.65rem; color: var(--rose); }
+  .tc-link { display: inline-block; margin-top: 0.6rem; font-size: 0.72rem; color: var(--rose); text-decoration: none; font-weight: 600; }
+  .tc-link:hover { text-decoration: underline; }
+
+  .academic-list { display: flex; flex-direction: column; gap: 0.7rem; }
+  .academic-item { background: var(--white); border: 1px solid var(--rule); border-radius: 10px; padding: 1rem 1.2rem; display: flex; align-items: center; gap: 1rem; }
+  .ai-stripe { width: 4px; height: 36px; border-radius: 4px; flex-shrink: 0; }
+  .ai-body { flex: 1; }
+  .ai-name { font-weight: 600; font-size: 0.9rem; color: var(--ink); display: block; }
+  .ai-school { font-size: 0.78rem; color: var(--ink-light); }
+  .ai-year { font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--ink-light); white-space: nowrap; }
+
+  .math-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+  .math-card { background: var(--white); border: 1px solid var(--rule); border-radius: 12px; padding: 1.3rem; display: flex; align-items: flex-start; gap: 1rem; transition: transform 0.2s, box-shadow 0.2s; }
+  .math-card:hover { transform: translateY(-3px); box-shadow: 0 8px 22px rgba(155,143,194,0.14); }
+  .math-logo { width: 42px; height: 42px; border-radius: 10px; background: var(--lavender-light); color: var(--lavender); display: flex; align-items: center; justify-content: center; font-size: 1.4rem; font-weight: 700; flex-shrink: 0; font-family: serif; }
+  .math-name { font-weight: 600; font-size: 0.86rem; color: var(--ink); margin-bottom: 0.2rem; line-height: 1.3; }
+  .math-result { font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--lavender); font-weight: 600; letter-spacing: 0.04em; margin-bottom: 0.15rem; }
+  .math-org { font-size: 0.72rem; color: var(--ink-light); }
+
+  @media (max-width: 680px) {
+    .skill-section-grid { grid-template-columns: 1fr; }
+    .skill-section-wide { grid-column: auto; }
+    .cert-row { flex-direction: column; }
+    .award-featured { flex-direction: column; gap: 1rem; padding: 1.5rem; }
+    .awards-trophy-shelf { grid-template-columns: 1fr 1fr; }
+    .math-grid { grid-template-columns: 1fr; }
+    .page-cta-bridge { padding: 1.4rem; }
+    .pcb-title { font-size: 1.1rem; }
+  }
 
   /* FOOTER */
   footer { border-top: 1px solid var(--rule); padding: 2.5rem 3rem; display: flex; align-items: center; justify-content: space-between; background: var(--cream2); flex-wrap: wrap; gap: 1rem; }
@@ -323,23 +477,98 @@
     .timeline-item { padding-left: 2.2rem; }
   }
   @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+  /* ===== SCROLL PROGRESS BAR ===== */
+  #scrollProgress { position: fixed; top: var(--nav-h); left: 0; height: 2.5px; width: 0%; background: linear-gradient(90deg, var(--rose), var(--lavender)); z-index: 200; transition: width 0.08s linear; pointer-events: none; }
+
+  /* ===== CURSOR SPARKLES ===== */
+  .sparkle { position: fixed; pointer-events: none; z-index: 9999; width: 8px; height: 8px; border-radius: 50%; background: var(--rose); mix-blend-mode: multiply; animation: sparkleFade 0.7s ease forwards; }
+  @keyframes sparkleFade { 0% { opacity: 0.9; transform: scale(1) translateY(0); } 100% { opacity: 0; transform: scale(0.2) translateY(-22px); } }
+
+  /* ===== TICKER STRIP ===== */
+  .ticker-strip { overflow: hidden; background: var(--rose); padding: 0.55rem 0; white-space: nowrap; user-select: none; position: relative; z-index: 1; }
+  .ticker-inner { display: inline-flex; animation: tickerScroll 30s linear infinite; gap: 0; }
+  .ticker-inner span { font-family: 'DM Mono', monospace; font-size: 0.73rem; letter-spacing: 0.1em; color: var(--white); padding: 0 2.5rem; opacity: 0.92; }
+  .ticker-inner span::before { content: '✦ '; color: rgba(255,255,255,0.55); }
+  @keyframes tickerScroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  .ticker-strip:hover .ticker-inner { animation-play-state: paused; }
+
+  /* ===== FUN TAG CLOUD ON HOME ===== */
+  .fun-tag-cloud { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.2rem; }
+  .fun-tag { display: inline-flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; padding: 0.32rem 0.9rem; border-radius: 100px; font-weight: 500; border: 1.5px solid var(--cream3); background: var(--white); color: var(--ink-mid); cursor: default; transition: transform 0.2s, border-color 0.2s, color 0.2s; }
+  .fun-tag:hover { transform: translateY(-3px) rotate(-2deg); border-color: var(--rose-mid); color: var(--rose); }
+  .fun-tag .fun-tag-icon { font-size: 0.85rem; }
+
+  /* ===== HERO COUNTER STRIP ===== */
+  .hero-stat-row { display: flex; gap: 1.4rem; margin-top: 2.2rem; flex-wrap: wrap; }
+  .hero-stat { display: flex; flex-direction: column; }
+  .hero-stat-num { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--rose); letter-spacing: -0.03em; line-height: 1; }
+  .hero-stat-label { font-size: 0.72rem; color: var(--ink-light); letter-spacing: 0.04em; margin-top: 0.15rem; }
+  .hero-stat-divider { width: 1px; background: var(--rule); align-self: stretch; }
+
+  /* ===== FILTER TAB TRANSITION ===== */
+  #projectsGrid { position: relative; transition: opacity 0.25s ease; min-height: 100px; }
+  #projectsGrid.filtering { opacity: 0; transform: scale(0.99); }
+  #projectsGrid { transition: opacity 0.3s, transform 0.3s; }
+
+  /* ===== MOBILE EXTRAS ===== */
+  @media (max-width: 540px) {
+    .ticker-inner span { font-size: 0.67rem; padding: 0 1.6rem; }
+    .hero-stat-row { gap: 1rem; }
+    .hero-stat-num { font-size: 1.4rem; }
+    .fun-tag { font-size: 0.7rem; padding: 0.28rem 0.75rem; }
+  }
+
+  .ambient-blob { position: fixed; border-radius: 50%; filter: blur(50px); pointer-events: none; z-index: 0; }
+  .blob-1 { width: 360px; height: 360px; background: var(--rose-mid); opacity: 0.16; top: -80px; left: -60px; animation: blobDrift1 22s ease-in-out infinite; }
+  .blob-2 { width: 300px; height: 300px; background: var(--lavender-mid); opacity: 0.15; bottom: -60px; right: -40px; animation: blobDrift2 26s ease-in-out infinite; }
+  .blob-3 { width: 240px; height: 240px; background: var(--sage); opacity: 0.13; top: 45%; left: 50%; animation: blobDrift3 30s ease-in-out infinite; }
+  @keyframes blobDrift1 { 0%,100% { transform: translate(0,0); } 33% { transform: translate(60px, 40px); } 66% { transform: translate(-30px, 70px); } }
+  @keyframes blobDrift2 { 0%,100% { transform: translate(0,0); } 33% { transform: translate(-50px, -40px); } 66% { transform: translate(30px, -70px); } }
+  @keyframes blobDrift3 { 0%,100% { transform: translate(-50%,-50%) scale(1); } 50% { transform: translate(-50%,-50%) translate(40px,-30px) scale(1.15); } }
+  @media (max-width: 860px) { .ambient-blob { display: none; } }
+
+  /* ===== PAGE CONTENT STAGGER REVEAL ===== */
+  .section-shell.page-pad > *, .hero-inner > *, .awards-inner > * { opacity: 0; }
+  .page.reveal .section-shell.page-pad > *, .page.reveal .hero-inner > *, .page.reveal .awards-inner > * { animation: pageItemIn 0.6s cubic-bezier(0.4,0,0.2,1) forwards; }
+  @keyframes pageItemIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  .page.reveal .section-shell.page-pad > *:nth-child(1), .page.reveal .hero-inner > *:nth-child(1), .page.reveal .awards-inner > *:nth-child(1) { animation-delay: 0.05s; }
+  .page.reveal .section-shell.page-pad > *:nth-child(2), .page.reveal .hero-inner > *:nth-child(2), .page.reveal .awards-inner > *:nth-child(2) { animation-delay: 0.13s; }
+  .page.reveal .section-shell.page-pad > *:nth-child(3), .page.reveal .hero-inner > *:nth-child(3), .page.reveal .awards-inner > *:nth-child(3) { animation-delay: 0.21s; }
+  .page.reveal .section-shell.page-pad > *:nth-child(4), .page.reveal .awards-inner > *:nth-child(4) { animation-delay: 0.29s; }
+  .page.reveal .section-shell.page-pad > *:nth-child(5) { animation-delay: 0.37s; }
+  .page.reveal .section-shell.page-pad > *:nth-child(6) { animation-delay: 0.45s; }
+  .page.reveal .section-shell.page-pad > *:nth-child(n+7) { animation-delay: 0.5s; }
+
+  /* nav click feedback */
+  .nav-links button.nav-link:active, .nav-logo:active { transform: scale(0.94); }
+  .nav-links button.nav-link { transition: color 0.2s, transform 0.15s; }
+
+  /* small fun hover wiggle */
+  @keyframes wiggle { 0%,100% { transform: rotate(0deg); } 25% { transform: rotate(-6deg); } 75% { transform: rotate(6deg); } }
+  .award-card:hover .award-icon { animation: wiggle 0.5s ease-in-out; }
+  .skill-card:hover .skill-dot { animation: wiggle 0.5s ease-in-out; }
+  .filter-tab:active { transform: scale(0.95); }
+  .card-tag, .badge { transition: transform 0.15s; }
+  .card:hover .card-tag:nth-child(odd) { transform: translateY(-1px); }
+
+  @media (max-width: 860px) {
+    .timeline-gallery { gap: 0.5rem; }
+    .gallery-placeholder { width: 84px; height: 84px; }
+    .gallery-placeholder .gp-label { font-size: 0.5rem; }
+    .hero-ctas { gap: 0.7rem; }
+    .btn-linkedin, .btn-primary, .btn-secondary { padding: 0.68rem 1.3rem; font-size: 0.82rem; }
+    .floating-emoji { font-size: 1.4rem; margin-left: 0.5rem; }
+    .exp-title-wrap { flex-wrap: wrap; }
+  }
 </style>
 </head>
 <body>
 
-<!-- NOTE:
-This template is prepared for the requested upgrade. Because the requested changes
-require extensive edits across thousands of lines, they are not automatically
-applied here.
-Requested upgrades:
-- LinkedIn button
-- Improved mobile nav
-- Page transitions
-- Experience image placeholders
-- Animated entrances
-- Floating decorations
--->
-
+<div class="ambient-blob blob-1"></div>
+<div class="ambient-blob blob-2"></div>
+<div class="ambient-blob blob-3"></div>
+<div id="scrollProgress"></div>
 
 <!-- LOADER -->
 <div id="loader">
@@ -350,7 +579,7 @@ Requested upgrades:
     </svg>
   </div>
   <p class="loader-word">Hi, I'm <em>Ruodi Yuan</em></p>
-  <p class="loader-sub">Loading portfolio</p>
+  <p class="loader-sub">Loading engineering portfolio</p>
 </div>
 
 <nav>
@@ -376,7 +605,7 @@ Requested upgrades:
 <main id="appMain">
 
   <!-- ============ HOME ============ -->
-  <section class="page active" id="page-home" data-page="home">
+  <section class="page active" id="page-home" data-page="home" data-enter="scale" data-leave="down">
     <div class="hero">
       <svg class="hero-bg" viewBox="0 0 540 540" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <circle cx="270" cy="270" r="240" stroke="#C8748A" stroke-width="0.6" stroke-dasharray="4 6" opacity="0.35"/>
@@ -406,7 +635,7 @@ Requested upgrades:
       <div class="hero-inner">
         <div class="hero-text">
           <p class="hero-eyebrow">Engineering Portfolio · University of Toronto</p>
-          <p class="hero-avail">Open to internships · May – Sept 2026</p>
+          <p class="hero-avail">Open to internships · May – Sept 2027</p>
           <div class="hero-title-wrap">
             <h1 class="hero-name">Hi, I'm<br><em>Ruodi Yuan</em><br></h1>
             <div class="hero-floating-img-circle img-circle">
@@ -432,9 +661,32 @@ Requested upgrades:
           <div class="hero-ctas">
             <button class="btn-primary" onclick="goToPage('projects')">View Projects →</button>
             <a href="mailto:ruodi.yuan@mail.utoronto.ca" class="btn-secondary">Get in touch</a>
+            <a href="https://www.linkedin.com/in/ruodiyuan" target="_blank" rel="noopener" class="btn-linkedin" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+              LinkedIn
+            </a>
             <div class="floating-shape-flower">
               <img src="https://i.imgur.com/rO6Mx4q.png" alt="headshot">
             </div>
+          </div>
+
+          <div class="hero-stat-row">
+            <div class="hero-stat"><span class="hero-stat-num" data-count="2">2</span><span class="hero-stat-label">Years FSAE</span></div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat"><span class="hero-stat-num" data-count="10">10</span><span class="hero-stat-label">+ Projects</span></div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat"><span class="hero-stat-num" data-count="3">3</span><span class="hero-stat-label">Awards</span></div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat"><span class="hero-stat-num" data-count="2">2</span><span class="hero-stat-label">Design Teams</span></div>
+          </div>
+
+          <div class="fun-tag-cloud">
+            <span class="fun-tag"><span class="fun-tag-icon">🏎️</span> Formula SAE Michigan 2026</span>
+            <span class="fun-tag"><span class="fun-tag-icon">✈️</span> SAE Aero Design</span>
+            <span class="fun-tag"><span class="fun-tag-icon">🏆</span> UofTHacks 2nd Place</span>
+            <span class="fun-tag"><span class="fun-tag-icon">📐</span> CSWA Certified</span>
+            <span class="fun-tag"><span class="fun-tag-icon">🔩</span> AWD EV Drivetrain</span>
+            <span class="fun-tag"><span class="fun-tag-icon">🤖</span> Robotics Minor</span>
           </div>
         </div>
 
@@ -456,8 +708,28 @@ Requested upgrades:
         </div>
       </div>
     </div>
-
-        <footer>
+    <div class="ticker-strip">
+      <div class="ticker-inner">
+        <span>Vehicle Dynamics Lead @ UofT FSAE</span>
+        <span>AWD Formula SAE EV</span>
+        <span>UAS Payload Specialist</span>
+        <span>Mechanical Engineering + PEY Co-op</span>
+        <span>MATLAB · Simulink · ANSYS · SolidWorks</span>
+        <span>UofTHacks 2nd Place 2026</span>
+        <span>Formula SAE Michigan 2026</span>
+        <span>Seeking Internships May–Sept 2027</span>
+        <!-- duplicate for seamless loop -->
+        <span>Vehicle Dynamics Lead @ UofT FSAE</span>
+        <span>AWD Formula SAE EV</span>
+        <span>UAS Payload Specialist</span>
+        <span>Mechanical Engineering + PEY Co-op</span>
+        <span>MATLAB · Simulink · ANSYS · SolidWorks</span>
+        <span>UofTHacks 2nd Place 2026</span>
+        <span>Formula SAE Michigan 2026</span>
+        <span>Seeking Internships May–Sept 2027</span>
+      </div>
+    </div>
+    <footer>
       <span class="footer-sig">Ruodi (Tinah) Yuan · BASc Mechanical Engineering · UofT</span>
       <div class="footer-links">
         <a href="mailto:ruodi.yuan@mail.utoronto.ca">Email</a>
@@ -469,7 +741,7 @@ Requested upgrades:
   </section>
 
   <!-- ============ PROJECTS ============ -->
-  <section class="page" id="page-projects" data-page="projects">
+  <section class="page" id="page-projects" data-page="projects" data-enter="left" data-leave="left">
     <div class="section-shell page-pad">
       <p class="section-label">Work</p>
       <div class="project-title-wrap">
@@ -975,10 +1247,16 @@ Requested upgrades:
   </section>
 
   <!-- ============ EXPERIENCE ============ -->
-  <section class="page" id="page-experience" data-page="experience">
+  <section class="page" id="page-experience" data-page="experience" data-enter="right" data-leave="right">
     <div class="section-shell page-pad">
       <p class="section-label">Roles</p>
-      <h2 class="section-title">Leadership &amp; <em>Experience</em></h2>
+      <div class="exp-title-wrap">
+        <h2 class="section-title">Leadership &amp; <em>Experience</em></h2>
+        <span class="floating-emoji">🏁</span>
+          <div class="floating-shape-car">
+          <img src="https://i.imgur.com/SCggmWR.jpeg" alt="headshot">
+        </div>
+      </div>
       <p class="section-intro">Beyond individual projects, here's the leadership and team experience behind them — across Formula SAE Racing and the SAE Aero Design.</p>
 
       <div class="timeline">
@@ -995,6 +1273,10 @@ Requested upgrades:
               <li>Supports suspension pickup point, kinematics, and compliance target decisions through integrated vehicle modelling.</li>
               <li>Coordinates with Race Engineering on testing plans, vehicle tuning, driver-in-the-loop validation, and tire performance optimization.</li>
             </ul>
+            <!-- <div class="timeline-gallery">
+              <div class="gallery-placeholder"><img src="https://i.imgur.com/Y1wzhwq.png" alt="headshot"></div>
+              <div class="gallery-placeholder"><span class="gp-icon">📷</span><span class="gp-label">Add photo</span></div>
+            </div> -->
           </div>
         </div>
 
@@ -1013,6 +1295,11 @@ Requested upgrades:
               <li>Designed and validated a dual inverter cooling system in Simulink and ANSYS, sized from a digitized motor efficiency map.</li>
               <li>Presented drivetrain architecture and engineering decisions to industry judges at Formula SAE Michigan 2026.</li>
             </ul>
+            <div class="timeline-gallery">
+              <div class="gallery-placeholder"><img src="https://i.imgur.com/99qTcbB.jpeg" alt="headshot"></div>
+              <div class="gallery-placeholder"><img src="https://i.imgur.com/KEhkIMK.jpeg" alt="headshot"></div>
+              <div class="gallery-placeholder"><img src="https://i.imgur.com/Od9kkc6.jpeg" alt="headshot"></div>
+            </div>
           </div>
         </div>
 
@@ -1028,6 +1315,10 @@ Requested upgrades:
               <li>Leads the design of an autonomous moving payload for the SAE Aero Design Advanced Class mission, focused on lightweight, reliable mechanisms.</li>
               <li>Developing navigation, capture, and release mechanisms through CAD, rapid prototyping, and engineering trade studies.</li>
             </ul>
+            <!-- <div class="timeline-gallery">
+              <div class="gallery-placeholder"><span class="gp-icon">✈️</span><span class="gp-label">Add photo</span></div>
+              <div class="gallery-placeholder"><span class="gp-icon">📷</span><span class="gp-label">Add photo</span></div>
+            </div> -->
           </div>
         </div>
 
@@ -1044,11 +1335,28 @@ Requested upgrades:
               <li>Collaborated cross-functionally with control and avionics teams to align mechanical design with mission requirements.</li>
               <li>Contributed to landing gear design and fuselage structural integration, designing for maintenance accessibility.</li>
             </ul>
+            <div class="timeline-gallery">
+              <div class="gallery-placeholder"><img src="https://i.imgur.com/MsGHxUr.jpeg" alt="headshot"></div>
+              <div class="gallery-placeholder"><img src="https://i.imgur.com/nBqKiDG.jpeg" alt="headshot"></div>
+              <div class="gallery-placeholder"><img src="https://i.imgur.com/HUbwHl1.jpeg" alt="headshot"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CROSS-PAGE LINK -->
+      <div class="page-cta-bridge" style="--pcb-c:var(--sage);--pcb-bg:var(--sage-light);">
+        <div class="pcb-inner">
+          <p class="pcb-eyebrow">Behind every role</p>
+          <p class="pcb-title">See the projects that came out of these teams →</p>
+          <div style="display:flex;gap:0.8rem;flex-wrap:wrap;">
+            <button class="btn-primary" style="background:var(--sage);" onclick="goToPage('projects')">Browse Projects</button>
+            <button class="btn-secondary" onclick="goToPage('awards')">View Awards →</button>
           </div>
         </div>
       </div>
     </div>
-            <footer>
+                <footer>
       <span class="footer-sig">Ruodi (Tinah) Yuan · BASc Mechanical Engineering · UofT</span>
       <div class="footer-links">
         <a href="mailto:ruodi.yuan@mail.utoronto.ca">Email</a>
@@ -1060,24 +1368,124 @@ Requested upgrades:
   </section>
 
   <!-- ============ AWARDS ============ -->
-  <section class="page" id="page-awards" data-page="awards">
-    <div class="page-pad">
-      <div class="awards-strip">
-        <div class="awards-inner">
-          <p class="section-label">Recognition</p>
-          <h2 class="section-title" style="margin-bottom:0;">Honors <em>&amp; Awards</em></h2>
-          <div class="awards-grid">
-            <div class="award-card"><div class="award-icon gold">🥈</div><div><p class="award-name">2nd Place — Hack the Human–Robot Experience</p><p class="award-sub">UofTHacks 13 · 2026</p></div></div>
-            <div class="award-card"><div class="award-icon" style="background:#FDF3EE;color:#C8748A;">🥉</div><div><p class="award-name">3rd Place — Engineering Business Future Case</p><p class="award-sub">EBF Case Competition · 2025</p></div></div>
-            <div class="award-card"><div class="award-icon star">★</div><div><p class="award-name">Dean's List</p><p class="award-sub">University of Toronto Scarborough · 2025</p></div></div>
-            <div class="award-card"><div class="award-icon silver">📐</div><div><p class="award-name">Waterloo Euclid — Top 25%</p><p class="award-sub">Centre for Education in Mathematics · 2024</p></div></div>
-            <div class="award-card"><div class="award-icon silver">📐</div><div><p class="award-name">Canadian Open Math — Distinction</p><p class="award-sub">COMC · 2023</p></div></div>
-            <div class="award-card"><div class="award-icon silver">📐</div><div><p class="award-name">Waterloo Fermat &amp; Hypatia — Top 25%</p><p class="award-sub">Centre for Education in Mathematics · 2023</p></div></div>
+  <section class="page" id="page-awards" data-page="awards" data-enter="up" data-leave="up">
+    <div class="section-shell page-pad">
+      <p class="section-label">Recognition</p>
+      <div class="exp-title-wrap">
+        <h2 class="section-title">Honors <em>&amp; Awards</em></h2>
+        <span class="floating-emoji">🏆</span>
+      </div>
+      <p class="section-intro">A mix of engineering competitions, academic excellence, and math olympiad recognition — spanning hackathons, case competitions, and university honours.</p>
+
+      <!-- FEATURED AWARD -->
+      <div class="award-featured">
+        <div class="af-badge">🥈 Silver</div>
+        <div class="af-body">
+          <p class="af-context">UofTHacks 13 · January 2026</p>
+          <h3 class="af-title">2nd Place — Hack the Human–Robot Experience</h3>
+          <p class="af-desc">Built Red Lamp, a companion robot for students tackling isolation and burnout — awarded 2nd place out of all teams competing in the Human-Robot Experience track. Integrated Raspberry Pi, Arduino, sensors, LEDs, and custom 3D-printed parts under a 24-hour hackathon constraint.</p>
+          <div class="af-tags">
+            <span>Robotics</span><span>Raspberry Pi</span><span>Arduino</span><span>3D Printing</span>
           </div>
+        </div>
+        <div class="af-glow"></div>
+      </div>
+
+      <!-- COMPETITION AWARDS ROW -->
+      <div class="awards-subhead">Engineering &amp; Business Competitions</div>
+      <div class="awards-trophy-shelf">
+        <div class="trophy-card tc-silver">
+          <div class="tc-medal">🥈</div>
+          <div class="tc-place">2nd Place</div>
+          <div class="tc-name">Hack the Human–Robot Experience</div>
+          <div class="tc-event">UofTHacks 13</div>
+          <div class="tc-year">2026</div>
+          <a class="tc-link" href="https://devpost.com/tinayuan060123" target="_blank">View on Devpost →</a>
+        </div>
+        <div class="trophy-card tc-bronze">
+          <div class="tc-medal">🥉</div>
+          <div class="tc-place">3rd Place</div>
+          <div class="tc-name">Engineering Business Future Case Competition</div>
+          <div class="tc-event">P&amp;G · Vick's Marketing</div>
+          <div class="tc-year">2025</div>
+        </div>
+        <div class="trophy-card tc-special">
+          <div class="tc-medal">✨</div>
+          <div class="tc-place">Drivetrain Team Lead</div>
+          <div class="tc-name">Formula SAE Michigan 2026</div>
+          <div class="tc-event">Design Presentation — Drivetrain</div>
+          <div class="tc-year">2026</div>
+        </div>
+        <div class="trophy-card tc-special">
+          <div class="tc-medal">✨</div>
+          <div class="tc-place">Structures Member</div>
+          <div class="tc-name">International SAE Aero Design 2026</div>
+          <div class="tc-event"></div>
+          <div class="tc-year">2026</div>
+        </div>
+      </div>
+
+      <!-- ACADEMIC HONOURS -->
+      <div class="awards-subhead">Academic Honours</div>
+      <div class="academic-list">
+        <div class="academic-item">
+          <div class="ai-stripe" style="background:var(--lavender);"></div>
+          <div class="ai-body">
+            <span class="ai-name">Dean's List</span>
+            <span class="ai-school">University of Toronto Scarborough</span>
+          </div>
+          <span class="ai-year">2025</span>
+        </div>
+      </div>
+
+      <!-- MATH OLYMPIAD -->
+      <div class="awards-subhead">Mathematics Competitions</div>
+      <div class="math-grid">
+        <div class="math-card">
+          <div class="math-logo">∑</div>
+          <div>
+            <p class="math-name">Waterloo Euclid Contest</p>
+            <p class="math-result">Top 25%</p>
+            <p class="math-org">Centre for Education in Mathematics · 2024</p>
+          </div>
+        </div>
+        <div class="math-card">
+          <div class="math-logo">∫</div>
+          <div>
+            <p class="math-name">Canadian Open Math Competition</p>
+            <p class="math-result">Distinction</p>
+            <p class="math-org">COMC · 2023</p>
+          </div>
+        </div>
+        <div class="math-card">
+          <div class="math-logo">π</div>
+          <div>
+            <p class="math-name">Waterloo Fermat</p>
+            <p class="math-result">Top 25%</p>
+            <p class="math-org">Centre for Education in Mathematics · 2023</p>
+          </div>
+        </div>
+        <div class="math-card">
+          <div class="math-logo">∈</div>
+          <div>
+            <p class="math-name">Waterloo  Hypatia</p>
+            <p class="math-result">Top 25%</p>
+            <p class="math-org">Centre for Education in Mathematics · 2023</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- CROSS-PAGE LINK -->
+      <div class="page-cta-bridge" style="--pcb-c:var(--lavender);--pcb-bg:var(--lavender-light);">
+        <div class="pcb-inner">
+          <p class="pcb-eyebrow">Curious what these led to?</p>
+          <p class="pcb-title">Explore the projects behind the wins →</p>
+          <button class="btn-primary" style="background:var(--lavender);" onclick="goToPage('projects')">Browse Projects</button>
         </div>
       </div>
     </div>
-            <footer>
+                <footer>
       <span class="footer-sig">Ruodi (Tinah) Yuan · BASc Mechanical Engineering · UofT</span>
       <div class="footer-links">
         <a href="mailto:ruodi.yuan@mail.utoronto.ca">Email</a>
@@ -1089,21 +1497,184 @@ Requested upgrades:
   </section>
 
   <!-- ============ SKILLS ============ -->
-  <section class="page" id="page-skills" data-page="skills">
+  <section class="page" id="page-skills" data-page="skills" data-enter="left" data-leave="right">
     <div class="section-shell page-pad">
       <p class="section-label">Capabilities</p>
-      <h2 class="section-title">Skills <em>&amp; Tools</em></h2>
-      <div class="skills-grid">
-        <div class="skill-card"><p class="skill-label"><span class="skill-dot lav"></span>Engineering Software</p><ul class="skill-list"><li>SolidWorks (CSWA certified)</li><li>MATLAB &amp; Simulink</li><li>ANSYS FEA</li><li>Catia</li><li>Vi-Grade CarRealTime</li> <li>rFpro</li><li>ADAMS Car</li></ul></div>
-        <div class="skill-card"><p class="skill-label"><span class="skill-dot"></span>Programming</p><ul class="skill-list"><li>Python</li><li>C / C++</li><li>JavaScript</li><li>HTML / MySQL</li></ul></div>
-        <div class="skill-card"><p class="skill-label"><span class="skill-dot lav"></span>Embedded &amp; Hardware</p><ul class="skill-list"><li>Arduino</li><li>Raspberry Pi</li><li>Sensor Integration</li><li>Motor Control</li></ul></div>
-        <div class="skill-card"><p class="skill-label"><span class="skill-dot sg"></span>Fabrication</p><ul class="skill-list"><li>3D Printing (FDM)</li><li>Basic Machining — Lathe, Mill, Drill Press</li><li>Composite Assembly</li><li>Iterative Prototyping</li></ul></div>
-        <div class="skill-card"><p class="skill-label"><span class="skill-dot"></span>Data &amp; ML</p><ul class="skill-list"><li>Machine Learning</li><li>OpenCV</li><li>Data Preprocessing</li><li>Load Spectrum Analysis</li></ul></div>
-        <div class="skill-card"><p class="skill-label"><span class="skill-dot sg"></span>Certifications</p><ul class="skill-list"><li>Certified SOLIDWORKS Associate (CSWA) — Dassault Systèmes, Dec 2025</li><li>Basic Machining — George Brown College, Oct 2025</li><li>CPR &amp; First Aid — Canadian Red Cross, Sept 2024</li></ul></div>
-        <div class="skill-card"><p class="skill-label"><span class="skill-dot sg"></span>Languages</p><ul class="skill-list"><li>English (Native)</li><li>Chinese (Native)</li><li>Japanese (Elementary)</li></ul></div>
+      <div class="exp-title-wrap">
+        <h2 class="section-title">Skills <em>&amp; Tools</em></h2>
+        <span class="floating-emoji">⚙️</span>
+      </div>
+      <p class="section-intro">From thermal simulation and FEA to embedded robotics and full-stack web — here's what I work with, and how confidently.</p>
+
+      <!-- BIG PILL CATEGORY ROW -->
+      <div class="skills-cat-row">
+        <div class="skills-cat-pill" style="--cat-c:var(--rose);--cat-bg:var(--rose-light);">
+          <span class="scp-icon">🖥️</span>
+          <span>Engineering<br>Software</span>
+        </div>
+        <div class="skills-cat-pill" style="--cat-c:var(--lavender);--cat-bg:var(--lavender-light);">
+          <span class="scp-icon">💻</span>
+          <span>Programming</span>
+        </div>
+        <div class="skills-cat-pill" style="--cat-c:#B06B10;--cat-bg:#FFF3E0;">
+          <span class="scp-icon">🔩</span>
+          <span>Fabrication &amp;<br>Hardware</span>
+        </div>
+        <div class="skills-cat-pill" style="--cat-c:var(--sage);--cat-bg:var(--sage-light);">
+          <span class="scp-icon">🤖</span>
+          <span>Embedded<br>Systems</span>
+        </div>
+        <div class="skills-cat-pill" style="--cat-c:var(--rose);--cat-bg:var(--rose-light);">
+          <span class="scp-icon">📊</span>
+          <span>Data &amp;<br>Analysis</span>
+        </div>
+      </div>
+
+      <!-- SKILL ROWS -->
+      <div class="skill-section-grid">
+
+        <!-- Engineering software -->
+        <div class="skill-section">
+          <div class="skill-section-header" style="--hc:var(--rose);">
+            <span class="ssh-icon">🖥️</span>
+            <h3 class="ssh-title">Engineering Software</h3>
+          </div>
+          <div class="skill-bar-list">
+            <div class="skill-bar-item">
+              <div class="sbi-head"><span class="sbi-name">SolidWorks</span><span class="sbi-badge rose">CSWA Certified</span></div>
+              <div class="sbi-track"><div class="sbi-fill" style="--w:92%;--c:var(--rose);"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="sbi-head"><span class="sbi-name">MATLAB &amp; Simulink</span></div>
+              <div class="sbi-track"><div class="sbi-fill" style="--w:85%;--c:var(--rose);"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="sbi-head"><span class="sbi-name">ANSYS FEA</span></div>
+              <div class="sbi-track"><div class="sbi-fill" style="--w:72%;--c:var(--rose);"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="sbi-head"><span class="sbi-name">Catia</span></div>
+              <div class="sbi-track"><div class="sbi-fill" style="--w:58%;--c:var(--rose);"></div></div>
+            </div>
+            <div class="skill-bar-item">
+              <div class="sbi-head"><span class="sbi-name">Vi-Grade / rFpro / ADAMS Car</span></div>
+              <div class="sbi-track"><div class="sbi-fill" style="--w:45%;--c:var(--rose);"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Programming -->
+        <div class="skill-section">
+          <div class="skill-section-header" style="--hc:var(--lavender);">
+            <span class="ssh-icon">💻</span>
+            <h3 class="ssh-title">Programming</h3>
+          </div>
+          <div class="skill-chip-grid">
+            <span class="skill-chip" style="--cc:var(--lavender);--cbg:var(--lavender-light);">Python</span>
+            <span class="skill-chip" style="--cc:var(--lavender);--cbg:var(--lavender-light);">C</span>
+            <span class="skill-chip" style="--cc:var(--lavender);--cbg:var(--lavender-light);">C++</span>
+            <span class="skill-chip" style="--cc:var(--lavender);--cbg:var(--lavender-light);">JavaScript</span>
+            <span class="skill-chip" style="--cc:var(--lavender);--cbg:var(--lavender-light);">HTML</span>
+            <span class="skill-chip" style="--cc:var(--lavender);--cbg:var(--lavender-light);">MySQL</span>
+            <span class="skill-chip" style="--cc:var(--lavender);--cbg:var(--lavender-light);">Arduino</span>
+          </div>
+        </div>
+
+        <!-- Fabrication -->
+        <div class="skill-section">
+          <div class="skill-section-header" style="--hc:#B06B10;">
+            <span class="ssh-icon">🔩</span>
+            <h3 class="ssh-title">Fabrication &amp; Manufacturing</h3>
+          </div>
+          <div class="skill-badge-list">
+            <div class="skill-badge-item"><span class="sbadge-icon">🏭</span><div><span class="sbadge-name">Machining (Lathe, Mill, Drill Press)</span><span class="sbadge-cert">Certified — George Brown College, Oct 2025</span></div></div>
+            <div class="skill-badge-item"><span class="sbadge-icon">🖨️</span><div><span class="sbadge-name">3D Printing (FDM)</span><span class="sbadge-cert">Extensive hands-on prototyping</span></div></div>
+            <div class="skill-badge-item"><span class="sbadge-icon">✂️</span><div><span class="sbadge-name">Laser Cutting</span></div></div>
+            <div class="skill-badge-item"><span class="sbadge-icon">🪨</span><div><span class="sbadge-name">Composite Assembly</span></div></div>
+            <div class="skill-badge-item"><span class="sbadge-icon">📐</span><div><span class="sbadge-name">GD&amp;T &amp; Engineering Drawings</span><span class="sbadge-cert">Production-ready machined parts</span></div></div>
+          </div>
+        </div>
+
+        <!-- Embedded Systems -->
+        <div class="skill-section">
+          <div class="skill-section-header" style="--hc:var(--sage);">
+            <span class="ssh-icon">🤖</span>
+            <h3 class="ssh-title">Embedded &amp; Hardware</h3>
+          </div>
+          <div class="skill-chip-grid">
+            <span class="skill-chip" style="--cc:var(--sage);--cbg:var(--sage-light);">Raspberry Pi</span>
+            <span class="skill-chip" style="--cc:var(--sage);--cbg:var(--sage-light);">Arduino</span>
+            <span class="skill-chip" style="--cc:var(--sage);--cbg:var(--sage-light);">Sensor Integration</span>
+            <span class="skill-chip" style="--cc:var(--sage);--cbg:var(--sage-light);">Motor Control</span>
+            <span class="skill-chip" style="--cc:var(--sage);--cbg:var(--sage-light);">OpenCV</span>
+            <span class="skill-chip" style="--cc:var(--sage);--cbg:var(--sage-light);">Computer Vision</span>
+            <span class="skill-chip" style="--cc:var(--sage);--cbg:var(--sage-light);">Power Management</span>
+          </div>
+        </div>
+
+        <!-- Data & Analysis -->
+        <div class="skill-section">
+          <div class="skill-section-header" style="--hc:var(--rose);">
+            <span class="ssh-icon">📊</span>
+            <h3 class="ssh-title">Data &amp; Analysis</h3>
+          </div>
+          <div class="skill-chip-grid">
+            <span class="skill-chip" style="--cc:var(--rose);--cbg:var(--rose-light);">Machine Learning</span>
+            <span class="skill-chip" style="--cc:var(--rose);--cbg:var(--rose-light);">Data Preprocessing</span>
+            <span class="skill-chip" style="--cc:var(--rose);--cbg:var(--rose-light);">Load Spectrum Analysis</span>
+            <span class="skill-chip" style="--cc:var(--rose);--cbg:var(--rose-light);">Lookup Table Digitizing</span>
+            <span class="skill-chip" style="--cc:var(--rose);--cbg:var(--rose-light);">Thermal Modelling</span>
+          </div>
+        </div>
+
+        <!-- Certifications -->
+        <div class="skill-section skill-section-wide">
+          <div class="skill-section-header" style="--hc:var(--lavender);">
+            <span class="ssh-icon">🏅</span>
+            <h3 class="ssh-title">Certifications &amp; Languages</h3>
+          </div>
+          <div class="cert-row">
+            <div class="cert-card">
+              <div class="cert-logo" style="background:var(--lavender-light);color:var(--lavender);">SW</div>
+              <div>
+                <p class="cert-name">Certified SOLIDWORKS Associate (CSWA)</p>
+                <p class="cert-issuer">Dassault Systèmes · Dec 2025</p>
+              </div>
+            </div>
+            <div class="cert-card">
+              <div class="cert-logo" style="background:#FFF3E0;color:#B06B10;">GBC</div>
+              <div>
+                <p class="cert-name">Basic Machining — Lathe, Mill, Drill Press</p>
+                <p class="cert-issuer">George Brown College · Oct 2025</p>
+              </div>
+            </div>
+            <div class="cert-card">
+              <div class="cert-logo" style="background:var(--sage-light);color:var(--sage);">CPR</div>
+              <div>
+                <p class="cert-name">CPR &amp; First Aid</p>
+                <p class="cert-issuer">Canadian Red Cross · Sept 2024</p>
+              </div>
+            </div>
+          </div>
+          <div class="lang-row">
+            <div class="lang-item"><span class="lang-flag">🇨🇦</span><span class="lang-name">English</span><span class="lang-level native">Native</span></div>
+            <div class="lang-item"><span class="lang-flag">🇨🇳</span><span class="lang-name">Chinese</span><span class="lang-level native">Native</span></div>
+            <div class="lang-item"><span class="lang-flag">🇯🇵</span><span class="lang-name">Japanese</span><span class="lang-level elementary">Elementary</span></div>
+          </div>
+        </div>
+
+      </div><!-- /skill-section-grid -->
+
+      <!-- CROSS-PAGE LINK -->
+      <div class="page-cta-bridge">
+        <div class="pcb-inner">
+          <p class="pcb-eyebrow">See it all in action</p>
+          <p class="pcb-title">These skills power every project →</p>
+          <button class="btn-primary" onclick="goToPage('projects')">Browse Projects</button>
+        </div>
       </div>
     </div>
-            <footer>
+    <footer>
       <span class="footer-sig">Ruodi (Tinah) Yuan · BASc Mechanical Engineering · UofT</span>
       <div class="footer-links">
         <a href="mailto:ruodi.yuan@mail.utoronto.ca">Email</a>
@@ -1115,7 +1686,7 @@ Requested upgrades:
   </section>
 
   <!-- ============ ABOUT ============ -->
-  <section class="page" id="page-about" data-page="about">
+  <section class="page" id="page-about" data-page="about" data-enter="right" data-leave="left">
     <div class="section-shell page-pad">
       <p class="section-label">Background</p>
       <div class="about-title-wrap">
@@ -1160,8 +1731,20 @@ Requested upgrades:
           </div>
         </div>
       </div>
+
+      <!-- CROSS-PAGE LINK -->
+      <div class="page-cta-bridge" style="--pcb-c:var(--rose);--pcb-bg:var(--rose-light);">
+        <div class="pcb-inner">
+          <p class="pcb-eyebrow">Want to know more?</p>
+          <p class="pcb-title">Dig into the work or get in touch →</p>
+          <div style="display:flex;gap:0.8rem;flex-wrap:wrap;">
+            <button class="btn-primary" onclick="goToPage('experience')">Experience &amp; Roles</button>
+            <button class="btn-secondary" onclick="goToPage('contact')">Contact Me</button>
+          </div>
+        </div>
+      </div>
     </div>
-            <footer>
+      <footer>
       <span class="footer-sig">Ruodi (Tinah) Yuan · BASc Mechanical Engineering · UofT</span>
       <div class="footer-links">
         <a href="mailto:ruodi.yuan@mail.utoronto.ca">Email</a>
@@ -1173,10 +1756,13 @@ Requested upgrades:
   </section>
 
   <!-- ============ CONTACT ============ -->
-  <section class="page" id="page-contact" data-page="contact">
+  <section class="page" id="page-contact" data-page="contact" data-enter="up" data-leave="down">
     <div class="section-shell page-pad">
       <p class="section-label">Get in touch</p>
-      <h2 class="section-title">Let's <em>Connect</em></h2>
+      <div class="exp-title-wrap">
+        <h2 class="section-title">Let's <em>Connect</em></h2>
+        <span class="floating-emoji">📬</span>
+      </div>
       <p class="section-intro">I'm seeking internships from May to September 2026. Reach out — I'd love to talk about mechanical design, racing, aerospace, or anything in between.</p>
       <div class="contact-grid">
         <a class="contact-card" href="mailto:ruodi.yuan@mail.utoronto.ca">
@@ -1199,10 +1785,10 @@ Requested upgrades:
           <span class="contact-label">Phone</span>
           <span class="contact-sub">+1 (778) 682-7471</span>
         </a>
-        <a class="contact-card" href="Ruodi (Tinah) Yuan - Resume.pdf" download>
+        <a class="contact-card" href="Ruodi_Tinah_Yuan_Resume.pdf" download>
           <span class="contact-icon">📄</span>
           <span class="contact-label">Resume</span>
-          <span class="contact-sub">View/Download PDF</span>
+          <span class="contact-sub">Download PDF</span>
         </a>
       </div>
     </div>
@@ -1213,7 +1799,7 @@ Requested upgrades:
         <a href="mailto:ruodi.yuan@mail.utoronto.ca">Email</a>
         <a href="https://www.linkedin.com/in/ruodiyuan" target="_blank">LinkedIn</a>
         <a href="https://devpost.com/tinayuan060123" target="_blank">Devpost</a>
-        <a href="Ruodi (Tinah) Yuan - Resume.pdf" download>Resume</a>
+        <a href="Ruodi_Tinah_Yuan_Resume.pdf" download>Resume</a>
       </div>
     </footer>
   </section>
@@ -1235,15 +1821,38 @@ window.addEventListener('load', function () {
   }, 900);
 });
 
-/* ===== PAGE NAVIGATION ===== */
+/* ===== PAGE NAVIGATION — directional transitions ===== */
 function goToPage(name, skipHash) {
   var target = document.getElementById('page-' + name);
   if (!target) return;
-  document.querySelectorAll('.page').forEach(function (p) {
-    if (p !== target) p.classList.remove('active');
-  });
+  var current = document.querySelector('.page.active');
+
+  if (current && current !== target) {
+    var leaveDir = current.getAttribute('data-leave') || 'up';
+    current.setAttribute('data-enter', leaveDir); // will snap to leave position after removal
+    current.classList.add('leaving');
+    current.classList.remove('active');
+    setTimeout(function () {
+      current.classList.remove('leaving');
+      // restore original enter direction
+      current.setAttribute('data-enter', current.getAttribute('data-page') === 'home' ? 'scale' :
+        ['projects','awards','contact'].indexOf(current.getAttribute('data-page')) >= 0 ? 'left' : 'right');
+    }, 420);
+  }
+
   target.scrollTop = 0;
+  target.classList.remove('reveal');
+  // ensure enter transform is set before active
+  var enterDir = target.getAttribute('data-enter') || 'up';
+  target.style.transform = enterDir === 'left' ? 'translateX(48px)' :
+                            enterDir === 'right' ? 'translateX(-48px)' :
+                            enterDir === 'down' ? 'translateY(-36px)' :
+                            enterDir === 'scale' ? 'scale(0.96) translateY(16px)' : 'translateY(36px)';
   target.classList.add('active');
+  void target.offsetWidth;
+  target.style.transform = '';
+  setTimeout(function () { target.classList.add('reveal'); }, 60);
+
   document.querySelectorAll('.nav-link').forEach(function (b) {
     b.classList.toggle('active', b.getAttribute('data-page') === name);
   });
@@ -1264,7 +1873,8 @@ document.addEventListener('DOMContentLoaded', function () {
   var initial = (location.hash || '#home').replace('#', '');
   var valid = ['home','projects','experience','awards','skills','about','contact'];
   if (valid.indexOf(initial) === -1) initial = 'home';
-  goToPage(initial, true);
+  // Slight delay so loader sits on top first, then reveal animates in
+  setTimeout(function () { goToPage(initial, true); }, 950);
 });
 
 /* ===== PROJECT FILTERING ===== */
@@ -1273,11 +1883,16 @@ document.querySelectorAll('.filter-tab').forEach(function (tab) {
     document.querySelectorAll('.filter-tab').forEach(function (t) { t.classList.remove('active'); });
     tab.classList.add('active');
     var f = tab.getAttribute('data-filter');
-    document.querySelectorAll('#projectsGrid .card').forEach(function (card) {
-      var cat = card.getAttribute('data-category');
-      var show = (f === 'all' || cat === f || cat === 'all');
-      card.style.display = show ? '' : 'none';
-    });
+    var grid = document.getElementById('projectsGrid');
+    grid.classList.add('filtering');
+    setTimeout(function () {
+      document.querySelectorAll('#projectsGrid .card').forEach(function (card) {
+        var cat = card.getAttribute('data-category');
+        var show = (f === 'all' || cat === f || cat === 'all');
+        card.style.display = show ? '' : 'none';
+      });
+      grid.classList.remove('filtering');
+    }, 250);
   });
 });
 
@@ -1390,6 +2005,74 @@ document.querySelectorAll('.media-slide').forEach(slide => {
 document.querySelector('.lightbox-next').addEventListener('click', function (e) { e.stopPropagation(); nextImage(); });
 document.querySelector('.lightbox-prev').addEventListener('click', function (e) { e.stopPropagation(); prevImage(); });
 document.querySelectorAll('[data-carousel]').forEach(initCarousel);
+/* ===== CURSOR SPARKLES ===== */
+var sparkleColors = ['#C8748A','#9B8FC2','#7A9E8E','#E0A3AD','#C5BCDF'];
+document.addEventListener('mousemove', function (e) {
+  if (Math.random() > 0.18) return;
+  var el = document.createElement('div');
+  el.className = 'sparkle';
+  el.style.left = e.clientX + (Math.random() * 14 - 7) + 'px';
+  el.style.top  = e.clientY + (Math.random() * 14 - 7) + 'px';
+  el.style.background = sparkleColors[Math.floor(Math.random() * sparkleColors.length)];
+  var s = 5 + Math.random() * 7;
+  el.style.width = s + 'px';
+  el.style.height = s + 'px';
+  document.body.appendChild(el);
+  setTimeout(function () { if (el.parentNode) el.parentNode.removeChild(el); }, 750);
+});
+
+/* ===== SCROLL PROGRESS ===== */
+document.querySelectorAll('.page').forEach(function (page) {
+  page.addEventListener('scroll', function () {
+    if (!page.classList.contains('active')) return;
+    var scrolled = page.scrollTop;
+    var max = page.scrollHeight - page.clientHeight;
+    var pct = max > 0 ? (scrolled / max) * 100 : 0;
+    document.getElementById('scrollProgress').style.width = pct + '%';
+  });
+});
+
+/* ===== COUNT-UP ANIMATION ===== */
+function animateCounters() {
+  document.querySelectorAll('[data-count]').forEach(function (el) {
+    var target = parseInt(el.getAttribute('data-count'), 10);
+    var current = 0;
+    var step = Math.max(1, Math.ceil(target / 20));
+    var timer = setInterval(function () {
+      current = Math.min(current + step, target);
+      el.textContent = current;
+      if (current >= target) clearInterval(timer);
+    }, 45);
+  });
+}
+// fire once when home page first reveals
+var countersFired = false;
+var origGoToPage = goToPage;
+goToPage = function (name, skipHash) {
+  origGoToPage(name, skipHash);
+  if (name === 'home' && !countersFired) {
+    countersFired = true;
+    setTimeout(animateCounters, 600);
+  }
+};
+
+/* ===== CARD SLIDE-IN on scroll within project page ===== */
+var cardObserver = new IntersectionObserver(function (entries) {
+  entries.forEach(function (entry) {
+    if (entry.isIntersecting) {
+      entry.target.style.opacity = '1';
+      entry.target.style.transform = 'translateY(0)';
+      cardObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+
+document.querySelectorAll('.card, .award-card, .skill-card, .timeline-card, .contact-card').forEach(function (card) {
+  card.style.opacity = '0';
+  card.style.transform = 'translateY(28px)';
+  card.style.transition = 'opacity 0.5s ease, transform 0.5s ease, box-shadow 0.25s, border-color 0.25s';
+  cardObserver.observe(card);
+});
 </script>
 </body>
 </html>
