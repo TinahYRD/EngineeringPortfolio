@@ -719,6 +719,92 @@
     .floating-emoji { font-size: 1.4rem; margin-left: 0.5rem; }
     .exp-title-wrap { flex-wrap: wrap; }
   }
+  /* ── HERO RESUME CARD ── */
+  .hero-resume-card { display: flex; align-items: center; gap: 0.9rem; margin-top: 0; margin-bottom: 1.1rem; padding: 0.85rem 1.2rem; background: var(--white); border: 1.5px solid var(--cream3); border-radius: 14px; text-decoration: none; max-width: 420px; position: relative; overflow: hidden; transition: border-color 0.25s, box-shadow 0.25s, transform 0.2s; }
+  .hero-resume-card:hover { border-color: var(--rose-mid); box-shadow: 0 6px 24px rgba(200,116,138,0.14); transform: translateY(-2px); }
+  .hrc-icon { width: 36px; height: 36px; border-radius: 9px; background: var(--rose-light); color: var(--rose); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .hrc-text { flex: 1; display: flex; flex-direction: column; gap: 0.1rem; }
+  .hrc-label { font-size: 0.85rem; font-weight: 600; color: var(--ink); }
+  .hrc-sub { font-size: 0.7rem; color: var(--ink-light); font-family: 'DM Mono', monospace; letter-spacing: 0.04em; }
+  .hrc-arrow { color: var(--ink-light); flex-shrink: 0; transition: transform 0.2s, color 0.2s; }
+  .hero-resume-card:hover .hrc-arrow { transform: translateX(4px); color: var(--rose); }
+  .hrc-shimmer { position: absolute; top: 0; left: -75%; width: 55%; height: 100%; background: linear-gradient(105deg, transparent 40%, rgba(255,255,255,0.55) 50%, transparent 60%); transform: skewX(-15deg); pointer-events: none; }
+  .hero-resume-card:hover .hrc-shimmer { animation: shimmerSweep 0.65s ease forwards; }
+  @keyframes shimmerSweep { 0% { left: -75%; } 100% { left: 120%; } }
+  @media (max-width: 860px) { .hero-resume-card { max-width: 100%; } }
+
+
+  /* ── GRID BACKGROUND TEXTURE on hero ── */
+  .hero::before { content: ''; position: absolute; inset: 0; background-image: linear-gradient(var(--rule) 1px, transparent 1px), linear-gradient(90deg, var(--rule) 1px, transparent 1px); background-size: 40px 40px; opacity: 0.55; pointer-events: none; z-index: 0; mask-image: radial-gradient(ellipse 85% 70% at 30% 50%, rgba(0,0,0,0.18) 0%, transparent 100%); -webkit-mask-image: radial-gradient(ellipse 85% 70% at 30% 50%, rgba(0,0,0,0.18) 0%, transparent 100%); }
+
+  /* ── CARD TILT (3-D perspective on hover) ── */
+  .card { transform-style: preserve-3d; will-change: transform; }
+  /* tilt applied via JS, but smooth it out */
+  .card.tilt-transition { transition: transform 0.4s cubic-bezier(0.4,0,0.2,1), box-shadow 0.25s, border-color 0.25s, opacity 0.3s !important; }
+
+  /* ── SECTION DIVIDER WAVE ── */
+  .wave-divider { width: 100%; overflow: hidden; line-height: 0; pointer-events: none; }
+  .wave-divider svg { display: block; width: 100%; height: 32px; }
+
+  /* ── TIMELINE animated connector line ── */
+  .timeline::before { background: linear-gradient(180deg, var(--rose-mid) 0%, var(--lavender-mid) 50%, var(--sage) 100%); opacity: 0.35; }
+
+  /* ── AWARD CARD count-up ring ── */
+  .award-ring { position: absolute; top: -8px; right: -8px; width: 28px; height: 28px; }
+  .award-ring svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+  .award-ring circle { fill: none; stroke: var(--rose-mid); stroke-width: 2.5; stroke-dasharray: 72; stroke-dashoffset: 72; transition: stroke-dashoffset 1.2s cubic-bezier(0.4,0,0.2,1); }
+  .trophy-card.revealed .award-ring circle { stroke-dashoffset: 0; }
+
+  /* ── SKILL BAR shimmer ── */
+  .sbi-fill::after { content: ''; position: absolute; right: 0; top: 0; bottom: 0; width: 18px; background: rgba(255,255,255,0.45); border-radius: 10px; animation: barPulse 2s ease-in-out infinite; }
+  .sbi-fill { position: relative; overflow: hidden; }
+  @keyframes barPulse { 0%,100% { opacity: 0; } 50% { opacity: 1; } }
+
+  /* ── PAGE HEADER decorative ring ── */
+  .ph-ring { position: absolute; top: 50%; right: -30px; transform: translateY(-50%); width: 180px; height: 180px; border-radius: 50%; border: 1px dashed var(--rose-mid); opacity: 0.18; pointer-events: none; animation: slowSpin 30s linear infinite; }
+  .ph-ring-2 { width: 120px; height: 120px; border-color: var(--lavender-mid); animation-duration: 20s; animation-direction: reverse; right: 10px; opacity: 0.15; }
+  @keyframes slowSpin { 100% { transform: translateY(-50%) rotate(360deg); } }
+  .page-header { position: relative; }
+
+  /* ── FOOTER WAVE ── */
+  .ticker-strip { position: relative; }
+
+  /* ── HERO photo frame pulse ring ── */
+  .hero-photo::after { content: ''; position: absolute; inset: -8px; border-radius: 130px 130px 20px 20px; border: 1.5px dashed var(--rose-mid); opacity: 0; animation: photoRingPulse 3.5s ease-in-out infinite; }
+  @keyframes photoRingPulse { 0%,100% { opacity: 0; transform: scale(1); } 50% { opacity: 0.45; transform: scale(1.018); } }
+
+  /* ── SCROLL-TO-TOP button ── */
+  #scrollTopBtn { position: fixed; bottom: 2rem; right: 2rem; width: 44px; height: 44px; border-radius: 50%; background: var(--rose); color: var(--white); border: none; cursor: pointer; z-index: 150; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(200,116,138,0.35); opacity: 0; transform: translateY(10px) scale(0.85); transition: opacity 0.3s, transform 0.3s, background 0.2s; pointer-events: none; font-size: 1rem; }
+  #scrollTopBtn.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+  #scrollTopBtn:hover { background: #b5607a; transform: translateY(-2px) scale(1.05); }
+  @media (max-width: 860px) { #scrollTopBtn { bottom: 1.2rem; right: 1.2rem; width: 38px; height: 38px; } }
+
+  /* ── FUN TAG hover pop ── */
+  @keyframes tagPop { 0% { transform: scale(1); } 40% { transform: scale(1.18) rotate(-2deg); } 70% { transform: scale(0.95) rotate(1deg); } 100% { transform: scale(1); } }
+  .fun-tag:active { animation: tagPop 0.38s ease forwards; }
+
+  /* ── CONTACT CARD stagger on reveal ── */
+  .ccn-card { --i: 0; }
+  .ccn-card:nth-child(1) { --i: 0; }
+  .ccn-card:nth-child(2) { --i: 1; }
+  .ccn-card:nth-child(3) { --i: 2; }
+  .ccn-card:nth-child(4) { --i: 3; }
+  .ccn-card:nth-child(5) { --i: 4; }
+  .page.reveal .ccn-card { animation-delay: calc(0.08s + var(--i) * 0.07s); }
+
+  /* ── GRADIENT TEXT accent on hero name ── */
+  .hero-name-gradient { background: linear-gradient(135deg, var(--rose) 0%, var(--lavender) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+
+  /* ── ABOUT stats count-up ring ── */
+  .stat { position: relative; overflow: hidden; }
+  .stat::after { content: ''; position: absolute; bottom: 0; left: 0; height: 2px; width: 0; background: linear-gradient(90deg, var(--rose), var(--lavender)); transition: width 1s cubic-bezier(0.4,0,0.2,1) 0.3s; }
+  .stat.in-view::after { width: 100%; }
+
+  /* ── MOBILE 860px ── */
+  @media (max-width: 860px) {
+    .hero-resume-card { max-width: 100%; }
+    .ph-ring, .ph-ring-2 { display: none; }
+  }
 </style>
 </head>
 <body>
@@ -727,6 +813,8 @@
 <div class="ambient-blob blob-2"></div>
 <div class="ambient-blob blob-3"></div>
 <div id="scrollProgress"></div>
+<!-- SCROLL TO TOP -->
+<button id="scrollTopBtn" aria-label="Scroll to top" onclick="scrollCurrentPageTop()">↑</button>
 
 <!-- LOADER -->
 <div id="loader">
@@ -795,7 +883,7 @@
           <p class="hero-eyebrow">Engineering Portfolio · University of Toronto</p>
           <p class="hero-avail">Open to internships · May – Sept 2027</p>
           <div class="hero-title-wrap">
-            <h1 class="hero-name">Hi, I'm<br><em>Ruodi Yuan</em><br></h1>
+            <h1 class="hero-name">Hi, I'm<br><em class="hero-name-gradient">Ruodi Yuan</em><br></h1>
             <div class="hero-floating-img-circle img-circle">
               <img src="https://i.imgur.com/MQpvvmF.jpeg" alt="headshot">
             </div>
@@ -816,18 +904,27 @@
             <span class="hero-tag tag-rose">Aero Design</span>
             <span class="hero-tag tag-sage">Python</span>
           </div>
+          <!-- RESUME CARD — sits above the button row -->
+          <a href="Ruodi (Tinah) Yuan - Resume.pdf" target="_blank" rel="noopener" class="hero-resume-card" id="heroResumeCard">
+            <div class="hrc-icon">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+            </div>
+            <div class="hrc-text">
+              <span class="hrc-label">Ruodi (Tinah) Yuan — Résumé</span>
+              <span class="hrc-sub">BASc Mechanical Engineering · UofT · 2025</span>
+            </div>
+            <div class="hrc-arrow">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </div>
+            <div class="hrc-shimmer"></div>
+          </a>
           <div class="hero-ctas">
             <button class="btn-primary" onclick="goToPage('projects')">View Projects →</button>
-            <!-- <a href="https://www.linkedin.com/in/ruodiyuan" target="_blank" rel="noopener" class="btn-linkedin" aria-label="LinkedIn">
+            <a href="https://www.linkedin.com/in/ruodiyuan" target="_blank" rel="noopener" class="btn-linkedin" aria-label="LinkedIn">
               <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+              LinkedIn
             </a>
-            <a href="mailto:ruodi.yuan@mail.utoronto.ca" class="btn-secondary">Get in touch</a> -->
-            <a class="btn-secondary"
-            href="Ruodi (Tinah) Yuan - Resume.pdf"
-            target="_blank"
-            rel="noopener">
-            View Resume
-          </a>
+            <a href="mailto:ruodi.yuan@mail.utoronto.ca" class="btn-secondary">Get in touch</a>
             <div class="floating-shape-flower">
               <img src="https://i.imgur.com/rO6Mx4q.png" alt="headshot">
             </div>
@@ -905,7 +1002,7 @@
 
   <!-- ============ PROJECTS ============ -->
   <section class="page" id="page-projects" data-page="projects" data-enter="left" data-leave="left">
-    <div class="page-header">
+    <div class="page-header"><div class="ph-ring"></div><div class="ph-ring ph-ring-2"></div>
       <div class="ph-top">
         <div class="ph-left">
           <p class="ph-eyebrow"><span class="ph-eyebrow-dot"></span>Work / Portfolio</p>
@@ -1462,7 +1559,7 @@
 
   <!-- ============ EXPERIENCE ============ -->
   <section class="page" id="page-experience" data-page="experience" data-enter="right" data-leave="right">
-    <div class="page-header">
+    <div class="page-header"><div class="ph-ring"></div><div class="ph-ring ph-ring-2"></div>
       <div class="ph-top">
         <div class="ph-left">
           <p class="ph-eyebrow"><span class="ph-eyebrow-dot"></span>Roles / Teams</p>
@@ -1593,7 +1690,7 @@
 
   <!-- ============ AWARDS ============ -->
   <section class="page" id="page-awards" data-page="awards" data-enter="up" data-leave="up">
-    <div class="page-header">
+    <div class="page-header"><div class="ph-ring"></div><div class="ph-ring ph-ring-2"></div>
       <div class="ph-top">
         <div class="ph-left">
           <p class="ph-eyebrow"><span class="ph-eyebrow-dot"></span>Recognition</p>
@@ -1737,7 +1834,7 @@
 
   <!-- ============ SKILLS ============ -->
   <section class="page" id="page-skills" data-page="skills" data-enter="left" data-leave="right">
-    <div class="page-header">
+    <div class="page-header"><div class="ph-ring"></div><div class="ph-ring ph-ring-2"></div>
       <div class="ph-top">
         <div class="ph-left">
           <p class="ph-eyebrow"><span class="ph-eyebrow-dot"></span>Capabilities</p>
@@ -1941,7 +2038,7 @@
 
   <!-- ============ ABOUT ============ -->
   <section class="page" id="page-about" data-page="about" data-enter="right" data-leave="left">
-    <div class="page-header">
+    <div class="page-header"><div class="ph-ring"></div><div class="ph-ring ph-ring-2"></div>
       <div class="ph-top">
         <div class="ph-left">
           <p class="ph-eyebrow"><span class="ph-eyebrow-dot"></span>Background</p>
@@ -2479,6 +2576,141 @@ document.querySelectorAll('.card, .award-card, .skill-card, .timeline-card, .con
   card.style.transition = 'opacity 0.5s ease, transform 0.5s ease, box-shadow 0.25s, border-color 0.25s';
   cardObserver.observe(card);
 });
+(function() {
+  var origGo = goToPage;
+  goToPage = function(name, skipHash) {
+    origGo(name, skipHash);
+    document.querySelectorAll('.npd-dot').forEach(function(d) {
+      d.classList.toggle('active', d.getAttribute('data-page') === name);
+    });
+  };
+})();
+
+/* ── scroll-to-top button visibility ── */
+function scrollCurrentPageTop() {
+  var active = document.querySelector('.page.active');
+  if (active) active.scrollTo({ top: 0, behavior: 'smooth' });
+}
+document.querySelectorAll('.page').forEach(function(page) {
+  page.addEventListener('scroll', function() {
+    var btn = document.getElementById('scrollTopBtn');
+    if (!btn) return;
+    if (page.classList.contains('active') && page.scrollTop > 320) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  });
+});
+
+/* ── 3-D card tilt on mouse move ── */
+document.querySelectorAll('.card').forEach(function(card) {
+  card.addEventListener('mousemove', function(e) {
+    var rect = card.getBoundingClientRect();
+    var cx = rect.left + rect.width / 2;
+    var cy = rect.top + rect.height / 2;
+    var dx = (e.clientX - cx) / (rect.width / 2);
+    var dy = (e.clientY - cy) / (rect.height / 2);
+    card.style.transform = 'perspective(700px) rotateY(' + (dx * 4) + 'deg) rotateX(' + (-dy * 3) + 'deg) translateY(-2px)';
+    card.classList.remove('tilt-transition');
+  });
+  card.addEventListener('mouseleave', function() {
+    card.classList.add('tilt-transition');
+    card.style.transform = '';
+    setTimeout(function() { card.classList.remove('tilt-transition'); }, 420);
+  });
+});
+
+/* ── stat card underline on scroll into view ── */
+var statObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) { e.target.classList.add('in-view'); statObserver.unobserve(e.target); }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.stat').forEach(function(s) { statObserver.observe(s); });
+
+/* ── trophy card ring reveal ── */
+var trophyObserver = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) { e.target.classList.add('revealed'); trophyObserver.unobserve(e.target); }
+  });
+}, { threshold: 0.4 });
+document.querySelectorAll('.trophy-card').forEach(function(t) {
+  /* inject ring SVG */
+  var ring = document.createElement('div');
+  ring.className = 'award-ring';
+  ring.innerHTML = '<svg viewBox="0 0 28 28"><circle cx="14" cy="14" r="11.5"/></svg>';
+  t.style.position = 'relative';
+  t.appendChild(ring);
+  trophyObserver.observe(t);
+});
+
+/* ── hero resume card entrance animation ── */
+setTimeout(function() {
+  var hrc = document.getElementById('heroResumeCard');
+  if (hrc) {
+    hrc.style.opacity = '0';
+    hrc.style.transform = 'translateY(14px)';
+    hrc.style.transition = 'opacity 0.6s ease 1.1s, transform 0.6s ease 1.1s';
+    requestAnimationFrame(function() {
+      requestAnimationFrame(function() {
+        hrc.style.opacity = '1';
+        hrc.style.transform = '';
+      });
+    });
+  }
+}, 100);
+
+/* ── fun-tag staggered entrance when home reveals ── */
+// document.querySelectorAll('.fun-tag').forEach(function(tag, i) {
+//   tag.style.opacity = '0';
+//   tag.style.transform = 'translateY(10px)';
+//   tag.style.transition = 'opacity 0.4s ease ' + (0.7 + i * 0.07) + 's, transform 0.4s ease ' + (0.7 + i * 0.07) + 's';
+// });
+// var funTagsFired = false;
+// var origGoPage2 = goToPage;
+// goToPage = function(name, skipHash) {
+//   origGoPage2(name, skipHash);
+//   if (name === 'home' && !funTagsFired) {
+//     funTagsFired = true;
+//     setTimeout(function() {
+//       document.querySelectorAll('.fun-tag').forEach(function(tag) {
+//         tag.style.opacity = '1';
+//         tag.style.transform = 'translateY(0)';
+//       });
+//     }, 300);
+//   }
+// };
+
+/* ── hero stats subtle entrance bounce ── */
+document.querySelectorAll('.hero-stat').forEach(function(s, i) {
+  s.style.opacity = '0';
+  s.style.transform = 'translateY(16px)';
+  s.style.transition = 'opacity 0.5s ease ' + (0.55 + i * 0.1) + 's, transform 0.5s cubic-bezier(0.34,1.56,0.64,1) ' + (0.55 + i * 0.1) + 's';
+});
+var statsFired = false;
+var origGoPage3 = goToPage;
+goToPage = function(name, skipHash) {
+  origGoPage3(name, skipHash);
+  if (name === 'home' && !statsFired) {
+    statsFired = true;
+    setTimeout(function() {
+      document.querySelectorAll('.hero-stat').forEach(function(s) {
+        s.style.opacity = '1';
+        s.style.transform = 'translateY(0)';
+      });
+    }, 200);
+  }
+};
+
+/* ── initial sync on first load ── */
+document.addEventListener('DOMContentLoaded', function() {
+  var initial = (location.hash || '#home').replace('#','');
+  document.querySelectorAll('.npd-dot').forEach(function(d) {
+    d.classList.toggle('active', d.getAttribute('data-page') === initial);
+  });
+});
+
 </script>
 </body>
 </html>
