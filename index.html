@@ -328,15 +328,15 @@
   .floating-shape img { width: 100%; height: 100%; object-fit: cover; transform: rotate(8deg); }
   .about-title-wrap, .project-title-wrap, .exp-title-wrap { display: flex; align-items: center; }
   .floating-emoji { display: inline-block; font-size: 1.9rem; margin-left: 0.9rem; animation: floatNatural 5s ease-in-out infinite; }
-  .floating-shape-small, .floating-shape-small-about, .exp-title-wrap-element { position: relative; width: 120px; height: 120px; border-radius: 16px; overflow: hidden; margin-left: auto; animation: floatNatural 6s ease-in-out infinite; }
+  .floating-shape-small, .floating-shape-small-about { position: relative; width: 120px; height: 120px; border-radius: 16px; overflow: hidden; margin-left: auto; animation: floatNatural 6s ease-in-out infinite; }
   .floating-shape-small img, .floating-shape-small-about img, .exp-title-wrap-element img { width: 100%; height: 100%; object-fit: cover; transform: rotate(8deg); }
   .floating-shape-car { position: relative; width: 280px; height: 150px; border-radius: 16px; overflow: hidden; margin-left: auto; animation: floatNatural 6s ease-in-out infinite; }
   .floating-shape-car img { width: 100%; height: 100%; object-fit: cover;}
-  /* .exp-title-wrap-element { position: relative; width: 120px; height: 120px; border-radius: 16px; overflow: hidden; margin-left: auto; animation: floatNatural 6s ease-in-out infinite; }
-  .floating-shape-small-about { position: relative; width: 120px; height: 120px; border-radius: 16px; overflow: hidden; margin-left: auto; animation: floatNatural 6s ease-in-out infinite; } */
+  .exp-title-wrap-element { position: relative; width: 110px; height: 110px; border-radius: 16px; overflow: hidden; margin-left: auto; animation: floatNatural 6s ease-in-out infinite; }
+  /* .floating-shape-small-about { position: relative; width: 120px; height: 120px; border-radius: 16px; overflow: hidden; margin-left: auto; animation: floatNatural 6s ease-in-out infinite; } */
 
-  @media (min-width: 860px) { .exp-title-wrap-element { display: none; } }
-  @media (max-width: 860px) { .floating-shape-small-about { display: none; } }
+  @media (min-width: 820px) { .exp-title-wrap-element { display: none; } }
+  @media (max-width: 820px) { .floating-shape-small-about { display: none; } }
 
 
   @keyframes floatNatural { 0% {transform: translate(0, 0);} 25% {transform: translate(6px, -10px);} 50% {transform: translate(0, -20px);} 75% {transform: translate(-6px, -10px);} 100% {transform: translate(0, 0);} }
@@ -742,18 +742,18 @@
   <button class="nav-logo" data-page="home" onclick="goToPage('home')">Hi, I'm Ruodi (Tinah) Yuan</button>
   <ul class="nav-links" id="navLinks">
     <li><button class="nav-link" data-page="home" onclick="goToPage('home')">Home</button></li>
+    <li><button class="nav-link" data-page="about" onclick="goToPage('about')">About</button></li>
     <li><button class="nav-link" data-page="projects" onclick="goToPage('projects')">Projects</button></li>
     <li><button class="nav-link" data-page="experience" onclick="goToPage('experience')">Experience</button></li>
     <li><button class="nav-link" data-page="awards" onclick="goToPage('awards')">Awards</button></li>
     <li><button class="nav-link" data-page="skills" onclick="goToPage('skills')">Skills</button></li>
-    <li><button class="nav-link" data-page="about" onclick="goToPage('about')">About</button></li>
     <li><button class="nav-link" data-page="contact" onclick="goToPage('contact')">Contact</button></li>
     <a class="nav-resume-btn"
-   href="Ruodi (Tinah) Yuan - Resume.pdf"
-   target="_blank"
-   rel="noopener">
+    href="Ruodi (Tinah) Yuan - Resume.pdf"
+    target="_blank"
+    rel="noopener">
     View Resume ↗
-</a>
+  </a>
   </ul>
   <button class="nav-burger" id="navBurger" aria-label="Menu" onclick="toggleBurger()"><span></span><span></span><span></span></button>
 </nav>
@@ -816,11 +816,16 @@
           </div>
           <div class="hero-ctas">
             <button class="btn-primary" onclick="goToPage('projects')">View Projects →</button>
-            <a href="https://www.linkedin.com/in/ruodiyuan" target="_blank" rel="noopener" class="btn-linkedin" aria-label="LinkedIn">
+            <!-- <a href="https://www.linkedin.com/in/ruodiyuan" target="_blank" rel="noopener" class="btn-linkedin" aria-label="LinkedIn">
               <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
             </a>
-                        <a href="mailto:ruodi.yuan@mail.utoronto.ca" class="btn-secondary">Get in touch</a>
-
+            <a href="mailto:ruodi.yuan@mail.utoronto.ca" class="btn-secondary">Get in touch</a> -->
+            <a class="btn-secondary"
+            href="Ruodi (Tinah) Yuan - Resume.pdf"
+            target="_blank"
+            rel="noopener">
+            View Resume
+          </a>
             <div class="floating-shape-flower">
               <img src="https://i.imgur.com/rO6Mx4q.png" alt="headshot">
             </div>
