@@ -743,11 +743,11 @@
           </div>
 
           <div class="hero-stat-row">
-            <div class="hero-stat"><span class="hero-stat-num" data-count="2">2+</span><span class="hero-stat-label">Years FSAE</span></div>
+            <div class="hero-stat"><span class="hero-stat-num" data-count="2" data-suffix="+">2+</span><span class="hero-stat-label">Years FSAE</span></div>
             <div class="hero-stat-divider"></div>
-            <div class="hero-stat"><span class="hero-stat-num" data-count="10">10+</span><span class="hero-stat-label">Projects</span></div>
+            <div class="hero-stat"><span class="hero-stat-num" data-count="10" data-suffix="+">10+</span><span class="hero-stat-label">Projects</span></div>
             <div class="hero-stat-divider"></div>
-            <div class="hero-stat"><span class="hero-stat-num" data-count="3">3+</span><span class="hero-stat-label">Awards</span></div>
+            <div class="hero-stat"><span class="hero-stat-num" data-count="3" data-suffix="+">3+</span><span class="hero-stat-label">Awards</span></div>
             <div class="hero-stat-divider"></div>
             <div class="hero-stat"><span class="hero-stat-num" data-count="2">2</span><span class="hero-stat-label">Design Teams</span></div>
           </div>
@@ -2218,11 +2218,14 @@ document.querySelectorAll('.page').forEach(function (page) {
 function animateCounters() {
   document.querySelectorAll('[data-count]').forEach(function (el) {
     var target = parseInt(el.getAttribute('data-count'), 10);
+    var suffix = el.getAttribute('data-suffix') || "";
     var current = 0;
     var step = Math.max(1, Math.ceil(target / 20));
+
     var timer = setInterval(function () {
       current = Math.min(current + step, target);
-      el.textContent = current;
+      el.textContent = current + suffix;
+
       if (current >= target) clearInterval(timer);
     }, 45);
   });
@@ -2237,6 +2240,7 @@ goToPage = function (name, skipHash) {
     setTimeout(animateCounters, 600);
   }
 };
+
 
 /* ===== CARD SLIDE-IN on scroll within project page ===== */
 var cardObserver = new IntersectionObserver(function (entries) {
