@@ -422,6 +422,78 @@
     .pcb-title { font-size: 1.1rem; }
   }
 
+  /* ===== PROJECTS FOOTER BANNER ===== */
+  .projects-footer-banner { margin-top: 3rem; background: var(--ink); border-radius: 18px; padding: 2.2rem 2.4rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.8rem; align-items: center; position: relative; overflow: hidden; }
+  .projects-footer-banner::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 50%, rgba(200,116,138,0.18) 0%, transparent 60%), radial-gradient(ellipse at 10% 80%, rgba(155,143,194,0.15) 0%, transparent 60%); pointer-events: none; }
+  .pfb-count { font-family: 'DM Serif Display', serif; font-size: 2.4rem; color: var(--white); line-height: 1; margin-bottom: 0.3rem; }
+  .pfb-count-label { font-size: 1rem; color: rgba(255,255,255,0.5); font-family: 'DM Sans', sans-serif; }
+  .pfb-sub { font-size: 0.82rem; color: rgba(255,255,255,0.45); margin-top: 0.4rem; }
+  .pfb-tech-cloud { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+  .pfb-tech-cloud span { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.06em; padding: 0.25rem 0.65rem; border-radius: 100px; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6); border: 1px solid rgba(255,255,255,0.1); transition: background 0.2s, color 0.2s; cursor: default; }
+  .pfb-tech-cloud span:hover { background: rgba(200,116,138,0.25); color: var(--rose-mid); border-color: rgba(200,116,138,0.3); }
+  .pfb-cta { grid-column: 1 / -1; background: var(--rose); color: var(--white); border: none; border-radius: 100px; padding: 0.85rem 2rem; font-size: 0.88rem; font-weight: 700; font-family: 'DM Sans', sans-serif; letter-spacing: 0.03em; cursor: pointer; transition: background 0.2s, transform 0.15s; width: fit-content; }
+  .pfb-cta:hover { background: #b5607a; transform: translateY(-2px); }
+  @media (max-width: 680px) {
+    .projects-footer-banner { grid-template-columns: 1fr; padding: 1.6rem; gap: 1.2rem; }
+    .pfb-count { font-size: 1.8rem; }
+  }
+
+  /* ===== CONTACT PAGE REDESIGN ===== */
+  .contact-hero { position: relative; background: linear-gradient(145deg, #1e1519 0%, #2a1f2e 50%, #1a1e2a 100%); padding: 4rem 3rem 3.5rem; overflow: hidden; min-height: 340px; display: flex; align-items: center; }
+  .contact-hero-glow { position: absolute; border-radius: 50%; filter: blur(70px); pointer-events: none; }
+  .glow-a { width: 380px; height: 380px; background: rgba(200,116,138,0.22); top: -100px; right: -60px; animation: blobDrift2 16s ease-in-out infinite; }
+  .glow-b { width: 260px; height: 260px; background: rgba(155,143,194,0.2); bottom: -60px; left: 10%; animation: blobDrift1 20s ease-in-out infinite; }
+  .glow-c { width: 160px; height: 160px; background: rgba(122,158,142,0.16); top: 40%; left: 45%; animation: blobDrift3 24s ease-in-out infinite; }
+  .contact-hero-inner { position: relative; z-index: 2; max-width: 780px; }
+  .contact-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.7rem; letter-spacing: 0.2em; color: var(--rose-mid); text-transform: uppercase; margin-bottom: 1rem; display: flex; align-items: center; gap: 0.6rem; }
+  .contact-eyebrow::before { content: ''; width: 22px; height: 1.5px; background: var(--rose-mid); display: inline-block; }
+  .contact-big-title { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 3.6rem); color: #FAF8F4; line-height: 1.05; letter-spacing: -0.01em; margin-bottom: 1.1rem; }
+  .contact-big-title em { font-style: italic; color: var(--rose-mid); }
+  .contact-hero-sub { font-size: 0.95rem; color: rgba(255,255,255,0.6); line-height: 1.75; max-width: 560px; margin-bottom: 1.6rem; }
+  .contact-avail-chips { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .cac { font-family: 'DM Mono', monospace; font-size: 0.67rem; letter-spacing: 0.06em; padding: 0.38rem 0.9rem; border-radius: 100px; background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.65); border: 1px solid rgba(255,255,255,0.12); }
+  .cac.cac-green { color: #86efac; border-color: rgba(134,239,172,0.3); background: rgba(134,239,172,0.08); }
+  .contact-cards-new { display: flex; flex-direction: column; gap: 0.7rem; margin-top: 1.2rem; margin-bottom: 2.2rem; }
+  .ccn-card { display: flex; align-items: center; gap: 1.2rem; padding: 1.1rem 1.4rem; border-radius: 12px; background: var(--white); border: 1.5px solid var(--rule); text-decoration: none; transition: border-color 0.22s, transform 0.2s, box-shadow 0.22s; }
+  .ccn-card:hover { transform: translateX(5px); box-shadow: 0 6px 24px rgba(0,0,0,0.07); }
+  .ccn-email:hover  { border-color: var(--rose); }
+  .ccn-linkedin:hover { border-color: #0A66C2; }
+  .ccn-devpost:hover { border-color: #003E54; }
+  .ccn-phone:hover  { border-color: var(--sage); }
+  .ccn-resume:hover { border-color: var(--lavender); }
+  .ccn-icon-wrap { width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .ccn-email  .ccn-icon-wrap { background: var(--rose-light);     color: var(--rose); }
+  .ccn-linkedin .ccn-icon-wrap { background: #E8F0FB;             color: #0A66C2; }
+  .ccn-devpost  .ccn-icon-wrap { background: #E0EFF5;             color: #003E54; }
+  .ccn-phone  .ccn-icon-wrap { background: var(--sage-light);     color: var(--sage); }
+  .ccn-resume .ccn-icon-wrap { background: var(--lavender-light); color: var(--lavender); }
+  .ccn-text { flex: 1; display: flex; flex-direction: column; gap: 0.1rem; }
+  .ccn-label { font-size: 0.72rem; font-family: 'DM Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-light); }
+  .ccn-value { font-size: 0.9rem; font-weight: 600; color: var(--ink); }
+  .ccn-arrow { font-size: 1rem; color: var(--ink-light); transition: transform 0.2s, color 0.2s; flex-shrink: 0; }
+  .ccn-card:hover .ccn-arrow { transform: translateX(4px); color: var(--rose); }
+  .ccn-linkedin:hover .ccn-arrow { color: #0A66C2; }
+  .ccn-resume:hover .ccn-arrow { color: var(--lavender); }
+  .interests-strip { background: var(--cream2); border: 1px solid var(--rule); border-radius: 14px; padding: 1.4rem 1.8rem; margin-bottom: 1.2rem; }
+  .interests-label { font-family: 'DM Mono', monospace; font-size: 0.65rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 1rem; }
+  .interests-row { display: flex; flex-wrap: wrap; align-items: center; }
+  .interest-item { display: flex; align-items: center; gap: 0.5rem; padding: 0.25rem 0.7rem; }
+  .ii-icon { font-size: 1.1rem; }
+  .ii-text { font-size: 0.83rem; font-weight: 600; color: var(--ink-mid); white-space: nowrap; }
+  .interest-divider { width: 1px; height: 18px; background: var(--rule); flex-shrink: 0; }
+  .response-note { display: flex; align-items: center; gap: 0.8rem; padding: 0.9rem 1.2rem; background: var(--white); border: 1px solid var(--rule); border-radius: 10px; margin-bottom: 3rem; }
+  .rn-pulse { width: 8px; height: 8px; border-radius: 50%; background: var(--sage); flex-shrink: 0; animation: pulse 1.8s ease-in-out infinite; }
+  .response-note p { font-size: 0.83rem; color: var(--ink-mid); line-height: 1.5; }
+  @media (max-width: 680px) {
+    .contact-hero { padding: 2.5rem 1.5rem 2.5rem; min-height: auto; }
+    .contact-big-title { font-size: 1.85rem; }
+    .interest-divider { display: none; }
+    .interest-item { padding: 0.3rem 0.4rem; }
+    .ii-text { font-size: 0.76rem; }
+    .ccn-card { padding: 0.9rem 1rem; gap: 0.9rem; }
+    .ccn-value { font-size: 0.82rem; }
+  }
+
   /* FOOTER */
   footer { border-top: 1px solid var(--rule); padding: 2.5rem 3rem; display: flex; align-items: center; justify-content: space-between; background: var(--cream2); flex-wrap: wrap; gap: 1rem; }
   .footer-sig { font-family: 'DM Serif Display', serif; font-size: 0.9rem; color: var(--ink-light); }
@@ -1233,6 +1305,22 @@
           </div>
         </div>
 
+      </div><!-- /projects-grid -->
+
+      <!-- PROJECTS FOOTER BANNER -->
+      <div class="projects-footer-banner">
+        <div class="pfb-left">
+          <p class="pfb-count"><span id="visibleCount">10</span><span class="pfb-count-label"> projects &amp; counting</span></p>
+          <p class="pfb-sub">More write-ups added as projects wrap up — check back soon.</p>
+        </div>
+        <div class="pfb-right">
+          <div class="pfb-tech-cloud">
+            <span>SolidWorks</span><span>MATLAB</span><span>Simulink</span><span>ANSYS</span>
+            <span>Python</span><span>OpenCV</span><span>Arduino</span><span>Raspberry Pi</span>
+            <span>FEA</span><span>GD&amp;T</span><span>3D Printing</span><span>Composites</span>
+          </div>
+        </div>
+        <button class="pfb-cta" onclick="goToPage('contact')">Open to internships · Say hello →</button>
       </div>
     </div>
         <footer>
@@ -1255,7 +1343,7 @@
         <span class="floating-emoji">🏁</span>
           <div class="floating-shape-car">
           <img src="https://i.imgur.com/SCggmWR.jpeg" alt="headshot">
-        </div>
+      </div>
       </div>
       <p class="section-intro">Beyond individual projects, here's the leadership and team experience behind them — across Formula SAE Racing and the SAE Aero Design.</p>
 
@@ -1757,41 +1845,111 @@
 
   <!-- ============ CONTACT ============ -->
   <section class="page" id="page-contact" data-page="contact" data-enter="up" data-leave="down">
-    <div class="section-shell page-pad">
-      <p class="section-label">Get in touch</p>
-      <div class="exp-title-wrap">
-        <h2 class="section-title">Let's <em>Connect</em></h2>
-        <span class="floating-emoji">📬</span>
-      </div>
-      <p class="section-intro">I'm seeking internships from May to September 2026. Reach out — I'd love to talk about mechanical design, racing, aerospace, or anything in between.</p>
-      <div class="contact-grid">
-        <a class="contact-card" href="mailto:ruodi.yuan@mail.utoronto.ca">
-          <span class="contact-icon">✉️</span>
-          <span class="contact-label">Email</span>
-          <span class="contact-sub">ruodi.yuan@mail.utoronto.ca</span>
-        </a>
-        <a class="contact-card" href="https://www.linkedin.com/in/ruodiyuan" target="_blank" rel="noopener">
-          <span class="contact-icon">💼</span>
-          <span class="contact-label">LinkedIn</span>
-          <span class="contact-sub">/in/ruodiyuan</span>
-        </a>
-        <a class="contact-card" href="https://devpost.com/tinayuan060123" target="_blank" rel="noopener">
-          <span class="contact-icon">🛠️</span>
-          <span class="contact-label">Devpost</span>
-          <span class="contact-sub">Hackathon projects</span>
-        </a>
-        <a class="contact-card" href="tel:+17786827471">
-          <span class="contact-icon">📱</span>
-          <span class="contact-label">Phone</span>
-          <span class="contact-sub">+1 (778) 682-7471</span>
-        </a>
-        <a class="contact-card" href="Ruodi_Tinah_Yuan_Resume.pdf" download>
-          <span class="contact-icon">📄</span>
-          <span class="contact-label">Resume</span>
-          <span class="contact-sub">Download PDF</span>
-        </a>
+
+    <!-- DARK HERO BANNER -->
+    <div class="contact-hero">
+      <div class="contact-hero-glow glow-a"></div>
+      <div class="contact-hero-glow glow-b"></div>
+      <div class="contact-hero-glow glow-c"></div>
+      <div class="contact-hero-inner">
+        <p class="contact-eyebrow">Open to opportunities</p>
+        <h2 class="contact-big-title">Let's build something<br><em>interesting</em> together.</h2>
+        <p class="contact-hero-sub">I'm seeking engineering internships for May – Sept 2027. Whether it's mechanical design, thermal systems, robotics, or anything that involves making things go fast — I'd love to chat.</p>
+        <div class="contact-avail-chips">
+          <span class="cac">📍 Toronto, Canada</span>
+          <span class="cac">🗓️ Available May – Sept 2027</span>
+          <span class="cac cac-green">🟢 Open to internships</span>
+        </div>
       </div>
     </div>
+
+    <!-- CONTACT CARDS GRID -->
+    <div class="section-shell">
+      <p class="section-label" style="margin-top:2.2rem;">Reach me at</p>
+      <div class="contact-cards-new">
+
+        <a class="ccn-card ccn-email" href="mailto:ruodi.yuan@mail.utoronto.ca">
+          <div class="ccn-icon-wrap">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          </div>
+          <div class="ccn-text">
+            <span class="ccn-label">Email</span>
+            <span class="ccn-value">ruodi.yuan@mail.utoronto.ca</span>
+          </div>
+          <span class="ccn-arrow">→</span>
+        </a>
+
+        <a class="ccn-card ccn-linkedin" href="https://www.linkedin.com/in/ruodiyuan" target="_blank" rel="noopener">
+          <div class="ccn-icon-wrap">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+          </div>
+          <div class="ccn-text">
+            <span class="ccn-label">LinkedIn</span>
+            <span class="ccn-value">/in/ruodiyuan</span>
+          </div>
+          <span class="ccn-arrow">→</span>
+        </a>
+
+        <a class="ccn-card ccn-devpost" href="https://devpost.com/tinayuan060123" target="_blank" rel="noopener">
+          <div class="ccn-icon-wrap">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M6.002 1.61 0 12.004 6.002 22.39h11.996L24 12.004 17.998 1.61zm1.593 4.084h3.947c3.605 0 6.276 1.695 6.276 6.31 0 4.436-3.21 6.302-6.456 6.302H7.595zm2.517 2.449v7.714h1.241c2.646 0 3.862-1.55 3.862-3.861.009-2.569-1.096-3.853-3.767-3.853z"/></svg>
+          </div>
+          <div class="ccn-text">
+            <span class="ccn-label">Devpost</span>
+            <span class="ccn-value">Hackathon projects</span>
+          </div>
+          <span class="ccn-arrow">→</span>
+        </a>
+
+        <a class="ccn-card ccn-phone" href="tel:+17786827471">
+          <div class="ccn-icon-wrap">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.26h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.83a16 16 0 0 0 6.29 6.29l1.94-1.94a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </div>
+          <div class="ccn-text">
+            <span class="ccn-label">Phone</span>
+            <span class="ccn-value">+1 (778) 682-7471</span>
+          </div>
+          <span class="ccn-arrow">→</span>
+        </a>
+
+        <a class="ccn-card ccn-resume" href="Ruodi_Tinah_Yuan_Resume.pdf" download>
+          <div class="ccn-icon-wrap">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
+          </div>
+          <div class="ccn-text">
+            <span class="ccn-label">Resume</span>
+            <span class="ccn-value">Download PDF ↓</span>
+          </div>
+          <span class="ccn-arrow">↓</span>
+        </a>
+
+      </div>
+
+      <!-- INTERESTS STRIP -->
+      <div class="interests-strip">
+        <p class="interests-label">What I love working on</p>
+        <div class="interests-row">
+          <div class="interest-item"><span class="ii-icon">🏎️</span><span class="ii-text">Formula SAE Racing</span></div>
+          <div class="interest-divider"></div>
+          <div class="interest-item"><span class="ii-icon">✈️</span><span class="ii-text">Aerospace Systems</span></div>
+          <div class="interest-divider"></div>
+          <div class="interest-item"><span class="ii-icon">🌡️</span><span class="ii-text">Thermal Engineering</span></div>
+          <div class="interest-divider"></div>
+          <div class="interest-item"><span class="ii-icon">🤖</span><span class="ii-text">Robotics</span></div>
+          <div class="interest-divider"></div>
+          <div class="interest-item"><span class="ii-icon">🧪</span><span class="ii-text">Bioengineering</span></div>
+          <div class="interest-divider"></div>
+          <div class="interest-item"><span class="ii-icon">⚙️</span><span class="ii-text">Mechatronics</span></div>
+        </div>
+      </div>
+
+      <!-- FUN RESPONSE-TIME NOTE -->
+      <div class="response-note">
+        <div class="rn-pulse"></div>
+        <p>Typically responds within 24 hours — unless I'm in the shop or on the track 🏁</p>
+      </div>
+
+    </div><!-- /section-shell -->
     <div class="ticker-strip">
       <div class="ticker-inner">
         <span>Vehicle Dynamics Lead @ UofT FSAE</span>
@@ -1906,11 +2064,15 @@ document.querySelectorAll('.filter-tab').forEach(function (tab) {
     var grid = document.getElementById('projectsGrid');
     grid.classList.add('filtering');
     setTimeout(function () {
+      var count = 0;
       document.querySelectorAll('#projectsGrid .card').forEach(function (card) {
         var cat = card.getAttribute('data-category');
         var show = (f === 'all' || cat === f || cat === 'all');
         card.style.display = show ? '' : 'none';
+        if (show) count++;
       });
+      var el = document.getElementById('visibleCount');
+      if (el) el.textContent = count;
       grid.classList.remove('filtering');
     }, 250);
   });
