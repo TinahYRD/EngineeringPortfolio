@@ -1,0 +1,130 @@
+/* ===============================================================
+   MASCOT STYLES
+   A small fixed-position companion, independent of the .page system
+   so it persists across every page/transition. New keyframes only —
+   nothing here overrides or edits any existing animation.
+   =============================================================== */
+
+.mascot {
+  position: fixed;
+  right: 2.4rem;
+  bottom: 1.6rem;
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.6rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.mascot.visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+#mascot {
+  z-index: 2147483647;
+}
+.mascot * { pointer-events: auto; }
+
+@keyframes mascotBob {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-7px) rotate(-2deg); }
+}
+@keyframes mascotWiggle {
+  0%, 100% { transform: rotate(0deg); }
+  20% { transform: rotate(-8deg); }
+  40% { transform: rotate(7deg); }
+  60% { transform: rotate(-5deg); }
+  80% { transform: rotate(3deg); }
+}
+@keyframes mascotBounce {
+  0% { transform: scale(1); }
+  35% { transform: scale(0.88, 1.1); }
+  60% { transform: scale(1.08, 0.94); }
+  100% { transform: scale(1); }
+}
+@keyframes mascotTailSwish {
+  0%, 100% { transform: rotate(-12deg); }
+  50% { transform: rotate(18deg); }
+}
+
+.mascot-body {
+  position: relative;
+  width: 66px;
+  height: 66px;
+  border-radius: 50%;
+  background: linear-gradient(160deg, var(--rose-mid), var(--rose));
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 10px 26px rgba(200, 187, 116, 0.32), 0 0 0 4px var(--white);
+  animation: mascotBob 3.4s ease-in-out infinite;
+  transition: box-shadow 0.2s;
+}
+.mascot-body:hover { box-shadow: 0 14px 30px rgba(200, 180, 116, 0.4), 0 0 0 4px var(--white); }
+.mascot.bounce .mascot-body { animation: mascotBob 3.4s ease-in-out infinite, mascotBounce 0.42s ease; }
+.mascot.wiggle .mascot-body { animation: mascotBob 3.4s ease-in-out infinite, mascotWiggle 0.7s ease; }
+
+.mascot-ears { position: absolute; top: -10px; left: 0; right: 0; display: flex; justify-content: space-between; padding: 0 10px; }
+.mascot-ears span { width: 0; height: 0; border-left: 9px solid transparent; border-right: 9px solid transparent; border-bottom: 16px solid var(--rose); }
+.mascot-ears span:first-child { transform: rotate(-18deg); }
+.mascot-ears span:last-child { transform: rotate(18deg); }
+
+.mascot-face { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 3px; }
+.mascot-eyes { display: flex; gap: 10px; }
+.mascot-eye { width: 8px; height: 8px; border-radius: 50%; background: var(--ink); display: block; transition: transform 0.08s linear; }
+.mascot-nose { width: 6px; height: 5px; border-radius: 2px 2px 4px 4px; background: var(--ink); margin-top: 2px; }
+.mascot-mouth { width: 14px; height: 6px; border-bottom: 2px solid var(--ink); border-radius: 0 0 10px 10px; margin-top: 1px; opacity: 0.75; }
+.mascot-cheeks { position: absolute; top: 34px; left: 0; right: 0; display: flex; justify-content: space-between; padding: 0 4px; }
+.mascot-cheeks span { width: 9px; height: 6px; border-radius: 50%; background: var(--rose-bg); opacity: 0.85; }
+
+.mascot-tail {
+  position: absolute;
+  bottom: 2px;
+  left: -8px;
+  width: 16px;
+  height: 16px;
+  border-radius: 0 100% 0 100%;
+  background: var(--rose-mid);
+  transform-origin: top right;
+  animation: mascotTailSwish 2.6s ease-in-out infinite;
+}
+
+/* ---- Speech bubble ---- */
+.mascot-bubble {
+  max-width: 240px;
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 14px 14px 4px 14px;
+  padding: 0.85rem 1rem;
+  box-shadow: 0 14px 34px rgba(60,45,40,0.14);
+  opacity: 0;
+  transform: translateY(8px) scale(0.94);
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  margin-right: 2.6rem;
+}
+.mascot-bubble.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
+.mascot-bubble-text { font-size: 0.82rem; color: var(--ink-mid); line-height: 1.55; margin: 0; }
+.mascot-bubble-cta {
+  display: inline-flex;
+  margin-top: 0.6rem;
+  background: none;
+  border: none;
+  color: var(--rose);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.78rem;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  letter-spacing: 0.02em;
+}
+.mascot-bubble-cta:hover { text-decoration: underline; }
+
+@media (max-width: 640px) {
+  .mascot { right: 1rem; bottom: 1rem; }
+  .mascot-body { width: 56px; height: 56px; }
+  .mascot-bubble { max-width: 190px; }
+}
