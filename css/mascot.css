@@ -124,7 +124,7 @@
 .mascot-bubble-cta:hover { text-decoration: underline; }
 
 @media (max-width: 640px) {
-  .mascot { right: 3.5rem; bottom: 1.5rem; }
+  .mascot { right: 1.5rem; bottom: 1.5rem; }
   .mascot-body { width: 56px; height: 56px; }
   .mascot-bubble { max-width: 190px; }
 }

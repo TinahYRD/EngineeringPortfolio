@@ -4,7 +4,7 @@
     --cream3: #EDE7DC;
     --white: #FFFFFF;
     --rose: #C8748A;
-    --rose-dark: #9e4e64;
+    --rose-dark: #7c394b;
     --rose-light: #F2DADE;
     --rose-mid: #E0A3AD;
     --rose-bg: #FBF0F1;
@@ -773,7 +773,7 @@
   @keyframes photoRingPulse { 0%,100% { opacity: 0; transform: scale(1); } 50% { opacity: 0.45; transform: scale(1.018); } }
 
   /* ── SCROLL-TO-TOP button ── */
-  #scrollTopBtn { position: fixed; bottom: 8rem; right: 2rem; width: 44px; height: 44px; border-radius: 50%; background: var(--rose); color: var(--white); border: none; cursor: pointer; z-index: 150; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(200,116,138,0.35); opacity: 0; transform: translateY(10px) scale(0.85); transition: opacity 0.3s, transform 0.3s, background 0.2s; pointer-events: none; font-size: 1rem; }
+  #scrollTopBtn { position: fixed; bottom: 8rem; right: 2rem; width: 44px; height: 44px; border-radius: 50%; background: var(--rose-mid); color: var(--white); border: none; cursor: pointer; z-index: 150; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(200,116,138,0.35); opacity: 0; transform: translateY(10px) scale(0.85); transition: opacity 0.3s, transform 0.3s, background 0.2s; pointer-events: none; font-size: 1rem; }
   #scrollTopBtn.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
   #scrollTopBtn:hover { background: #b5607a; transform: translateY(-2px) scale(1.05); }
   @media (max-width: 860px) { #scrollTopBtn { bottom: 7.2rem; right: 1.5rem; width: 38px; height: 38px; } }
