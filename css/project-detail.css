@@ -82,13 +82,53 @@
 .pd-section-title em { font-style: italic; color: var(--rose); }
 .pd-overview { color: var(--ink-mid); font-size: 0.96rem; line-height: 1.85; }
 
-.pd-feature-list, .pd-process-list {
+/* ---- Gallery grid (added: click-to-enlarge photo grid, reference-style) ---- */
+.pd-gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 0.8rem;
+  margin-top: 0.2rem;
+}
+.pd-gallery-item {
+  border-radius: 10px;
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background: var(--cream2);
+  cursor: pointer;
+  transition: transform 0.22s, box-shadow 0.22s;
+}
+.pd-gallery-item:hover { transform: scale(1.03); box-shadow: 0 8px 24px rgba(0,0,0,0.12); }
+.pd-gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.pd-gallery-item.wide { grid-column: span 2; aspect-ratio: 16/9; }
+
+/* ---- Key Feature cards (reference-style: icon + name + description) ---- */
+.pd-feature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
+  gap: 0.8rem;
+}
+.pd-feature-card {
+  background: var(--white);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  transition: border-color 0.2s, transform 0.2s;
+}
+.pd-feature-card:hover { border-color: var(--rose-mid); transform: translateY(-2px); }
+.pd-feature-icon { font-size: 1.4rem; }
+.pd-feature-name { font-weight: 700; font-size: 0.84rem; color: var(--ink); }
+.pd-feature-desc { font-size: 0.78rem; color: var(--ink-mid); line-height: 1.5; }
+
+.pd-process-list {
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 0.9rem;
 }
-.pd-feature-list li {
+/* .pd-feature-list li {
   position: relative;
   padding-left: 2rem;
   font-size: 0.9rem;
@@ -102,7 +142,7 @@
   top: 0.05em;
   color: var(--rose);
   font-size: 0.85rem;
-}
+} */
 
 .pd-process-list { counter-reset: pd-step; }
 .pd-process-list li {
@@ -211,4 +251,7 @@
 }
 @media (max-width: 560px) {
   .pd-gallery .media-slide { aspect-ratio: 4/3; }
+  .pd-gallery-grid { grid-template-columns: 1fr 1fr; }
+  .pd-feature-grid { grid-template-columns: 1fr 1fr; }
+  .pd-gallery-item.wide { grid-column: span 2; }
 }

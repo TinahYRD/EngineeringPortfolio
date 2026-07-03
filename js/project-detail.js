@@ -63,13 +63,39 @@ function openProjectDetail(id, skipHash) {
   // ---- Overview ----
   document.getElementById('pdOverview').textContent = p.overview;
 
-  // ---- Key Features ----
+  // ---- Gallery (grid of clickable photos) ----
+  var galleryGrid = document.getElementById('pdGalleryGrid');
+  var gallerySection = document.getElementById('pdGallerySection');
+  galleryGrid.innerHTML = '';
+  if (p.gallery && p.gallery.length) {
+    gallerySection.style.display = '';
+    p.gallery.forEach(function (g, i) {
+      var item = document.createElement('div');
+      item.className = 'pd-gallery-item' + (g.wide ? ' wide' : '');
+      item.title = 'Click to enlarge';
+      var img = document.createElement('img');
+      img.src = g.src;
+      img.alt = g.alt || p.title;
+      img.loading = 'lazy';
+      item.appendChild(img);
+      item.addEventListener('click', function () { openGalleryLightbox(p.gallery, i); });
+      galleryGrid.appendChild(item);
+    });
+  } else {
+    gallerySection.style.display = 'none';
+  }
+
+  // ---- Key Features (icon + name + description cards) ----
   var feat = document.getElementById('pdFeatures');
   feat.innerHTML = '';
   p.keyFeatures.forEach(function (f) {
-    var li = document.createElement('li');
-    li.innerHTML = f;
-    feat.appendChild(li);
+    var card = document.createElement('div');
+    card.className = 'pd-feature-card';
+    card.innerHTML =
+      '<span class="pd-feature-icon">' + f.icon + '</span>' +
+      '<span class="pd-feature-name">' + f.name + '</span>' +
+      '<span class="pd-feature-desc">' + f.desc + '</span>';
+    feat.appendChild(card);
   });
 
   // ---- Design Process ----
@@ -148,6 +174,16 @@ function wordWrapTitle(title) {
   return title.split(' ').map(function (w) {
     return '<span class="ph-word"><span>' + w + '</span></span>';
   }).join('&nbsp;');
+}
+
+/* Opens the site's existing lightbox (#lightbox) for a gallery-grid image,
+   reusing the same currentGallery/currentIndex/renderLightbox globals from
+   site.js so prev/next + close all work identically to the carousel. */
+function openGalleryLightbox(images, index) {
+  currentGallery = images.map(function (g) { return { type: 'image', src: g.src }; });
+  currentIndex = index;
+  renderLightbox();
+  document.getElementById('lightbox').style.display = 'flex';
 }
 
 function renderRelatedProjects(current) {
