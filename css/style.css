@@ -4,6 +4,7 @@
     --cream3: #EDE7DC;
     --white: #FFFFFF;
     --rose: #C8748A;
+    --rose-dark: #9e4e64;
     --rose-light: #F2DADE;
     --rose-mid: #E0A3AD;
     --rose-bg: #FBF0F1;
@@ -18,6 +19,9 @@
     --rule: rgba(100,80,70,0.10);
     --r: 10px;
     --nav-h: 68px;
+    --cream4: #eec572;
+    --cream5: #b87c45;
+
   }
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
@@ -123,7 +127,9 @@
   .ph-left { flex: 1; min-width: 260px; }
   .ph-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.68rem; letter-spacing: 0.22em; color: var(--rose); text-transform: uppercase; display: flex; align-items: center; gap: 0.6rem; margin-bottom: 0.6rem; }
   .ph-eyebrow-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--rose); animation: pulse 2s ease-in-out infinite; }
-  .ph-title { font-family: 'DM Serif Display', serif; font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 400; line-height: 1.25; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 0.1rem; }
+  .ph-gradient { background: linear-gradient(135deg, var(--rose) 0%, var(--lavender) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .ph-title { font-family: 'DM Serif Display', serif; font-size: clamp(2.2rem, 5vw, 3.8rem); font-weight: 400; line-height: 1.25; letter-spacing: -0.02em; color: var(--rose-dark); margin-bottom: 0.1rem; }
+
   .ph-title em { font-style: italic; color: var(--rose); margin-right: 0.05em; }
   .ph-title .ph-word { display: inline-block; overflow: hidden; vertical-align: bottom; }
   .ph-title .ph-word span { display: inline-block; transform: translateY(110%); animation: wordSlide 0.65s cubic-bezier(0.16,1,0.3,1) forwards; }
@@ -572,12 +578,12 @@
   /* FOOTER */
   footer { border-top: 1px solid var(--rule); padding: 2.5rem 3rem; display: flex; align-items: center; justify-content: space-between; background: var(--cream2); flex-wrap: wrap; gap: 1rem; }
   .footer-sig { font-family: 'DM Serif Display', serif; font-size: 0.9rem; color: var(--ink-light); }
-  .footer-links { display: flex; gap: 1.8rem; flex-wrap: wrap; margin-right: 1.2rem; }
+  .footer-links { display: flex; gap: 1.8rem; flex-wrap: wrap; margin-right: 1rem; }
   .footer-links a { font-size: 0.82rem; color: var(--ink-light); text-decoration: none; transition: color 0.2s; font-weight: 500; }
   .footer-links a:hover { color: var(--rose); }
   .divider { max-width: 1120px; margin: 0 auto; height: 1px; background: var(--rule); }
 
-  @media (min-width: 860px) { .footer-links { margin-right: 4rem; } }
+  @media (min-width: 860px) { .footer-links { margin-right: 4.6rem; } }
 
   .hero-floating-img1, .hero-floating-img2 { position: relative; width: clamp(180px, 15vw, 220px); height: clamp(100px, 10vw, 140px); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.12); }
   .hero-floating-img2 { width: clamp(200px, 15vw, 250px); height: clamp(105px, 10vw, 145px); }
@@ -770,7 +776,7 @@
   #scrollTopBtn { position: fixed; bottom: 8rem; right: 2rem; width: 44px; height: 44px; border-radius: 50%; background: var(--rose); color: var(--white); border: none; cursor: pointer; z-index: 150; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 16px rgba(200,116,138,0.35); opacity: 0; transform: translateY(10px) scale(0.85); transition: opacity 0.3s, transform 0.3s, background 0.2s; pointer-events: none; font-size: 1rem; }
   #scrollTopBtn.visible { opacity: 1; transform: translateY(0) scale(1); pointer-events: auto; }
   #scrollTopBtn:hover { background: #b5607a; transform: translateY(-2px) scale(1.05); }
-  @media (max-width: 860px) { #scrollTopBtn { bottom: 7.2rem; right: 1.2rem; width: 38px; height: 38px; } }
+  @media (max-width: 860px) { #scrollTopBtn { bottom: 7.2rem; right: 1.5rem; width: 38px; height: 38px; } }
 
   /* ── FUN TAG hover pop ── */
   @keyframes tagPop { 0% { transform: scale(1); } 40% { transform: scale(1.18) rotate(-2deg); } 70% { transform: scale(0.95) rotate(1deg); } 100% { transform: scale(1); } }
