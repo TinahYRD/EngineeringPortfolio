@@ -126,5 +126,5 @@
 @media (max-width: 640px) {
   .mascot { right: 2rem; bottom: 1.5rem; }
   .mascot-body { width: 56px; height: 56px; }
-  .mascot-bubble { max-width: 190px; }
+  .mascot-bubble { max-width: 220px; }
 }
