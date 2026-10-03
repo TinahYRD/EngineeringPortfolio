@@ -1,8 +1,14 @@
 /* ===============================================================
    PROJECTS DATA
-   Structured content for each project detail page. Sourced directly
-   from the project cards on the Projects page (same copy, same media),
-   just organized for the individual project pages.
+   Structured content for each project detail page.
+   Fields:
+     overview       – technical summary (problem → approach → result)
+     metrics        – 2-3 headline numbers shown as chips on the cards
+     specs          – key-numbers table rendered on the detail page
+     decisions      – design decision log (decision → options → choice → rationale)
+     keyFeatures    – icon cards
+     designProcess  – ordered steps (HTML allowed)
+   All figures come from the original project write-ups / resume.
    =============================================================== */
 
 var PROJECTS_ORDER = ["cooling-sim", "cooling-loop", "drivetrain", "maple-structures", "nose-gear", "arming-housing", "red-lamp", "planet-shafts", "pg-marketing", "face-tracking-robot"];
@@ -17,22 +23,56 @@ var PROJECTS = {
     org: `University of Toronto Formula SAE Racing`,
     date: `April 2026 — May 2026`,
     award: null,
-    overview: `Developed a physics-based MATLAB/Simulink thermal model of a dual-inverter cooling loop to predict motor temperatures under endurance race conditions, digitizing the Fischer motor's power-efficiency map into a high-resolution lookup table to establish the system's thermal boundary condition. The simulated endurance run returned a mean motor efficiency of 95.84% (ranging 86.09%–97.97%), corresponding to an average thermal loss of ~5.5 kW that the cooling system was sized to reject. The model was validated against historical endurance-run telemetry and used to evaluate cooling performance across varying vehicle speeds and thermal loads.`,
+    overview: `The cooling system for the team's AWD EV needed a defensible heat-load number before any radiator, pump, or hose could be sized. I built a physics-based MATLAB/Simulink thermal model of the dual-inverter cooling loop and drove it with a motor efficiency that varies with operating point. The Fischer motor's power-efficiency map was digitized into a high-resolution lookup table with automated MATLAB tooling and integrated into the Simulink vehicle model, so efficiency is evaluated continuously across a simulated endurance event. Losses were computed as P_loss = P_input(1 − η): the run returned a mean motor efficiency of 95.84% (range 86.09%–97.97%) and an average thermal loss of ~5.5 kW — the heat-rejection boundary condition the cooling system was sized against. The model was checked against measured endurance-run temperatures and is reusable for evaluating future cooling changes.`,
+    metrics: [
+      { v: `95.84%`, l: `mean η` },
+      { v: `~5.5 kW`, l: `avg heat load` },
+      { v: `86–98%`, l: `η range` }
+    ],
+    specs: [
+      [`Modelling environment`, `MATLAB + Simulink`],
+      [`Efficiency source`, `Fischer motor power-efficiency map → digitized lookup table`],
+      [`Mean motor efficiency`, `95.84%`],
+      [`Efficiency range`, `86.09% – 97.97%`],
+      [`Loss model`, `P<sub>loss</sub> = P<sub>input</sub>(1 − η)`],
+      [`Average thermal loss`, `≈ 5.5 kW (sizing target)`],
+      [`Validation`, `Simulated vs. measured endurance-run motor temperatures`]
+    ],
+    decisions: [
+      {
+        q: `How should motor efficiency enter the thermal model?`,
+        options: [],
+        choice: `Digitized manufacturer efficiency map → high-resolution lookup table, evaluated continuously in Simulink`,
+        why: `Efficiency depends on the operating point — it ranged from 86.09% to 97.97% across the simulated endurance run — so it is interpolated from the map at each point rather than assumed.`
+      },
+      {
+        q: `What heat load is the cooling system sized to?`,
+        options: [],
+        choice: `Reject at least ≈ 5.5 kW, plus an appropriate safety margin`,
+        why: `The average motor thermal loss over the simulated endurance event (≈ 5.5 kW) represents the required heat removal; the margin is there to maintain safe operating temperatures.`
+      },
+      {
+        q: `How is the model checked?`,
+        options: [],
+        choice: `Compare simulated motor temperatures with measured endurance-run data`,
+        why: `Historical endurance telemetry and component data supplied realistic operating inputs and thermal loading, and the measured temperatures provide the comparison — making the model a framework for analyzing future cooling-system modifications.`
+      }
+    ],
     keyFeatures: [
-      { icon: `🌡️`, name: `Physics-Based Thermal Model`, desc: `Full circuit heat transfer including radiator rejection and component heat addition` },
-      { icon: `📊`, name: `Motor Efficiency Digitization`, desc: `Automated MATLAB tool to convert 2D efficiency map into high-res lookup table` },
-      { icon: `🔄`, name: `Endurance Event Simulation`, desc: `Continuous motor efficiency evaluation across a full simulated 22-km endurance run` },
-      { icon: `✅`, name: `Validation`, desc: `Simulated temperatures validated against endurance-run sensor data` },
+      { icon: `🌡️`, name: `Physics-Based Thermal Model`, desc: `Full-circuit heat transfer: heat addition from powertrain components and rejection through the radiator` },
+      { icon: `📊`, name: `Efficiency-Map Digitization`, desc: `Automated MATLAB tool converts the 2-D manufacturer map into a high-resolution lookup table` },
+      { icon: `🔄`, name: `Endurance Event Simulation`, desc: `Motor efficiency evaluated continuously across a full simulated endurance run` },
+      { icon: `✅`, name: `Telemetry Correlation`, desc: `Simulated motor temperatures compared against measured endurance-run data` },
     ],
     designProcess: [
-      `Define the Objective: Size the cooling system based on the thermal loads generated by the motors and inverters during operation.`,
-      `Gather Performance Data: Obtain manufacturer motor efficiency maps and endurance lap simulation results to determine the operating points throughout the event.`,
-      `Process the Efficiency Map: Digitize the manufacturer efficiency map and convert it into a high-resolution MATLAB lookup table for accurate interpolation.`,
-      `Integrate into the Simulation: Import the lookup table into a Simulink model to continuously evaluate motor efficiency throughout the endurance simulation.`,
-      `Determine Motor Efficiency: Average efficiency = 95.84%, Minimum = 86.09%, Maximum = 97.97%.`,
-      `Calculate Electrical Losses: Compute motor losses using P_loss = P_input × (1 − η), where η is the instantaneous motor efficiency.`,
-      `Estimate Thermal Load: Average motor thermal loss ≈ 5.5 kW, representing the required heat removal.`,
-      `Size the Cooling System: Design the cooling system to reject at least 5.5 kW of heat with an appropriate safety margin to maintain safe operating temperatures.`
+      `<strong>Define the objective.</strong> Size the cooling system from the thermal load the motors and inverters generate during operation.`,
+      `<strong>Gather performance data.</strong> Manufacturer efficiency maps plus endurance lap-simulation results define the operating points throughout the event.`,
+      `<strong>Digitize the efficiency map.</strong> Convert the manufacturer map into a high-resolution MATLAB lookup table for accurate interpolation.`,
+      `<strong>Integrate into Simulink.</strong> Import the lookup table into the vehicle model so efficiency is evaluated continuously through the endurance simulation.`,
+      `<strong>Extract efficiency statistics.</strong> Mean η = 95.84%, minimum = 86.09%, maximum = 97.97%.`,
+      `<strong>Compute electrical losses.</strong> P<sub>loss</sub> = P<sub>input</sub> × (1 − η), using instantaneous efficiency.`,
+      `<strong>Set the thermal boundary condition.</strong> Average motor thermal loss ≈ 5.5 kW — the required heat removal.`,
+      `<strong>Size the cooling system.</strong> Reject at least 5.5 kW with an appropriate safety margin to hold safe operating temperatures.`
     ],
     techUsed: ["Simulink", "MATLAB", "Thermal Management", "Simulation"],
     media: [
@@ -53,23 +93,62 @@ var PROJECTS = {
     org: `University of Toronto Formula SAE Racing`,
     date: `2025 — 2026`,
     award: null,
-    overview: `Designed, built, and tested a full dual cooling loop system for an electric powertrain, integrating CAD design, fabrication, and real-world validation. The project included tubing assembly, sensor integration, pump priming, and bench testing to ensure reliable thermal performance under race conditions.`,
+    overview: `Physical design, build, and commissioning of the EV powertrain cooling system. The architecture is two independent series loops — one per side of the car — each ordered Pump → Radiator → Inverter → Motor cooling jackets so the temperature-sensitive inverter is prioritized for cooling. The radiator sits at the rear, where the aerodynamics team identified high-energy airflow without compromising front aero. A parallel configuration was evaluated and rejected for routing complexity, extra firewall requirements, mass, and uncertain flow distribution. I cut and routed tubing, installed sensors, fittings and pumps, then primed, leak-checked, and flow-verified the system on the bench before vehicle integration.`,
+    metrics: [
+      { v: `2`, l: `independent loops` },
+      { v: `Series`, l: `topology` },
+      { v: `Rear`, l: `radiator` }
+    ],
+    specs: [
+      [`Architecture`, `Dual independent loops (left / right)`],
+      [`Loop topology`, `Series`],
+      [`Component order`, `Pump → Radiator → Inverter → Motor jackets`],
+      [`Radiator location`, `Rear of vehicle (with aero team)`],
+      [`Model benchmark`, `MATLAB cooling sim vs. UT23 data`],
+      [`Commissioning`, `Priming, leak checks, flow verification, bench tests`]
+    ],
+    decisions: [
+      {
+        q: `One shared loop, a parallel configuration, or two independent loops?`,
+        options: [`Single shared loop`, `Parallel configuration`, `Dual independent series loops`],
+        choice: `Dual independent series loops (left / right)`,
+        why: `Independent loops improve redundancy and simplify routing by avoiding long coolant runs. The parallel option was rejected for added routing complexity, extra firewall requirements, higher mass, reduced reliability, and uncertain flow distribution. Trade-off accepted: a minor thermal imbalance between sides in exchange for robustness and packaging efficiency.`
+      },
+      {
+        q: `In what order should components see the coolant?`,
+        options: [],
+        choice: `Pump → Radiator → Inverter → Motor jackets`,
+        why: `The inverter is temperature-sensitive, so it is positioned directly downstream of the radiator to be prioritized for cooling.`
+      },
+      {
+        q: `Where does the pump go?`,
+        options: [],
+        choice: `Upstream of the radiator`,
+        why: `Maintains positive pressure at the pump inlet, reducing cavitation risk and improving reliability.`
+      },
+      {
+        q: `Where does the radiator go?`,
+        options: [],
+        choice: `Rear of the vehicle, chosen with the aerodynamics team`,
+        why: `Access to high-energy airflow while preserving front aerodynamic performance.`
+      }
+    ],
     keyFeatures: [
       { icon: `♻️`, name: `Dual Independent Loops`, desc: `Separate L/R circuits improve redundancy and minimize coolant run length` },
-      { icon: `🏎️`, name: `Aero-Optimized Radiator Placement`, desc: `Rear placement per aero team recommendation — high-energy airflow, minimal downforce impact` },
-      { icon: `⚡`, name: `Inverter-Priority Ordering`, desc: `Pump → Radiator → Inverter → Motor jackets; inverter gets coldest coolant first` },
-      { icon: `🔧`, name: `Hands-On Assembly & Commissioning`, desc: `Tubing cuts, fittings, sensor wiring, pump priming, leak checks, and flow verification` },
+      { icon: `🏎️`, name: `Aero-Informed Radiator Placement`, desc: `Rear placement per aero team — high-energy airflow, front aero preserved` },
+      { icon: `⚡`, name: `Inverter-Priority Ordering`, desc: `Pump → Radiator → Inverter → Motor jackets; inverter prioritized` },
+      { icon: `🔧`, name: `Hands-On Commissioning`, desc: `Tubing, fittings, sensor install, pump priming, leak checks, and flow verification` },
     ],
-  designProcess: [
-    `Architecture definition: A dual independent-loop cooling architecture is selected over a single shared loop to improve reliability, simplify packaging, and reduce long coolant routing complexity.`,
-    `Radiator placement: The rear of the vehicle is chosen for radiator installation in collaboration with the aerodynamics team, balancing access to high-energy airflow while preserving front aerodynamic performance.`,
-    `Component ordering: The cooling loop is sequenced as Pump → Radiator → Inverter → Motor cooling jackets to prioritize thermal management of the temperature-sensitive inverter.`,
-    `Pump placement strategy: The pump is positioned upstream of the radiator to maintain positive inlet pressure, improving reliability and reducing cavitation risk.`,
-    `Independent left and right loops are used to improve redundancy and simplify routing, while a parallel cooling configuration was evaluated but rejected due to increased routing complexity, additional firewall requirements, higher mass, reduced reliability, and uncertain flow distribution behavior. The final system prioritizes reduced complexity and improved packaging efficiency while accepting minor thermal imbalance between sides as a trade-off for robustness.`,
-    `Simulation validation: MATLAB-based cooling system simulations are benchmarked against UT23 data to verify model accuracy.`,
-    `Physical assembly and bench testing: Tubing is cut and routed, sensors and fittings are installed, pumps are commissioned, and the system is leak-checked and flow-verified on a bench prior to vehicle integration.`
-  ],
-techUsed: ["SolidWorks", "Thermal Management", "Manufacturing"],
+    designProcess: [
+      `<strong>Architecture definition.</strong> Dual independent loops selected over a single shared loop to improve reliability, simplify packaging, and reduce long coolant runs.`,
+      `<strong>Radiator placement.</strong> Rear of the vehicle, chosen with the aerodynamics team to access high-energy airflow while preserving front aero performance.`,
+      `<strong>Component ordering.</strong> Pump → Radiator → Inverter → Motor cooling jackets, prioritizing the temperature-sensitive inverter.`,
+      `<strong>Pump placement.</strong> Upstream of the radiator to maintain positive inlet pressure and reduce cavitation risk.`,
+      `<strong>Topology trade study.</strong> Parallel cooling evaluated and rejected (routing complexity, firewall requirements, mass, reliability, uncertain flow split); minor L/R thermal imbalance accepted for robustness.`,
+      `<strong>Simulation benchmark.</strong> MATLAB cooling simulations benchmarked against UT23 data to verify model accuracy.`,
+      `<strong>Build &amp; bench test.</strong> Tubing cut and routed, sensors and fittings installed, pumps commissioned, system leak-checked and flow-verified on the bench before vehicle integration.`
+    ],
+    techUsed: ["SolidWorks", "Thermal Management", "Manufacturing"],
     media: [
       { type: "image", src: "https://i.imgur.com/JLfQIhv.png", alt: `cooling loop render` },
       { type: "image", src: "https://i.imgur.com/I6R2xE2.jpeg", alt: `cooling loop` },
@@ -90,22 +169,53 @@ techUsed: ["SolidWorks", "Thermal Management", "Manufacturing"],
     org: `University of Toronto Formula SAE Racing`,
     date: `2025 — 2026`,
     award: null,
-    overview: `Contributed to the design, manufacturing, and assembly of the UT26 in-hub AWD drivetrain system, engineered against corner-level targets of <40 kg mass, <0.25 kg·m² moment of inertia, and <3 h assembly time, ultimately achieving a 22.304 kg unsprung mass and 0.197 kg·m² mass moment of inertia. Supported integration of motors, gearbox components, and drivetrain hardware, including FEA-validated components such as the inboard motor mount (9.24 MPa max von Mises stress, safety factor >15). The project involved hands-on manufacturing, fixture design, and assembly process development to improve reliability and ease of installation.`,
+    overview: `UT26 is the team's first AWD electric car: four identical in-hub corner assemblies, each pairing a permanent-magnet motor with an 11.97:1 compound planetary gearbox. The drivetrain was engineered against corner-level targets of < 40 kg mass, < 0.25 kg·m² moment of inertia, and < 3 h assembly time, and finished at 22.304 kg unsprung mass and 0.197 kg·m² mass moment of inertia. I co-led the architecture, performed PM motor assembly, designed a rotor-alignment tool to control the strong rotor–stator magnetic attraction during installation, and produced GD&T-compliant drawings, cost analysis, and manufacturing documentation for the inboard motor mount, planet shafts, and motor bearing. The inboard motor mount was FEA-validated to 9.24 MPa max von Mises stress (safety factor > 15). Presented the drivetrain to design judges at Formula SAE Michigan 2026.`,
+    metrics: [
+      { v: `22.304 kg`, l: `vs < 40 kg target` },
+      { v: `0.197 kg·m²`, l: `vs < 0.25 target` },
+      { v: `SF > 15`, l: `motor mount` }
+    ],
+    specs: [
+      [`Layout`, `AWD, four identical in-hub corners`],
+      [`Motor type`, `Permanent-magnet (PM)`],
+      [`Gearbox`, `11.97:1 compound planetary`],
+      [`Mass — target / achieved`, `< 40 kg / <strong>22.304 kg</strong> unsprung`],
+      [`Moment of inertia — target / achieved`, `< 0.25 / <strong>0.197 kg·m²</strong>`],
+      [`Assembly time target`, `< 3 h`],
+      [`Inboard motor mount (FEA)`, `9.24 MPa max von Mises, SF > 15`],
+      [`Documentation`, `GD&amp;T drawings, cost analysis, manufacturing process docs`]
+    ],
+    decisions: [
+      {
+        q: `How do we install a PM rotor safely and repeatably?`,
+        options: [],
+        choice: `Custom rotor-alignment tool, informed by research into industry assembly practices`,
+        why: `Strong magnetic attraction between rotor and stator made rotor installation a safety challenge. The fixture makes rotor–stator engagement safe, precise, and repeatable.`
+      },
+      {
+        q: `How do parts get from CAD to the shop floor?`,
+        options: [],
+        choice: `GD&amp;T-compliant drawings, cost analysis, and manufacturing process documentation`,
+        why: `Produced for the inboard motor mount, planet shafts, and motor bearing to support accurate fabrication and machining.`
+      }
+    ],
     keyFeatures: [
-      { icon: `⚙️`, name: `In-Hub AWD Architecture`, desc: `Four independent in-hub PM motors — team's first AWD EV system` },
-      { icon: `🧲`, name: `Custom PM Rotor Alignment Tool`, desc: `Designed alignment jig to safely handle strong magnetic forces during motor assembly` },
-      { icon: `📐`, name: `GD&T-Compliant Drawings`, desc: `Production-ready machined drawings for motor mount, planet shafts, and bearings` },
-      { icon: `🔬`, name: `FEA-Validated Components`, desc: `Motor mount: 9.24 MPa max von Mises stress, safety factor >15 verified in ANSYS` },
-      { icon: `🏆`, name: `FSAE Michigan 2026`, desc: `Presented drivetrain architecture to industry judges at competition design judging event` },
+      { icon: `⚙️`, name: `In-Hub AWD Architecture`, desc: `Four identical in-hub PM-motor corners — the team's first AWD EV` },
+      { icon: `🧲`, name: `PM Rotor Alignment Tool`, desc: `Fixture controls rotor–stator magnetic attraction for safe, repeatable installation` },
+      { icon: `📐`, name: `GD&T-Compliant Drawings`, desc: `Machining-ready drawings for the inboard motor mount, planet shafts, and motor bearing` },
+      { icon: `🔬`, name: `FEA-Validated Mount`, desc: `Inboard motor mount: 9.24 MPa max von Mises stress, SF > 15` },
+      { icon: `🏆`, name: `FSAE Michigan 2026`, desc: `Presented drivetrain architecture to industry design judges` },
     ],
     designProcess: [
-      `Participated in gearbox assembly and verification, ensuring proper fitment and alignment of drivetrain components across all four identical corner assemblies.`,
-      `Identified PM rotor installation as a safety challenge due to strong magnetic attraction forces. Designed a custom tooling fixture to enable repeatable, safe rotor-stator engagement.`,
-      `Produced GD&T-compliant drawings for inboard motor mount, planet shafts, motor bearings, and supporting hardware for machining and supplier use.`,
-      `Worked with team members to troubleshoot assembly challenges and develop practical solutions to improve manufacturing and integration processes.`,
-      `Machined components to drawing tolerances, assembled gearbox and drivetrain hardware, and developed assembly procedures to meet <3 h assembly time target.`,
+      `<strong>Corner targets.</strong> < 40 kg mass, < 0.25 kg·m² moment of inertia, < 3 h assembly time per corner.`,
+      `<strong>Identify the assembly risk.</strong> PM rotor installation flagged as a safety challenge due to strong magnetic attraction; researched industry assembly practices.`,
+      `<strong>Design the fixture.</strong> Custom rotor-alignment tool enabling controlled, repeatable rotor–stator engagement.`,
+      `<strong>Document for manufacture.</strong> GD&amp;T drawings, cost analysis, and process documentation for the inboard motor mount, planet shafts, and motor bearing.`,
+      `<strong>Validate.</strong> Inboard motor mount analyzed in FEA: 9.24 MPa max von Mises, safety factor > 15.`,
+      `<strong>Machine &amp; assemble.</strong> Machined components to drawing tolerances; assembled and verified gearbox fit and alignment across all four corners.`,
+      `<strong>Close out.</strong> Final corner: 22.304 kg unsprung mass and 0.197 kg·m² mass moment of inertia.`
     ],
-    techUsed: ["SolidWorks", "Machining", "Hydraulic Pressure Press", "Gearbox", "Manufacturing"],
+    techUsed: ["SolidWorks", "ANSYS", "GD&T", "Machining", "Hydraulic Press", "Gearbox"],
     media: [
       { type: "image", src: "https://i.imgur.com/KEhkIMK.jpeg", alt: `drivetrain render` },
       { type: "image", src: "https://i.imgur.com/7yG87nk.jpeg", alt: `drivetrain` },
@@ -113,7 +223,6 @@ techUsed: ["SolidWorks", "Thermal Management", "Manufacturing"],
       { type: "image", src: "https://i.imgur.com/DMUPH1I.jpeg", alt: `drivetrain` },
       { type: "image", src: "https://i.imgur.com/FmMC2kx.jpeg", alt: `drivetrain` },
     ],
-
     gallery: [
       { src: "https://i.imgur.com/KEhkIMK.jpeg", alt: `Drivetrain render`, wide: false },
       { src: "https://i.imgur.com/7yG87nk.jpeg", alt: `Drivetrain assembly`, wide: false },
@@ -123,8 +232,6 @@ techUsed: ["SolidWorks", "Thermal Management", "Manufacturing"],
       { src: "https://i.imgur.com/MBaNdE8.png", alt: `UT26 drivetrain complete`, wide: false },
       { src: "https://i.imgur.com/FmMC2kx.jpeg", alt: `UT26 drivetrain complete`, wide: false },
       { src: "https://i.imgur.com/C4feEmi.jpeg", alt: `UT26 drivetrain complete`, wide: false },
-
-
       { src: "https://i.imgur.com/BGTsrcf.png", alt: `UT26 drivetrain complete`, wide: true },
     ],
   },
@@ -137,28 +244,48 @@ techUsed: ["SolidWorks", "Thermal Management", "Manufacturing"],
     org: `University of Toronto Aerospace Team — UAS`,
     date: `2025 — 2026`,
     award: null,
-    overview: `Worked on the structures team for a UAS aircraft, responsible for manufacturing and assembly of the fuselage and landing gear systems. This included fabrication planning, composite integration, and hands-on assembly of airframe components to ensure structural integrity and flight readiness.`,
+    overview: `Structures work on MAPLE, the team's hybrid V/STOL UAS for SAE Aero Design. The focus was turning CAD into a repeatable build: I reviewed the models to set build sequence, tooling, and fixture setup, then designed laser-cut templates so fuselage geometry stayed consistent across fabrication steps. I built the fuselage (frame alignment, bonding, reinforcement), cut and drilled carbon-fibre tubes to dimension, applied heat-shrink Monokote covering, and integrated the landing gear mounts so landing loads had a clear structural path into the airframe.`,
+    metrics: [
+      { v: `V/STOL`, l: `hybrid airframe` },
+      { v: `CF`, l: `tube structure` }
+    ],
+    specs: [
+      [`Platform`, `Hybrid V/STOL UAS (SAE Aero Design)`],
+      [`Scope`, `Fuselage + landing gear manufacture and assembly`],
+      [`Materials`, `Carbon-fibre tubes, Monokote covering`],
+      [`Tooling`, `Laser-cut templates and fabrication guides`],
+      [`Tools`, `SolidWorks, AutoCAD, laser cutter, 3D printing`]
+    ],
+    decisions: [
+      {
+        q: `How do we keep hand-built fuselage geometry consistent?`,
+        options: [],
+        choice: `Precision laser-cut templates and fabrication guides`,
+        why: `Templates guarantee consistent fuselage geometry and alignment across multiple fabrication steps, supporting accurate and repeatable construction.`
+      },
+      {
+        q: `How is the landing gear integrated?`,
+        options: [],
+        choice: `Installed and bonded gear mounts into the airframe`,
+        why: `Mounting was checked for structural load paths and alignment for expected landing loads, ensuring secure mounting and proper load distribution.`
+      }
+    ],
     keyFeatures: [
-      { icon: `✈️`, name: `Hybrid V/STOL Airframe`, desc: `Fixed-wing structure designed to support vertical/short takeoff and landing operations` },
-      { icon: `🪨`, name: `Composite Construction`, desc: `Carbon fibre tube fabrication, Monokote surface covering, and composite bonding` },
-      { icon: `🛬`, name: `Landing Gear Integration`, desc: `Designed and installed gear mounts for load distribution and structural integrity` },
-      { icon: `✂️`, name: `Laser-Cut Fabrication Aids`, desc: `Created laser-cut templates and guides to improve repeatability during construction` },
+      { icon: `✈️`, name: `Hybrid V/STOL Airframe`, desc: `Fixed-wing structure supporting vertical/short takeoff and landing operations` },
+      { icon: `🪨`, name: `Composite Construction`, desc: `Carbon-fibre tube fabrication, Monokote covering, and composite bonding` },
+      { icon: `🛬`, name: `Landing Gear Integration`, desc: `Gear mounts installed for secure attachment and load distribution` },
+      { icon: `✂️`, name: `Laser-Cut Fabrication Aids`, desc: `Templates and guides improve repeatability during construction` },
     ],
     designProcess: [
-      `Applied Monokote covering to the fuselage to improve aerodynamic finish and structural surface protection.`,
-      `Cut, drilled, and prepared carbon fibre tubes for structural use while maintaining dimensional accuracy and material integrity.`,
-      `Installed and integrated landing gear systems into the airframe, ensuring secure mounting and proper load distribution during landing conditions.`,
+      `<strong>Plan the build.</strong> Reviewed CAD to establish build sequence, tooling requirements, and fixture setup for repeatable, accurate assembly.`,
+      `<strong>Laser-cut templates.</strong> Designed and produced precision templates to guarantee consistent fuselage geometry and alignment.`,
+      `<strong>Fuselage construction.</strong> Aligned and bonded frames, added reinforcement, and checked structural integrity before covering.`,
+      `<strong>Carbon-fibre tubes.</strong> Cut and drilled structural tubes to dimension while preserving surface quality and cross-section.`,
+      `<strong>Covering.</strong> Applied heat-shrink Monokote for a smooth aerodynamic finish and surface protection.`,
+      `<strong>Landing gear.</strong> Installed and bonded gear mounts, verifying load paths and alignment for expected landing loads.`
     ],
-    techUsed: ["SolidWorks", "3D Printing", "Lasercutting", "Manufacture", "Aircraft Construction", "AutoCAD"],
-    designProcess: [
-      `Reviewed CAD models to establish build sequence, tooling requirements, and fixture setup for fuselage and landing gear construction to ensure repeatable and accurate assembly.`,
-      `Laser-cut templates: Designed and produced precision laser-cut templates to guarantee consistent fuselage geometry and alignment across multiple fabrication steps.`,
-      `Fuselage construction: Assembled the fuselage structure by aligning and bonding frames, adding reinforcements, and verifying structural integrity prior to external covering.`,
-      `Cut and drilled carbon fibre structural tubes to tight dimensional tolerances while preserving surface quality and maintaining cross-sectional accuracy.`,
-      `Applied heat-shrink Monokote covering to fuselage panels to achieve a smooth aerodynamic surface finish and provide environmental protection.`,
-      `Landing gear installation: Installed and bonded landing gear mounts into the airframe, verifying structural load paths and ensuring correct alignment for expected landing loads.`
-   ],
-     media: [
+    techUsed: ["SolidWorks", "3D Printing", "Laser Cutting", "Composites", "Aircraft Construction", "AutoCAD"],
+    media: [
       { type: "image", src: "https://i.imgur.com/nBqKiDG.jpeg", alt: `UAS structures` },
       { type: "video", src: "https://i.imgur.com/V2GeKK2.mp4" },
       { type: "image", src: "https://i.imgur.com/e1Jl9mT.jpeg", alt: `UAS structures` },
@@ -184,18 +311,44 @@ techUsed: ["SolidWorks", "Thermal Management", "Manufacturing"],
     org: `University of Toronto Aerospace Team — UAS`,
     date: `May 2026`,
     award: null,
-    overview: `Redesigned the nose landing gear system to convert it from a fuselage-integrated structure into a modular, independent subassembly to improve maintainability and manufacturability. This redesign significantly simplified maintenance procedures and reduced system integration and repair complexity.`,
+    overview: `The original nose gear was integrated into the fuselage, which made maintenance, repair, and replacement slow and assembly-intensive. I redesigned it as a self-contained, modular subassembly with standardized attachment points: the gear can now be fabricated, tested, and installed independently, then bolted onto the aircraft. The mounting and interface parts were redesigned around that boundary, prototyped in PETG to check fit and geometry, and iterated to a second version based on testing, manufacturability, and feedback from the avionics, structures, and manufacturing subteams.`,
+    metrics: [
+      { v: `Modular`, l: `bolt-on subassembly` },
+      { v: `v2`, l: `iterations` }
+    ],
+    specs: [
+      [`Before`, `Fuselage-integrated nose gear`],
+      [`After`, `Independent subassembly, standardized attachment points`],
+      [`Prototype material`, `PETG (FDM 3D printing)`],
+      [`Iterations`, `v1 → v2`],
+      [`Interfaces coordinated with`, `Avionics, structures, manufacturing`]
+    ],
+    decisions: [
+      {
+        q: `Should the nose gear be part of the fuselage or its own module?`,
+        options: [`Fuselage-integrated (original)`, `Modular, independent subassembly`],
+        choice: `Modular subassembly with standardized attachment points`,
+        why: `The integrated design carried a maintenance burden. A self-contained subassembly enables independent fabrication, testing, and installation, reducing maintenance, replacement, and aircraft turnaround time and simplifying future iterations.`
+      },
+      {
+        q: `How do we validate fit?`,
+        options: [],
+        choice: `PETG 3D-printed prototype, then iterate to v2`,
+        why: `The prototype validated fitment and geometry; testing feedback, manufacturability, and cross-team requirements fed into version 2.`
+      }
+    ],
     keyFeatures: [
-      { icon: `🔧`, name: `Modular Subassembly`, desc: `Nose gear converts from fuselage-integrated to fully independent subassembly — bolt-on/bolt-off` },
-      { icon: `🔄`, name: `Iterative Design (v1 → v2)`, desc: `Multiple development cycles based on testing, manufacturing feedback, and cross-team input` },
-      { icon: `🖨️`, name: `3D-Printed Housing`, desc: `FDM-printed mounting housing for rapid iteration and lightweight integration` },
-      { icon: `🤝`, name: `Cross-Team Integration`, desc: `Coordinated with avionics, structures, and manufacturing for compatibility` },
+      { icon: `🔧`, name: `Modular Subassembly`, desc: `From fuselage-integrated to independent, bolt-on/bolt-off subassembly` },
+      { icon: `🔄`, name: `Iterative Design (v1 → v2)`, desc: `Driven by testing, manufacturability, and cross-team input` },
+      { icon: `🖨️`, name: `3D-Printed Housing`, desc: `FDM-printed mounting housing for rapid iteration` },
+      { icon: `🤝`, name: `Cross-Team Integration`, desc: `Coordinated with avionics, structures, and manufacturing` },
     ],
     designProcess: [
-      `Problem definition: Documented the maintenance burden of the fuselage-integrated nose gear design and quantified assembly and disassembly time required for repair and servicing operations.`,
-      `Modular architecture design: Redesigned the mounting interface into a self-contained nose gear subassembly with standardized attachment points to the fuselage to improve maintainability.`,
-      `Fabricated an initial prototype using PETG 3D printing to validate fitment, geometry.`,
-      // `Final installation and verification: Installed the final assembly on the aircraft, verified system clearances with adjacent components, and confirmed structural attachment strength under test loads.`
+      `<strong>Problem definition.</strong> Documented the maintenance burden of the fuselage-integrated nose gear and the assembly/disassembly effort needed for repair.`,
+      `<strong>Modular architecture.</strong> Redesigned the mounting interface into a self-contained subassembly with standardized attachment points.`,
+      `<strong>Interface redesign.</strong> Reworked critical mounting components so the gear can be fabricated, tested, and installed independently.`,
+      `<strong>Prototype.</strong> PETG 3D-printed prototype to validate fitment and geometry on the aircraft.`,
+      `<strong>Iterate.</strong> Progressed to version 2 based on testing feedback, manufacturability, and cross-team requirements.`
     ],
     techUsed: ["SolidWorks", "3D Printing", "Mechanical Design"],
     media: [
@@ -218,19 +371,35 @@ techUsed: ["SolidWorks", "Thermal Management", "Manufacturing"],
     org: `University of Toronto Aerospace Team — UAS`,
     date: `Mar 2026`,
     award: null,
-    overview: `Designed and manufactured a modular arming housing system for a UAS platform, enabling safe and efficient electrical system activation and integration. The design was 3D printed and iteratively improved through multiple design cycles in collaboration with other subteams.`,
+    overview: `A modular housing for the UAS arming switch: it has to protect the switch and wiring from accidental activation and damage, stay accessible during pre-flight, and clamp securely to the tail boom. Requirements (access, wire routing, mounting location) were set with the avionics team, then modelled in SolidWorks with an integrated switch pocket, mounting features, and tail-boom clamps. Version 1 was printed in PETG and installed, which exposed wire-routing conflicts and access constraints; version 2 resolved them and added a cap that clamps the on/off switch in place.`,
+    metrics: [
+      { v: `v1 → v2`, l: `fit-driven redesign` },
+      { v: `PETG`, l: `FDM` }
+    ],
+    specs: [
+      [`Function`, `Protect arming switch + wiring; pre-flight access`],
+      [`Mounting`, `Integrated tail-boom clamps`],
+      [`Material / process`, `PETG, FDM 3D printing`],
+      [`v1 → v2 changes`, `Resolved routing conflicts, improved access, added switch-retention cap`]
+    ],
+    decisions: [
+      {
+        q: `What changed between v1 and v2?`,
+        options: [],
+        choice: `Revised geometry and a cap that clamps the on/off switch in place`,
+        why: `Installing the PETG v1 on the aircraft identified wire-routing conflicts and access constraints; v2 resolved the routing conflicts and improved installation access.`
+      }
+    ],
     keyFeatures: [
-      { icon: `🔒`, name: `Secure Arming Interface`, desc: `Protects arming switch and wiring from accidental activation and mechanical damage` },
-      { icon: `🤝`, name: `Avionics-Compatible Design`, desc: `Coordinated with avionics subteam for wire routing clearance and access requirements` },
-      { icon: `🖨️`, name: `Rapid Prototyping`, desc: `FDM 3D printed for fast iteration — from CAD to fitted hardware in hours` },
+      { icon: `🔒`, name: `Secure Arming Interface`, desc: `Protects arming switch and wiring from accidental activation and damage` },
+      { icon: `🤝`, name: `Avionics-Driven Requirements`, desc: `Access, routing clearance, and mounting location defined with avionics` },
+      { icon: `🖨️`, name: `Rapid Prototyping`, desc: `FDM-printed for fast CAD-to-aircraft iteration` },
     ],
     designProcess: [
-      `Worked with the avionics team to define access requirements, wire routing paths, and mounting location for the arming housing.`,
-      `Modeled the arming housing in SolidWorks with integrated mounting features, arming switch pocket, and tail boom clamps.`,
-
-      `Printed the first iteration using PETG, installed it on the aircraft, and identified wire routing conflicts and access constraints.`,
-
-      `Revised housing geometry to resolve routing conflicts and improve installation access, then printed and installed the final version on the aircraft. ALso added a cap to clamp on-off switch in place.`
+      `<strong>Requirements.</strong> Defined access requirements, wire-routing paths, and mounting location with the avionics team.`,
+      `<strong>CAD.</strong> Modelled the housing in SolidWorks with integrated mounting features, arming-switch pocket, and tail-boom clamps.`,
+      `<strong>v1 fit check.</strong> Printed in PETG and installed on the aircraft; identified wire-routing conflicts and access constraints.`,
+      `<strong>v2.</strong> Revised geometry to resolve routing conflicts and improve installation access; added a cap to clamp the on/off switch in place.`
     ],
     techUsed: ["SolidWorks", "3D Printing", "Mechanical Design"],
     media: [
@@ -253,24 +422,47 @@ techUsed: ["SolidWorks", "Thermal Management", "Manufacturing"],
     categoryLabel: `Hackathons & Other`,
     org: `UofTHacks 13`,
     date: `Jan 2026`,
-    award: "\ud83c\udfc6 2nd Place \u00b7 Hack the Human\u2013Robot Experience",
-    overview: `A companion robot that detects student emotion during solo study sessions and provides encouragement against isolation and burnout.`,
-    keyFeatures: [
-      { icon: `💡`, name: `Emotional Awareness`, desc: `Detects student state and responds with encouragement to combat isolation and burnout` },
-      { icon: `🤖`, name: `LeLamp Kit Integration`, desc: `Extended standard lamp robot with custom sensors, LEDs, and 3D-printed components` },
-      { icon: `🔌`, name: `Dual Platform Architecture`, desc: `Raspberry Pi + Arduino hybrid system for improved stability and sensor handling` },
-      { icon: `🏆`, name: `2nd Place Award`, desc: `Won 2nd place at UofTHacks 13 in the Human-Robot Experience track` },
+    award: "🏆 2nd Place · Hack the Human–Robot Experience",
+    overview: `Red Lamp is a companion robot for students studying alone, built to provide emotionally aware encouragement against isolation and burnout. Starting from a LeLamp kit, we added a Raspberry Pi, sensors, LEDs, and custom 3D-printed parts. The hard part was hardware reliability under hackathon time pressure: power instability, loose wiring, and faulty components were isolated with voltage testing and iterative reassembly. When Raspberry Pi connectivity kept failing, we incorporated Arduino components to take over critical control functions — a mid-build architecture change that improved system stability The project placed 2nd in the Human–Robot Experience track.`,
+    metrics: [
+      { v: `2nd`, l: `HRX track` },
+      { v: `Pi + Arduino`, l: `hybrid control` }
     ],
-    designProcess: [   
-    `Inspiration: Developed from the idea of a companion robot designed to feel present, comforting, and personal, reframing robotics as a source of emotional connection rather than purely functional tools.`,
-    `System concept: Designed Red Lamp as a conversational companion device capable of responding to users in a way that promotes a sense of presence and social connection.`,
-    `Assembled the system using the LeLamp kit, incorporating 3D-printed components, mechanical fasteners, and hands-on robotic assembly techniques.`,
-    `Connectivity and setup challenges: Addressed Raspberry Pi connection instability during initial setup and testing phases, requiring iterative debugging and configuration refinement.`,
-    `Raspberry Pi connectivity failures during development forced an architectural redesign, replacing critical control functions with Arduino-based components to improve system reliability, simplify real-time control, and overcome persistent communication and setup issues.`,
-    `Integrated embedded hardware knowledge and robotic system fundamentals to adapt the platform into a companion-focused interactive device.`,
-    `Successfully assembled a fully functional mechanical system and brought the companion robot concept to life within the hackathon timeframe.`,
-    `Technical learning outcomes: Gained experience in hardware debugging, Arduino-based control systems, SSH communication, and resolving hardware–software integration issues in real time.`,
-    `Future development direction: Expanding system capabilities with body-language recognition for emotional awareness and extending functionality toward tutoring and adaptive learning support.`
+    specs: [
+      [`Base platform`, `LeLamp kit`],
+      [`Compute / control`, `Raspberry Pi + Arduino`],
+      [`I/O`, `Sensors, LEDs`],
+      [`Custom parts`, `3D-printed structural and aesthetic components`],
+      [`Result`, `2nd Place — Hack the Human–Robot Experience`]
+    ],
+    decisions: [
+      {
+        q: `Raspberry Pi connectivity keeps failing mid-build — now what?`,
+        options: [],
+        choice: `Move critical control functions to Arduino-based components`,
+        why: `To improve system reliability, simplify real-time control, and overcome persistent communication and setup issues.`
+      },
+      {
+        q: `How do we track down hardware faults?`,
+        options: [],
+        choice: `Voltage testing and iterative assembly`,
+        why: `Used to troubleshoot power instability, loose wiring, and faulty components until the robot responded reliably in real time.`
+      }
+    ],
+    keyFeatures: [
+      { icon: `💡`, name: `Emotionally Aware`, desc: `Responds to the student with encouragement during solo study` },
+      { icon: `🤖`, name: `LeLamp Kit Extension`, desc: `Custom sensors, LEDs, and 3D-printed components` },
+      { icon: `🔌`, name: `Hybrid Pi + Arduino`, desc: `Arduino adopted mid-build for stability and real-time control` },
+      { icon: `🏆`, name: `2nd Place`, desc: `UofTHacks 13 — Human–Robot Experience track` },
+    ],
+    designProcess: [
+      `<strong>Concept.</strong> A companion robot that feels present and personal — robotics as a source of connection, not just function.`,
+      `<strong>Assembly.</strong> Built on the LeLamp kit with 3D-printed components and mechanical fasteners.`,
+      `<strong>Debug.</strong> Raspberry Pi connection instability during setup required iterative configuration and debugging.`,
+      `<strong>Architecture pivot.</strong> Persistent Pi failures → critical control functions moved to Arduino for reliability and simpler real-time control.`,
+      `<strong>Hardware reliability.</strong> Power instability, loose wiring, and faulty components isolated with voltage testing and iterative reassembly.`,
+      `<strong>Ship.</strong> Fully functional robot delivered within the hackathon timeframe.`,
+      `<strong>Next.</strong> Body-language recognition for emotional awareness; tutoring and adaptive learning support.`
     ],
     techUsed: ["Raspberry Pi", "Arduino", "3D Printing", "Embedded Systems", "Sensor Integration"],
     media: [
@@ -291,17 +483,50 @@ techUsed: ["SolidWorks", "Thermal Management", "Manufacturing"],
     org: `University of Toronto Formula SAE Racing`,
     date: `Feb 2026 — April 2026`,
     award: null,
-    overview: `Redesigned the planet shaft component within the drivetrain's 11.97:1 compound planetary gearbox to improve manufacturability and serviceability, validating the new geometry against peak planetary-stage torque using FEA — achieving a maximum von Mises stress of 77.99 MPa with a minimum safety factor of 15 — before machining to tight tolerances. Gearbox-wide webbing optimization contributed to a 14% weight reduction (830.7 g → 711.49 g) while maintaining a predicted gearbox fatigue life of 580 hours.`,
+    overview: `Redesign of the planet shaft inside the drivetrain's 11.97:1 compound planetary gearbox (59 sun teeth, 23/84 planet teeth) to make it easier to machine, assemble, and service. The new geometry was checked in FEA under peak planetary-stage torque — contact loads applied at the needle-bearing interfaces, fixed supports at the pin-retention features across all planet pins — giving 77.99 MPa max von Mises stress and a minimum safety factor of 15. I also supported gearbox-wide webbing optimization in KISSsoft, which removed unnecessary material while preserving gear strength, contributing to a 14% weight reduction (830.7 g → 711.49 g) at a predicted gearbox fatigue life of 580 hours. The shaft was then machined in-house to tight tolerances.`,
+    metrics: [
+      { v: `77.99 MPa`, l: `max σ<sub>vM</sub>` },
+      { v: `SF ≥ 15`, l: `min` },
+      { v: `−14%`, l: `weight (webbing opt.)` }
+    ],
+    specs: [
+      [`Gearbox`, `11.97:1 compound planetary`],
+      [`Tooth counts`, `Sun 59 · Planet 23 / 84`],
+      [`Load case`, `Peak planetary-stage torque`],
+      [`Boundary conditions`, `Contact loads at needle-bearing interfaces; fixed at pin-retention features`],
+      [`Max von Mises stress`, `77.99 MPa`],
+      [`Minimum safety factor`, `15`],
+      [`Weight reduction (webbing opt.)`, `830.7 g → 711.49 g (−14%)`],
+      [`Predicted fatigue life`, `580 h`]
+    ],
+    decisions: [
+      {
+        q: `What load case is the new shaft checked against?`,
+        options: [],
+        choice: `Peak planetary-stage torque`,
+        why: `Contact loads applied at the needle-bearing interfaces, fixed supports at the pin-retention features across all planet pins. Result: 77.99 MPa max von Mises, minimum safety factor 15.`
+      },
+      {
+        q: `Where can weight come out?`,
+        options: [],
+        choice: `Gearbox-wide webbing optimization in KISSsoft (supporting role)`,
+        why: `Removed unnecessary material while preserving gear strength, contributing to a 14% weight reduction (830.7 g → 711.49 g) with a predicted gearbox fatigue life of 580 h.`
+      }
+    ],
     keyFeatures: [
-      { icon: `🔄`, name: `Improved Geometry`, desc: `Redesigned shaft profile for easier machining and reduced assembly complexity` },
-      { icon: `🔬`, name: `ANSYS FEA Validation`, desc: `Stress analysis under operational loads before any cutting — confirmed structural safety` },
-      { icon: `⚙️`, name: `Tight Tolerance Machining`, desc: `Machined in-house to drawing tolerances with verified bearing and spline interfaces` },
+      { icon: `🔄`, name: `Manufacturable Geometry`, desc: `Redesigned for easier machining, assembly, and servicing` },
+      { icon: `🔬`, name: `FEA at Peak Torque`, desc: `77.99 MPa max von Mises, minimum SF 15 — before any cutting` },
+      { icon: `⚖️`, name: `14% Weight Reduction`, desc: `Supported KISSsoft webbing optimization; 580 h predicted gearbox fatigue life` },
+      { icon: `⚙️`, name: `Tight-Tolerance Machining`, desc: `Machined in-house and fit-checked with mating drivetrain parts` },
     ],
     designProcess: [
-      `Supported gearbox-wide webbing optimization in KISSsoft that removed unnecessary material while preserving gear strength, contributing to a 14% weight reduction (830.7 g → 711.49 g) and a predicted gearbox fatigue life of 580 hours.`,
-      `Machined the planet shaft within tight tolerances and ensured proper fit with mating drivetrain components during assembly.`,
+      `<strong>Redesign intent.</strong> Improve assembly efficiency, manufacturability, and serviceability within the 11.97:1 compound planetary (59 sun teeth, 23/84 planet teeth).`,
+      `<strong>Set up FEA.</strong> Peak planetary-stage torque; contact loads at needle-bearing interfaces; fixed supports at pin-retention features across all planet pins.`,
+      `<strong>Verify.</strong> Max von Mises stress 77.99 MPa, minimum safety factor 15.`,
+      `<strong>Optimize the gearbox.</strong> Supported KISSsoft webbing optimization: 14% weight reduction (830.7 g → 711.49 g), predicted fatigue life 580 h.`,
+      `<strong>Machine &amp; fit.</strong> Machined the shaft within tight tolerances and confirmed fit with mating drivetrain components.`
     ],
-    techUsed: ["SolidWorks", "ANSYS", "FEA", "Machining"],
+    techUsed: ["SolidWorks", "ANSYS", "FEA", "KISSsoft", "Machining"],
     media: [
       { type: "image", src: "https://i.imgur.com/MBdr8uD.png", alt: `planet shaft` },
       { type: "image", src: "https://i.imgur.com/SifFkCD.png", alt: `planet shaft` },
@@ -321,16 +546,30 @@ techUsed: ["SolidWorks", "Thermal Management", "Manufacturing"],
     categoryLabel: `Hackathons & Other`,
     org: `2025 Engineering Business Future Case Competition`,
     date: `Oct 2025`,
-    award: "\ud83c\udfc6 3rd Place",
-    overview: `Worked in a team of four to develop a marketing strategy for Vicks Early Defense Nasal Spray, targeting increased household penetration using Porter's Five Forces and PESTLE, and delivered a clear, evidence-based presentation praised for its clarity and feasibility.`,
+    award: "🏆 3rd Place",
+    overview: `In a team of four engineering students, we built a campaign for Vicks Early Defense Nasal Spray with a goal of growing household penetration from 10% to 20% in one year. Porter's Five Forces and PESTLE analysis pointed to the core gap — a lack of exposure and reliability — and the strategy was built around closing it. The evidence-based presentation was recognized by judges for its clarity, feasibility, and analytical depth, placing 3rd.`,
+    metrics: [
+      { v: `10% → 20%`, l: `penetration goal` },
+      { v: `3rd`, l: `place` }
+    ],
+    specs: [
+      [`Team`, `4 engineering students`],
+      [`Product`, `Vicks Early Defense Nasal Spray`],
+      [`Objective`, `Household penetration 10% → 20% in one year`],
+      [`Frameworks`, `Porter's Five Forces, PESTLE`],
+      [`Result`, `3rd Place`]
+    ],
+    decisions: [],
     keyFeatures: [
-      { icon: `📈`, name: `Market Penetration Strategy`, desc: `Targeted 10% household penetration growth through multi-channel campaign` },
-      { icon: `🔍`, name: `Competitive Analysis`, desc: `Porter's Five Forces analysis of the OTC respiratory care market` },
-      { icon: `🌍`, name: `PESTLE Framework`, desc: `Macro-environmental analysis informing campaign timing and channel selection` },
-      { icon: `🎤`, name: `Judges' Choice for Clarity`, desc: `Praised specifically for evidence-based reasoning and presentation clarity` },
+      { icon: `📈`, name: `Penetration Strategy`, desc: `Goal: double household penetration (10% → 20%) in a year` },
+      { icon: `🔍`, name: `Competitive Analysis`, desc: `Porter's Five Forces on the OTC respiratory-care market` },
+      { icon: `🌍`, name: `PESTLE Framework`, desc: `Macro-environmental analysis informing the campaign` },
+      { icon: `🎤`, name: `Clarity & Feasibility`, desc: `Recognized by judges for evidence-based reasoning` },
     ],
     designProcess: [
-      `Delivered an evidence-based presentation that impressed judges with its clarity, feasibility, and analytical depth.`,
+      `<strong>Diagnose.</strong> Used Porter's Five Forces and PESTLE to identify the key gap: lack of exposure and perceived reliability.`,
+      `<strong>Strategize.</strong> Built the campaign around closing that gap to move penetration from 10% to 20%.`,
+      `<strong>Present.</strong> Delivered an evidence-based pitch recognized for clarity, feasibility, and analytical depth.`
     ],
     techUsed: ["Marketing", "Public Speaking"],
     media: [
@@ -351,27 +590,49 @@ techUsed: ["SolidWorks", "Thermal Management", "Manufacturing"],
     org: `MakeUofT Hackathon 2026`,
     date: `Feb 2026`,
     award: null,
-    overview: `Autonomous robot with real-time face detection and navigation, integrating computer vision, motor control, and a 3D-printed structure.`,
+    overview: `"Cupid's Wingman" is an autonomous robot that finds a face, drives toward it, and reacts with expressive motion. The pipeline splits sensing, compute, and actuation: a Raspberry Pi streams camera video to a host computer running OpenCV face detection, and the results drive an Arduino that handles differential-drive steering and a servo head-tilt, while a smartphone shows an animated face. Pi and Arduino run on separate power rails to stay stable under combined compute and motor load. Key integration work included fixing Pi-to-host latency and dropped connections, tuning detection thresholds against false positives in varying light, and calibrating steering response and stopping distance so the approach felt natural.`,
+    metrics: [
+      { v: `Pi → host → Arduino`, l: `pipeline` },
+      { v: `2`, l: `power rails` }
+    ],
+    specs: [
+      [`Vision`, `OpenCV face detection (host computer)`],
+      [`Camera / streaming`, `Raspberry Pi camera → host`],
+      [`Actuation`, `Arduino differential drive + servo head tilt`],
+      [`Display`, `Smartphone animated face`],
+      [`Power`, `Separate Pi and Arduino rails`],
+      [`Enclosure`, `Cardboard prototype + 3D-designed case`]
+    ],
+    decisions: [
+      {
+        q: `How is power distributed?`,
+        options: [],
+        choice: `Separate Pi and Arduino power rails`,
+        why: `For stability under combined computational and motor load.`
+      },
+      {
+        q: `How do we cut false detections?`,
+        options: [],
+        choice: `Calibrated detection thresholds and lighting robustness`,
+        why: `Reduced false positives and improved tracking reliability under varying environments. Planned next: reduced resolution and HSV-based filtering for efficiency and accuracy.`
+      }
+    ],
     keyFeatures: [
-      { icon: `👁️`, name: `Real-Time Face Detection`, desc: `OpenCV Haar cascade + Raspberry Pi camera for live face tracking` },
-      { icon: `🤖`, name: `Differential Drive Navigation`, desc: `Arduino motor control for left/right steering to follow detected face` },
-      { icon: `😄`, name: `Expressive Head Tilt`, desc: `Servo-driven head tilt for emotional interaction cues` },
-      { icon: `📱`, name: `Animated Face Display`, desc: `Smartphone-based animated face for engaging visual feedback` },
-      { icon: `⚡`, name: `Dual Power Management`, desc: `Separate Pi and Arduino power rails for stability under combined computational + motor load` },
+      { icon: `👁️`, name: `Real-Time Face Detection`, desc: `OpenCV Haar cascade on a Pi camera stream` },
+      { icon: `🤖`, name: `Differential Drive`, desc: `Arduino motor control steers toward the detected face` },
+      { icon: `😄`, name: `Expressive Head Tilt`, desc: `Servo-driven tilt for non-verbal interaction cues` },
+      { icon: `📱`, name: `Animated Face Display`, desc: `Smartphone-based face for visual feedback` },
+      { icon: `⚡`, name: `Dual Power Rails`, desc: `Separate Pi and Arduino supplies for stability under load` },
     ],
     designProcess: [
-      `Inspiration and concept definition: Identified a Valentine’s Day experience as motivation to build an autonomous system that could create feelings of being seen and appreciated through an interactive robotic platform.`,
-      `Defined Cupid’s Wingman as an autonomous AI-powered robot capable of navigation, face detection, and respectful human interaction through expressive motion and visual feedback.`,
-      `Implemented Raspberry Pi-based camera streaming with OpenCV, transmitting video data to a host computer for real-time face detection and decision-making logic.`,
-      `Connected vision outputs to an Arduino-based motor control system to enable directional movement and controlled approach behavior toward detected faces.`,
-      `Integrated servo-controlled head tilting and animated facial display using a smartphone screen to create non-verbal emotional interaction cues.`,
-      `Prototyping and fabrication: Developed both a cardboard prototype and a fully 3D-designed enclosure intended for future fully printed structural integration.`,
-      `Networking and SSH debugging: Resolved Raspberry Pi to computer communication issues including latency, dropped connections, and configuration instability for reliable real-time processing.`,
-      `Computer vision tuning: Calibrated OpenCV face detection thresholds and lighting robustness to reduce false positives and improve tracking reliability under varying environments.`,
-      `Motion and distance calibration: Tuned motor steering response and stopping distance to ensure smooth, natural, and socially appropriate approach behavior.`,
-      `System integration achievement: Successfully combined autonomous navigation, face recognition, and expressive interaction into a cohesive robotic system.`,
-      `Learning outcomes: Gained experience with OpenCV, Raspberry Pi networking and SSH workflows, Arduino motor control, 3D printing-based rapid prototyping, and system-level debugging of integrated robotics platforms.`,
-      `Future development direction: Transitioning to a fully 3D-printed enclosure, optimizing vision processing through reduced resolution and HSV-based filtering, and improving computational efficiency and detection accuracy for scalable deployment.`
+      `<strong>Concept.</strong> An autonomous robot that makes people feel seen — navigation, face detection, and respectful interaction.`,
+      `<strong>Vision pipeline.</strong> Raspberry Pi camera streaming with OpenCV; video sent to a host computer for real-time detection and decision logic.`,
+      `<strong>Actuation.</strong> Vision outputs drive an Arduino motor controller for directional movement and controlled approach.`,
+      `<strong>Expression.</strong> Servo head tilt plus an animated smartphone face for non-verbal cues.`,
+      `<strong>Networking.</strong> Resolved Pi-to-host latency, dropped connections, and configuration instability over SSH.`,
+      `<strong>Tuning.</strong> Calibrated detection thresholds for lighting robustness; tuned steering response and stopping distance.`,
+      `<strong>Fabrication.</strong> Cardboard prototype plus a fully 3D-designed enclosure for future printed integration.`,
+      `<strong>Next.</strong> Fully printed enclosure; reduced resolution and HSV filtering for computational efficiency and accuracy.`
     ],
     techUsed: ["OpenCV", "Raspberry Pi", "Arduino", "Computer Vision", "3D Printing"],
     media: [
@@ -384,4 +645,3 @@ techUsed: ["SolidWorks", "Thermal Management", "Manufacturing"],
     ],
   },
 };
-

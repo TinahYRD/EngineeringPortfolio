@@ -63,6 +63,67 @@ function openProjectDetail(id, skipHash) {
   // ---- Overview ----
   document.getElementById('pdOverview').textContent = p.overview;
 
+  // ---- Spec sheet (key numbers table) ----
+  var specWrap = document.getElementById('pdSpecs');
+  var specSection = document.getElementById('pdSpecsSection');
+  if (specWrap && specSection) {
+    specWrap.innerHTML = '';
+    if (p.specs && p.specs.length) {
+      specSection.style.display = '';
+      p.specs.forEach(function (row) {
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<th scope="row">' + row[0] + '</th><td>' + row[1] + '</td>';
+        specWrap.appendChild(tr);
+      });
+    } else {
+      specSection.style.display = 'none';
+    }
+  }
+
+  // ---- Design decision log ----
+  var decWrap = document.getElementById('pdDecisions');
+  var decSection = document.getElementById('pdDecisionsSection');
+  if (decWrap && decSection) {
+    decWrap.innerHTML = '';
+    if (p.decisions && p.decisions.length) {
+      decSection.style.display = '';
+      p.decisions.forEach(function (d, i) {
+        var card = document.createElement('details');
+        card.className = 'pd-decision';
+        if (i === 0) card.open = true;
+        // convention in projects-data.js: the selected option is listed last
+        var optList = d.options || [];
+        var hasOpts = optList.length > 1;
+        var opts = optList.map(function (o, k) {
+          var chosen = k === optList.length - 1;
+          return '<li class="' + (chosen ? 'is-chosen' : 'is-rejected') + '">' + o + '</li>';
+        }).join('');
+        card.innerHTML =
+          '<summary><span class="pd-dec-id">DR-' + String(i + 1).padStart(2, '0') + '</span>' +
+          '<span class="pd-dec-q">' + d.q + '</span><span class="pd-dec-chev">▾</span></summary>' +
+          '<div class="pd-dec-body' + (hasOpts ? '' : ' no-opts') + '">' +
+          (hasOpts ? '  <div class="pd-dec-col"><span class="pd-dec-label">Options considered</span><ul class="pd-dec-opts">' + opts + '</ul></div>' : '') +
+          '  <div class="pd-dec-col"><span class="pd-dec-label">Decision</span><p class="pd-dec-choice">' + d.choice + '</p>' +
+          '  <span class="pd-dec-label">Rationale &amp; trade-off</span><p class="pd-dec-why">' + d.why + '</p></div>' +
+          '</div>';
+        decWrap.appendChild(card);
+      });
+    } else {
+      decSection.style.display = 'none';
+    }
+  }
+
+  // ---- Drawing title block ----
+  var tb = document.getElementById('pdTitleBlock');
+  if (tb) {
+    tb.innerHTML =
+      '<div class="tb-cell tb-wide"><span>Title</span><b>' + p.title + '</b></div>' +
+      '<div class="tb-cell"><span>Dwg No.</span><b>RY-' + p.category.toUpperCase() + '-' + p.number + '</b></div>' +
+      '<div class="tb-cell"><span>Drawn</span><b>R. Yuan</b></div>' +
+      '<div class="tb-cell"><span>Date</span><b>' + p.date + '</b></div>' +
+      '<div class="tb-cell"><span>Sheet</span><b>' + p.number + ' / ' + String(PROJECTS_ORDER.length).padStart(2, '0') + '</b></div>';
+  }
+
   // ---- Gallery (grid of clickable photos) ----
   var galleryGrid = document.getElementById('pdGalleryGrid');
   var gallerySection = document.getElementById('pdGallerySection');

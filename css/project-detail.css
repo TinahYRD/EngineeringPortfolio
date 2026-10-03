@@ -16,7 +16,7 @@
   justify-content: center;
   margin-top: 0.7rem;
   background: var(--ink);
-  color: var(--white);
+  color: var(--on-accent);
   border: none;
   cursor: pointer;
   padding: 0.62rem 1rem;

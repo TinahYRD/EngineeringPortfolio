@@ -9,15 +9,18 @@
 (function () {
   var quips = [
     { text: "Hi! I'm the site mascot — click around, I don't bite. 🐾" },
-    { text: "Psst — the cooling loop sim hit 95.84% motor efficiency. Nerdy flex.", action: function () { openProjectDetail('cooling-sim'); }, actionLabel: "Show me →" },
-    { text: "Tinah shaved 14% off the planet shaft's weight with FEA. Respect the gram count.", action: function () { openProjectDetail('planet-shafts'); }, actionLabel: "See the redesign →" },
-    { text: "Fun fact: the Red Lamp robot got hacked together at 3am and still won 2nd place.", action: function () { openProjectDetail('red-lamp'); }, actionLabel: "Meet the lamp →" },
+    { text: "Psst — the cooling loop sim found a 95.84% mean motor efficiency across a simulated endurance run. Nerdy flex.", action: function () { openProjectDetail('cooling-sim'); }, actionLabel: "Show me →" },
+    { text: "Gearbox webbing optimization contributed to a 14% weight reduction (830.7 g → 711.49 g) with a 580 h predicted fatigue life. Respect the gram count.", action: function () { openProjectDetail('planet-shafts'); }, actionLabel: "See the redesign →" },
+    { text: "Fun fact: Red Lamp moved its critical control functions to Arduino mid-hackathon — and still took 2nd place.", action: function () { openProjectDetail('red-lamp'); }, actionLabel: "Meet the lamp →" },
     { text: "10+ projects, 1 very tired but happy mechanical engineer.", action: function () { goToPage('projects'); }, actionLabel: "Browse projects →" },
     { text: "Formula SAE, aerospace UAS, hackathons... this portfolio really said 'why not all three.'" },
-    { text: "Open to internships May–Sept 2027, in case anyone reading this is hiring. 👀", action: function () { goToPage('contact'); }, actionLabel: "Say hello →" },
-    { text: "That drivetrain got machined down to a 22.3 kg unsprung mass. Every gram counted.", action: function () { openProjectDetail('drivetrain'); }, actionLabel: "See the build →" },
+    { text: "Open to internships May 2028 – Sept 2029, in case anyone reading this is hiring. 👀", action: function () { goToPage('contact'); }, actionLabel: "Say hello →" },
+    { text: "UT26 drivetrain corner: 22.304 kg unsprung vs a < 40 kg target. Every gram counted.", action: function () { openProjectDetail('drivetrain'); }, actionLabel: "See the build →" },
     { text: "Try clicking any project's photo — the gallery flips through the whole build." },
-    { text: "🐶🐺🦊🦝🐱 more projects incoming, allegedly." }
+    { text: "🐶🐺🦊🦝🐱 more projects incoming, allegedly." },
+    { text: "New: the Lab page has a live heat-load calculator and a spinning planetary gearbox.", action: function () { goToPage('lab'); }, actionLabel: "Open the Lab →" },
+    { text: "Pro tip: press ⌘K / Ctrl+K (or /) to jump anywhere on this site." },
+    { text: "It's darker in here now — try the moon button in the nav. 🌙" }
   ];
 
   var quipOrder = [];

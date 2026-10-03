@@ -4,11 +4,22 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ruodi (Tinah) Yuan — Engineering Portfolio</title>
+<meta name="description" content="Mechanical engineering portfolio of Ruodi (Tinah) Yuan — Formula SAE vehicle dynamics and drivetrain, UAS mechanisms, sensor-pod hardware, and interactive engineering demos.">
+<script>
+  /* apply saved / system theme before first paint to avoid a flash */
+  (function () {
+    var t = null;
+    try { t = localStorage.getItem('ry-theme'); } catch (e) {}
+    if (!t && window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) t = 'dark';
+    document.documentElement.setAttribute('data-theme', t === 'dark' ? 'dark' : 'light');
+  })();
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="css/project-detail.css">
 <link rel="stylesheet" href="css/mascot.css">
+<link rel="stylesheet" href="css/enhancements.css">
 <!-- <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%239B8FC2'/%3E%3Cellipse cx='32' cy='29' rx='18' ry='13' fill='%23F9D58B'/%3E%3Crect x='14' y='34' width='36' height='5' rx='2.5' fill='%23E8B84B'/%3E%3Crect x='22' y='34' width='20' height='8' rx='2' fill='%23FAD5B5'/%3E%3Crect x='28' y='37' width='8' height='10' rx='3' fill='%23C8748A'/%3E%3Cellipse cx='32' cy='47' rx='5' ry='3' fill='%232C2520'/%3E%3C/svg%3E"> -->
 <!-- <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%232C2520'/><rect x='1' y='1' width='62' height='62' rx='15' fill='none' stroke='%23C8748A' stroke-width='2'/><text x='19' y='55' font-family='Georgia,serif' font-size='30' font-weight='bold' fill='%23C8748A' font-style='italic'>T</text><text x='37' y='55' font-family='Georgia,serif' font-size='22' font-weight='400' fill='%23C8748A' opacity='0.45' font-style='italic'>Y</text><ellipse cx='32' cy='22' rx='17' ry='10' fill='%23F9D58B'/><ellipse cx='32' cy='15' rx='10' ry='8' fill='%23F9D58B'/><rect x='15' y='25' width='34' height='5' rx='2.5' fill='%23E8B84B'/><ellipse cx='26' cy='16' rx='3' ry='1.8' fill='%23fff' opacity='0.28'/></svg>"> -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%232C2520'/><rect x='1' y='1' width='62' height='62' rx='15' fill='none' stroke='%23C8748A' stroke-width='2'/><ellipse cx='32' cy='14' rx='13' ry='7' fill='%23F9D58B'/><ellipse cx='32' cy='9' rx='8' ry='6' fill='%23F9D58B'/><rect x='19' y='17' width='26' height='4' rx='2' fill='%23E8B84B'/><ellipse cx='27' cy='10' rx='2.5' ry='1.4' fill='%23fff' opacity='0.28'/><text x='10' y='57' font-family='Georgia,serif' font-size='39' font-weight='bold' fill='%23C8748A' font-style='italic'>T</text><text x='36' y='57' font-family='Georgia,serif' font-size='25.5' font-weight='400' fill='%23C8748A' opacity='0.7' font-style='italic'>Y</text></svg>">
@@ -41,6 +52,7 @@
     <li><button class="nav-link" data-page="home" onclick="goToPage('home')">Home</button></li>
     <li><button class="nav-link" data-page="about" onclick="goToPage('about')">About</button></li>
     <li><button class="nav-link" data-page="projects" onclick="goToPage('projects')">Projects</button></li>
+    <li><button class="nav-link nav-link-lab" data-page="lab" onclick="goToPage('lab')">Lab <span class="nav-new">new</span></button></li>
     <li><button class="nav-link" data-page="experience" onclick="goToPage('experience')">Experience</button></li>
     <li><button class="nav-link" data-page="awards" onclick="goToPage('awards')">Awards</button></li>
     <li><button class="nav-link" data-page="skills" onclick="goToPage('skills')">Skills</button></li>
@@ -52,6 +64,16 @@
     View Resume →
   </a>
   </ul>
+  <div class="nav-tools">
+    <button class="nav-tool-btn nav-cmdk" id="cmdkOpenBtn" aria-label="Open quick search" title="Quick search (Ctrl/⌘ + K)">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <kbd class="cmdk-kbd">⌘K</kbd>
+    </button>
+    <button class="nav-tool-btn" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+      <svg class="ico-moon" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      <svg class="ico-sun" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+    </button>
+  </div>
   <button class="nav-burger" id="navBurger" aria-label="Menu" onclick="toggleBurger()"><span></span><span></span><span></span></button>
 </nav>
 
@@ -88,7 +110,7 @@
       <div class="hero-inner">
         <div class="hero-text">
           <p class="hero-eyebrow">Engineering Portfolio · University of Toronto</p>
-          <p class="hero-avail">Open to internships · May 2027 – Sept 2028</p>
+          <p class="hero-avail">Open to internships · May 2028 – Sept 2029</p>
           <div class="hero-title-wrap">
             <h1 class="hero-name">Hi, I'm<br><em class="hero-name-gradient">Ruodi Yuan</em><br></h1>
             <div class="hero-floating-img-circle img-circle">
@@ -99,7 +121,7 @@
             </div>
           </div>
           <p class="hero-sub">
-            I am a mechanical engineering student at the University of Toronto pursuing minors in Bioengineering and Mechatronics &amp; Robotics, who is passionate about racing cars 🏎️, aerospace systems, and biomedical device design.
+            Mechanical engineering student at the University of Toronto (minors in Bioengineering and Mechatronics &amp; Robotics). I lead vehicle dynamics simulation for UofT Formula SAE, design sensor-pod hardware at Peripheral Labs, and like problems where a model, a drawing, and a machined part all have to agree — racing cars 🏎️, aerospace mechanisms, and biomedical devices.
           </p>
           <div class="hero-tags">
             <span class="hero-tag tag-rose">Mechanical Design</span>
@@ -118,7 +140,7 @@
             </div>
             <div class="hrc-text">
               <span class="hrc-label">Ruodi (Tinah) Yuan — Résumé</span>
-              <span class="hrc-sub">BASc Mechanical Engineering · UofT · 2025</span>
+              <span class="hrc-sub">BASc Mechanical Engineering + PEY Co-op · UofT · 2025–2030</span>
             </div>
             <div class="hrc-arrow">
               <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -147,6 +169,11 @@
             <div class="hero-stat"><span class="hero-stat-num" data-count="2">2</span><span class="hero-stat-label">Design Teams</span></div>
           </div>
 
+          <div class="term-card" id="termCard" aria-label="Quick summary">
+            <div class="term-bar"><span></span><span></span><span></span><em>ry@portfolio: ~</em></div>
+            <pre class="term-body" id="termBody"></pre>
+          </div>
+
           <div class="fun-tag-cloud">
             <span class="fun-tag"><span class="fun-tag-icon">🏎️</span> Formula SAE Michigan 2026</span>
             <span class="fun-tag"><span class="fun-tag-icon">✈️</span> SAE Aero Design</span>
@@ -154,6 +181,7 @@
             <span class="fun-tag"><span class="fun-tag-icon">💻</span> 3DX Mechanical & Shape Designer - CATIA Associate Certified</span>
             <span class="fun-tag"><span class="fun-tag-icon">📐</span> CSWA Certified</span>
             <span class="fun-tag"><span class="fun-tag-icon">🔩</span> AWD EV Drivetrain</span>
+            <span class="fun-tag"><span class="fun-tag-icon">📡</span> Sensor Pods @ Peripheral Labs</span>
             <span class="fun-tag"><span class="fun-tag-icon">🤖</span> Robotics Minor</span>
           </div>
         </div>
@@ -178,23 +206,25 @@
     </div>
     <div class="ticker-strip">
       <div class="ticker-inner">
+        <span>Mechanical Engineering Intern @ Peripheral Labs</span>
         <span>Vehicle Dynamics Lead @ UofT FSAE</span>
         <span>AWD Formula SAE EV</span>
         <span>UAS Payload Specialist</span>
         <span>Mechanical Engineering + PEY Co-op</span>
-        <span>MATLAB · Simulink · ANSYS · SolidWorks</span>
+        <span>MATLAB · Simulink · ANSYS · SolidWorks · Adams Car</span>
         <span>UofTHacks 2nd Place 2026</span>
         <span>Formula SAE Michigan 2026</span>
-        <span>Seeking Internships May 2027–Sept 2028</span>
+        <span>Seeking Internships May 2028–Sept 2029</span>
         <!-- duplicate for seamless loop -->
+        <span>Mechanical Engineering Intern @ Peripheral Labs</span>
         <span>Vehicle Dynamics Lead @ UofT FSAE</span>
         <span>AWD Formula SAE EV</span>
         <span>UAS Payload Specialist</span>
         <span>Mechanical Engineering + PEY Co-op</span>
-        <span>MATLAB · Simulink · ANSYS · SolidWorks</span>
+        <span>MATLAB · Simulink · ANSYS · SolidWorks · Adams Car</span>
         <span>UofTHacks 2nd Place 2026</span>
         <span>Formula SAE Michigan 2026</span>
-        <span>Seeking Internships May 2027–Sept 2028</span>
+        <span>Seeking Internships May 2028–Sept 2029</span>
       </div>
     </div>
     <footer>
@@ -271,7 +301,7 @@
             </div>
             <h3 class="card-title">Dual Cooling Loop System Simulation</h3>
             <p class="card-org">University of Toronto Formula SAE Racing</p>
-            <p class="card-desc">Developed a physics-based MATLAB/Simulink thermal model of a dual-inverter cooling loop to predict motor temperatures under endurance race conditions, digitizing the Fischer motor's power-efficiency map into a high-resolution lookup table to establish the system's thermal boundary condition. The simulated endurance run returned a mean motor efficiency of 95.84% (ranging 86.09%–97.97%), corresponding to an average thermal loss of ~5.5 kW that the cooling system was sized to reject. The model was validated against historical endurance-run telemetry and used to evaluate cooling performance across varying vehicle speeds and thermal loads.</p>
+            <p class="card-desc">MATLAB/Simulink thermal model of the dual-inverter cooling loop, driven by a digitized Fischer motor efficiency map. Simulated endurance gave mean η = 95.84% (86.09–97.97%) → ~5.5 kW average heat load, the boundary condition used to size the system. Correlated against endurance-run telemetry.</p>
             <div class="card-tags">
               <span class="card-tag">Simulink</span>
               <span class="card-tag">MATLAB</span>
@@ -321,7 +351,7 @@
             </div>
             <h3 class="card-title">Dual Series Cooling Loop</h3>
             <p class="card-org">University of Toronto Formula SAE Racing</p>
-            <p class="card-desc">Designed, built, and tested a full dual cooling loop system for an electric powertrain, integrating CAD design, fabrication, and real-world validation. The project included tubing assembly, sensor integration, pump priming, and bench testing to ensure reliable thermal performance under race conditions.</p>
+            <p class="card-desc">Two independent series loops (L/R), ordered Pump → Radiator → Inverter → Motor jackets so the inverter sees the coldest coolant; pump upstream of the radiator to limit cavitation. Parallel topology evaluated and rejected. Built, primed, leak-checked, and flow-verified on the bench.</p>
             <div class="card-tags">
               <span class="card-tag">SolidWorks</span>
               <span class="card-tag">Thermal Management</span>
@@ -372,7 +402,7 @@
             </div>
             <h3 class="card-title">UT26 Drivetrain System</h3>
             <p class="card-org">University of Toronto Formula SAE Racing</p>
-            <p class="card-desc">Contributed to the design, manufacturing, and assembly of the UT26 in-hub AWD drivetrain system, engineered against corner-level targets of <40 kg mass, <0.25 kg·m² moment of inertia, and <3 h assembly time, ultimately achieving a 22.304 kg unsprung mass and 0.197 kg·m² mass moment of inertia. Supported integration of motors, gearbox components, and drivetrain hardware, including FEA-validated components such as the inboard motor mount (9.24 MPa max von Mises stress, safety factor >15). The project involved hands-on manufacturing, fixture design, and assembly process development to improve reliability and ease of installation.</p>
+            <p class="card-desc">Four identical in-hub AWD corners with an 11.97:1 compound planetary. Targets: < 40 kg, < 0.25 kg·m², < 3 h assembly — achieved 22.304 kg unsprung and 0.197 kg·m². Designed the PM rotor-alignment tool; GD&amp;T drawings for the motor mount (FEA: 9.24 MPa, SF > 15), planet shafts, and bearing.</p>
             <div class="card-tags">
               <span class="card-tag">SolidWorks</span>
               <span class="card-tag">Machining</span>
@@ -423,7 +453,7 @@
             </div>
             <h3 class="card-title">UT26 MAPLE — Structures</h3>
             <p class="card-org">University of Toronto Aerospace Team — UAS</p>
-            <p class="card-desc">Worked on the structures team for a UAS aircraft, responsible for manufacturing and assembly of the fuselage and landing gear systems. This included fabrication planning, composite integration, and hands-on assembly of airframe components to ensure structural integrity and flight readiness.</p>
+            <p class="card-desc">Fuselage and landing-gear build for a hybrid V/STOL UAS. Laser-cut templates locked in fuselage geometry for repeatable construction; carbon-fibre tubes cut to dimension, Monokote covering, and landing-gear mounts bonded into structure for a clear load path.</p>
             <div class="card-tags">
               <span class="card-tag">SolidWorks</span>
               <span class="card-tag">3D Printing</span>
@@ -478,7 +508,7 @@
             </div>
             <h3 class="card-title">UT26 Nose Landing Gear Integration</h3>
             <p class="card-org">University of Toronto Aerospace Team — UAS</p>
-            <p class="card-desc">Redesigned the nose landing gear system to convert it from a fuselage-integrated structure into a modular, independent subassembly to improve maintainability and manufacturability. This redesign significantly simplified maintenance procedures and reduced system integration and repair complexity.</p>
+            <p class="card-desc">Converted a fuselage-integrated nose gear into a modular subassembly with standardized attachment points, so it can be built, tested, and swapped independently. PETG prototype for fit, iterated to v2 with avionics, structures, and manufacturing input.</p>
             <div class="card-tags">
               <span class="card-tag">SolidWorks</span>
               <span class="card-tag">3D Printing</span>
@@ -522,7 +552,7 @@
             </div>
             <h3 class="card-title">UT26 MAPLE — Arming Housing Design</h3>
             <p class="card-org">University of Toronto Aerospace Team — UAS</p>
-            <p class="card-desc">Designed and manufactured a modular arming housing system for a UAS platform, enabling safe and efficient electrical system activation and integration. The design was 3D printed and iteratively improved through multiple design cycles in collaboration with other subteams.</p>
+            <p class="card-desc">Arming-switch housing with integrated pocket and tail-boom clamps, requirements set with avionics. v1 fit check on the aircraft exposed wire-routing and access conflicts; v2 fixed the geometry and added a switch-retention cap.</p>
             <div class="card-tags">
               <span class="card-tag">SolidWorks</span>
               <span class="card-tag">3D Printing</span>
@@ -563,7 +593,7 @@
             </div>
             <h3 class="card-title">Red Lamp — Companion Robot</h3>
             <p class="card-org">UofTHacks 13</p>
-            <p class="card-desc">A companion robot that detects student emotion during solo study sessions and provides encouragement against isolation and burnout.</p>
+            <p class="card-desc">Companion robot for solo study built on a LeLamp kit with Raspberry Pi, sensors, LEDs, and 3D-printed parts. When Pi connectivity kept failing mid-build, Arduino components took over critical control — improving stability under hackathon constraints.</p>
             <div class="card-tags">
               <span class="card-tag">Raspberry Pi</span>
               <span class="card-tag">Arduino</span>
@@ -607,7 +637,7 @@
             </div>
             <h3 class="card-title">Planet Shafts Redesign</h3>
             <p class="card-org">University of Toronto Formula SAE Racing</p>
-            <p class="card-desc">Redesigned the planet shaft component within the drivetrain's 11.97:1 compound planetary gearbox to improve manufacturability and serviceability, validating the new geometry against peak planetary-stage torque using FEA — achieving a maximum von Mises stress of 77.99 MPa with a minimum safety factor of 15 — before machining to tight tolerances. Gearbox-wide webbing optimization contributed to a 14% weight reduction (830.7 g → 711.49 g) while maintaining a predicted gearbox fatigue life of 580 hours.</p>
+            <p class="card-desc">Planet shaft redesign in the 11.97:1 compound planetary for manufacturability and service. FEA at peak stage torque (bearing-contact loads, fixed at pin retention): 77.99 MPa, SF ≥ 15. Supported KISSsoft webbing optimization: −14% weight (830.7 → 711.49 g), 580 h predicted gearbox life.</p>
             <div class="card-tags">
               <span class="card-tag">SolidWorks</span>
               <span class="card-tag">ANSYS</span>
@@ -649,7 +679,7 @@
             </div>
             <h3 class="card-title">P&amp;G Marketing Campaign</h3>
             <p class="card-org">2025 Engineering Business Future Case Competition</p>
-            <p class="card-desc">Worked in a team of four to develop a marketing strategy for Vicks Early Defense Nasal Spray, targeting increased household penetration using Porter's Five Forces and PESTLE, and delivered a clear, evidence-based presentation praised for its clarity and feasibility.</p>
+            <p class="card-desc">Team of four; goal of doubling household penetration (10% → 20%) for Vicks Early Defense. Porter's Five Forces + PESTLE identified an exposure/reliability gap that anchored the strategy. 3rd place; praised for clarity and feasibility.</p>
             <div class="card-tags">
               <span class="card-tag">Marketing</span>
               <span class="card-tag">Public Speaking</span>
@@ -688,7 +718,7 @@
             </div>
             <h3 class="card-title">Autonomous Face-Tracking Robot</h3>
             <p class="card-org">MakeUofT Hackathon 2026</p>
-            <p class="card-desc">Autonomous robot with real-time face detection and navigation, integrating computer vision, motor control, and a 3D-printed structure.</p>
+            <p class="card-desc">Pi camera streams to a host running OpenCV face detection; results drive an Arduino differential drive and servo head-tilt. Separate Pi/Arduino power rails for stability under motor load; detection thresholds and stopping distance tuned on the real robot.</p>
             <div class="card-tags">
               <span class="card-tag">OpenCV</span>
               <span class="card-tag">Raspberry Pi</span>
@@ -777,6 +807,121 @@
     </footer>
   </section>
 
+  <!-- ============ LAB (interactive engineering widgets) ============ -->
+  <section class="page" id="page-lab" data-page="lab" data-enter="left" data-leave="left">
+    <div class="page-header bp-grid"><div class="ph-ring"></div><div class="ph-ring ph-ring-2"></div>
+      <div class="ph-top">
+        <div class="ph-left">
+          <p class="ph-eyebrow"><span class="ph-eyebrow-dot"></span>Interactive / Playground</p>
+          <h2 class="ph-title">
+            <span class="ph-word"><span>Engineering</span></span>&nbsp;<span class="ph-word"><span><em>Lab</em></span></span>
+          </h2>
+          <p class="ph-sub">Small interactive models built from the real numbers in my projects. Drag the sliders — same equations and figures as the project write-ups, simplified for the browser.</p>
+        </div>
+        <div class="ph-right">
+          <div class="ph-number">03</div>
+          <div class="ph-tags">
+            <span class="ph-tag">Thermal</span>
+            <span class="ph-tag">Gearing</span>
+            <span class="ph-tag">Targets</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section-shell page-pad" style="padding-top:1.8rem;">
+
+      <!-- WIDGET 1: heat load -->
+      <div class="lab-card" id="labHeat">
+        <div class="lab-head">
+          <span class="lab-tag">FIG. 01 · Thermal</span>
+          <h3 class="lab-title">Motor heat-load calculator</h3>
+          <p class="lab-sub">Every watt the motor doesn't turn into torque becomes heat the cooling loop must reject: <code>P<sub>loss</sub> = P<sub>in</sub> · (1 − η)</code>. The three η presets are the minimum, mean, and maximum from my endurance simulation.</p>
+        </div>
+        <div class="lab-body lab-split">
+          <div class="lab-controls">
+            <label class="lab-field">
+              <span>Electrical input power <b id="heatPinVal">40.0 kW</b></span>
+              <input type="range" id="heatPin" min="1" max="80" step="0.5" value="40">
+            </label>
+            <label class="lab-field">
+              <span>Motor efficiency η <b id="heatEtaVal">95.84 %</b></span>
+              <input type="range" id="heatEta" min="80" max="99" step="0.01" value="95.84">
+            </label>
+            <div class="lab-presets" role="group" aria-label="Efficiency presets">
+              <button data-eta="86.09">η min 86.09%</button>
+              <button data-eta="95.84" class="on">η mean 95.84%</button>
+              <button data-eta="97.97">η max 97.97%</button>
+            </div>
+          </div>
+          <div class="lab-readout">
+            <div class="lab-big"><span id="heatLoss">1.66</span><small>kW of heat</small></div>
+            <div class="heat-bar" aria-hidden="true">
+              <div class="heat-fill" id="heatFill"></div>
+              <div class="heat-target" style="--x:55%"><span>5.5 kW design target</span></div>
+            </div>
+            <div class="heat-scale"><span>0</span><span>5</span><span>10 kW</span></div>
+            <p class="lab-note" id="heatNote"></p>
+          </div>
+        </div>
+        <p class="lab-foot">Note: the ~5.5 kW sizing target is the time-average of <em>instantaneous</em> losses over the simulated endurance event — not one input power times the mean η. That's why the model evaluates efficiency from the full map at every operating point instead of assuming one value. Input power here is illustrative, not UT26 data. <button class="lab-link" onclick="openProjectDetail('cooling-sim')">See the cooling simulation →</button></p>
+      </div>
+
+      <!-- WIDGET 2: planetary -->
+      <div class="lab-card" id="labGear">
+        <div class="lab-head">
+          <span class="lab-tag">FIG. 02 · Drivetrain</span>
+          <h3 class="lab-title">11.97 : 1 compound planetary</h3>
+          <p class="lab-sub">Each UT26 corner reduces motor speed through an 11.97:1 compound planetary (59 sun teeth, 23/84 planet teeth). Speed goes down by the ratio; ideal torque goes up by it.</p>
+        </div>
+        <div class="lab-body lab-split">
+          <div class="gear-stage">
+            <canvas id="gearCanvas" width="420" height="420" aria-label="Animated schematic of a planetary gear set"></canvas>
+            <span class="gear-caption">Schematic only — not to scale</span>
+          </div>
+          <div class="lab-controls">
+            <label class="lab-field">
+              <span>Motor (input) speed <b id="gearInVal">6,000 rpm</b></span>
+              <input type="range" id="gearIn" min="0" max="20000" step="100" value="6000">
+            </label>
+            <label class="lab-field">
+              <span>Motor torque <b id="gearTqVal">10 N·m</b></span>
+              <input type="range" id="gearTq" min="0" max="30" step="0.5" value="10">
+            </label>
+            <div class="gear-out">
+              <div><span>Output speed</span><b id="gearOut">501 rpm</b></div>
+              <div><span>Ideal output torque</span><b id="gearTqOut">119.7 N·m</b></div>
+              <div><span>Reduction</span><b>11.97 : 1</b></div>
+            </div>
+            <p class="lab-note">Ideal = lossless. Speeds and torques here are user inputs for illustration, not UT26 motor specs.</p>
+            <button class="lab-link" onclick="openProjectDetail('planet-shafts')">See the planet-shaft redesign →</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- WIDGET 3: targets vs achieved -->
+      <div class="lab-card" id="labTargets">
+        <div class="lab-head">
+          <span class="lab-tag">FIG. 03 · Verification</span>
+          <h3 class="lab-title">Targets, margins &amp; results</h3>
+          <p class="lab-sub">Achieved and analyzed results from the project write-ups, shown against targets where targets existed.</p>
+        </div>
+        <div class="lab-body">
+          <div class="tgt-list" id="tgtList"></div>
+        </div>
+      </div>
+
+    </div>
+    <footer>
+      <span class="footer-sig">Ruodi (Tinah) Yuan · BASc Mechanical Engineering · UofT</span>
+      <div class="footer-links">
+        <a href="mailto:ruodi.yuan@mail.utoronto.ca">Email</a>
+        <a href="https://www.linkedin.com/in/ruodiyuan" target="_blank">LinkedIn</a>
+        <a href="https://devpost.com/tinayuan060123" target="_blank">Devpost</a>
+        <a href="Ruodi (Tinah) Yuan - Resume.pdf" download>Resume</a>
+      </div>
+    </footer>
+  </section>
+
   <!-- ============ EXPERIENCE ============ -->
   <section class="page" id="page-experience" data-page="experience" data-enter="right" data-leave="right">
     <div class="page-header"><div class="ph-ring"></div><div class="ph-ring ph-ring-2"></div>
@@ -788,7 +933,7 @@
                     <span class="floating-emoji">🏁</span>
             
           </h2>
-          <p class="ph-sub">Leadership and team experience behind the projects — across Formula SAE Racing and the UofT Aerospace Team.</p>
+          <p class="ph-sub">Industry, leadership, and design-team experience behind the projects — Peripheral Labs, UofT Formula SAE Racing, and the UofT Aerospace Team.</p>
         </div>
         <div class="ph-right">
           <div class="floating-shape-car">
@@ -805,18 +950,35 @@
           <div class="timeline-dot"></div>
           <div class="timeline-card">
             <div class="timeline-head">
+              <span class="timeline-role">Mechanical Engineering Intern, Capture Systems</span>
+              <span class="timeline-date">Sept 2026 — Present</span>
+            </div>
+            <p class="timeline-org">Peripheral Labs · Toronto</p>
+            <ul class="bullet-list">
+              <li>Design and develop mechanical enclosures and mounting solutions for camera, LiDAR, and other sensor systems used for spatial data capture.</li>
+              <li>Build and integrate sensor pods, including mechanical assembly, sensor mounting, and hardware packaging.</li>
+              <li>Test new capture hardware for fit, mounting, sensor operation, and ease of setup in the field.</li>
+              <li>Support permanent and temporary sensor installations for event capture: setup, integration, troubleshooting, and on-site deployment.</li>
+            </ul>
+            <div class="timeline-tags"><span>Enclosure design</span><span>Sensor mounting</span><span>Field deployment</span><span>Camera · LiDAR</span></div>
+          </div>
+        </div>
+
+        <div class="timeline-item current">
+          <div class="timeline-dot"></div>
+          <div class="timeline-card">
+            <div class="timeline-head">
               <span class="timeline-role">Vehicle Dynamics Lead</span>
               <span class="timeline-date">June 2026 — Present</span>
             </div>
             <p class="timeline-org">University of Toronto Formula SAE Racing</p>
             <ul class="bullet-list">
-              <li>Led vehicle dynamics simulation and performance optimization using VI-CarRealTime, MATLAB, Dil and Adams Car, analyzing lap-time sensitivity, vehicle response, and handling performance across multiple vehicle configurations.</li>
-              <li>Developed a vehicle performance envelope using simulation data to characterize acceleration, braking, cornering, and tire-force limits across representative operating conditions.</li>
-              <li>Performed mass sensitivity analysis and established vehicle mass targets projected to reduce lap time by approximately 3% relative to the previous-year vehicle.</li>
-              <li>Developed and maintained vehicle dynamics analysis workflows in MATLAB, including automated simulation post-processing, parameter sweeps, and performance visualization to support setup and design decisions.</li>
-              <li>Performed suspension, and steering analysis, including suspension-link load correlation between Adams Car simulations and vehicle dynamics models within 20% difference to validate predicted loads.</li>
-              <li>Supported DIL testing and validation, coordinating test parameters, and maintaining test workflows</li>
-              <li>Maintained and compiled vehicle dynamics software PRs, supporting integration, validation, and deployment of simulation and testing updates.</li>
+              <li><strong>Simulation-led design:</strong> run vehicle dynamics simulation and performance optimization in VI-CarRealTime, Adams Car, MATLAB, and the driver-in-the-loop (DIL) simulator — lap-time sensitivity, vehicle response, and handling across multiple vehicle configurations.</li>
+              <li><strong>Performance envelope:</strong> built from simulation data to characterize acceleration, braking, cornering, and tire-force limits across representative operating conditions.</li>
+              <li><strong>Mass targets:</strong> mass sensitivity analysis set vehicle mass targets projected to cut lap time by ≈ 3% versus the previous-year car.</li>
+              <li><strong>Load correlation:</strong> suspension and steering analysis, correlating suspension-link loads between Adams Car and the team's vehicle dynamics models to within 20% to validate predicted loads.</li>
+              <li><strong>Tooling:</strong> MATLAB workflows for automated post-processing, parameter sweeps, and performance visualization that feed setup and design decisions.</li>
+              <li><strong>Test &amp; software:</strong> support DIL testing and validation (test parameters, workflows) and maintain and compile vehicle dynamics software PRs supporting integration, validation, and deployment of simulation and testing updates.</li>
             </ul>
             <div class="timeline-gallery">
               <!-- <div class="gallery-placeholder"><img src="https://i.imgur.com/Y1wzhwq.png" alt="headshot"></div>
@@ -839,11 +1001,11 @@
             </div>
             <p class="timeline-org">University of Toronto Formula SAE Racing</p>
             <ul class="bullet-list">
-              <li>Co-led drivetrain architecture development for the team's first AWD Formula SAE EV race car and performed PM motor assembly.</li>
-              <li>Designed a custom rotor alignment tool to enable safe, precise, and repeatable installation given strong magnetic attraction forces.</li>
-              <li>Produced GD&amp;T-compliant drawings, cost analysis, and manufacturing documentation for the inboard motor mount, planet shafts, and motor bearing.</li>
-              <li>Designed and validated a dual inverter cooling system in Simulink and ANSYS, sized from a digitized motor efficiency map.</li>
-              <li>Presented drivetrain architecture and engineering decisions to industry judges at Formula SAE Michigan 2026.</li>
+              <li><strong>Architecture:</strong> co-led the drivetrain for the team's first AWD Formula SAE EV — four identical in-hub corners with an 11.97:1 compound planetary, finishing at 22.304 kg unsprung mass and 0.197 kg·m² against &lt; 40 kg / &lt; 0.25 kg·m² targets.</li>
+              <li><strong>PM motor assembly:</strong> identified rotor alignment as a key challenge (strong rotor–stator magnetic attraction), researched industry practice, and designed a custom alignment tool for safe, precise, repeatable installs.</li>
+              <li><strong>Design for manufacture:</strong> GD&amp;T-compliant drawings, cost analysis, and process documentation for the inboard motor mount, planet shafts, and motor bearing; mount FEA-validated at 9.24 MPa (SF &gt; 15).</li>
+              <li><strong>Thermal:</strong> sized the dual-inverter cooling system from a digitized motor efficiency map in Simulink (≈ 5.5 kW average heat load over endurance); CAD in SolidWorks, components checked in ANSYS FEA.</li>
+              <li><strong>Design judging:</strong> presented drivetrain architecture and engineering decisions to industry judges at Formula SAE Michigan 2026.</li>
             </ul>
             <div class="timeline-gallery">
               <div class="gallery-placeholder"><img src="https://i.imgur.com/99qTcbB.jpeg" alt="headshot"></div>
@@ -862,8 +1024,8 @@
             </div>
             <p class="timeline-org">University of Toronto Aerospace Team</p>
             <ul class="bullet-list">
-              <li>Leads the design of an autonomous moving payload for the SAE Aero Design Advanced Class mission, focused on lightweight, reliable mechanisms.</li>
-              <li>Developing navigation, capture, and release mechanisms through CAD, rapid prototyping, and engineering trade studies.</li>
+              <li>Lead the design of the autonomous moving payload for the SAE Aero Design Advanced Class mission, focusing on lightweight mechanical systems and reliable autonomous operation.</li>
+              <li>Developing navigation, capture, and release mechanisms through CAD, rapid prototyping, and engineering trade studies to maximize mission reliability.</li>
             </ul>
             <!-- <div class="timeline-gallery">
               <div class="gallery-placeholder"><span class="gp-icon">✈️</span><span class="gp-label">Add photo</span></div>
@@ -881,9 +1043,9 @@
             </div>
             <p class="timeline-org">University of Toronto Aerospace Team</p>
             <ul class="bullet-list">
-              <li>Designed and iteratively refined payload pickup/release mechanisms for a hybrid V/STOL aircraft, validated through 3D-printed prototypes.</li>
-              <li>Collaborated cross-functionally with control and avionics teams to align mechanical design with mission requirements.</li>
-              <li>Contributed to landing gear design and fuselage structural integration, designing for maintenance accessibility.</li>
+              <li>Designed and iterated payload pickup/release mechanisms for a hybrid V/STOL aircraft in SolidWorks, using 3D-printed prototypes to improve landing accuracy and reduce mechanical instability during deployment.</li>
+              <li>Collaborated cross-functionally with the controls and avionics teams to align mechanical design with design requirements.</li>
+              <li>Redesigned the nose landing gear as a modular subassembly and contributed to fuselage structural integration and composite assembly, designing for maintenance access.</li>
             </ul>
             <div class="timeline-gallery">
               <div class="gallery-placeholder"><img src="https://i.imgur.com/MsGHxUr.jpeg" alt="headshot"></div>
@@ -948,7 +1110,7 @@
         <div class="af-body">
           <p class="af-context">UofTHacks 13 · January 2026</p>
           <h3 class="af-title">2nd Place — Hack the Human–Robot Experience</h3>
-          <p class="af-desc">Built Red Lamp, a companion robot for students tackling isolation and burnout — awarded 2nd place out of all teams competing in the Human-Robot Experience track. Integrated Raspberry Pi, Arduino, sensors, LEDs, and custom 3D-printed parts under a 24-hour hackathon constraint.</p>
+          <p class="af-desc">Built Red Lamp, a companion robot for students tackling isolation and burnout — awarded 2nd place out of all teams competing in the Human-Robot Experience track. Integrated Raspberry Pi, Arduino, sensors, LEDs, and custom 3D-printed parts within the hackathon timeframe — including moving critical control functions to Arduino mid-build after Pi connectivity failures.</p>
           <div class="af-tags">
             <span>Robotics</span><span>Raspberry Pi</span><span>Arduino</span><span>3D Printing</span>
           </div>
@@ -1072,7 +1234,7 @@
                     <span class="floating-emoji">⚙️</span>
 
           </h2>
-          <p class="ph-sub">From thermal simulation and FEA to embedded robotics and full-stack web — here's what I work with, and how confidently.</p>
+          <p class="ph-sub">From vehicle dynamics and thermal simulation to FEA, GD&amp;T, and embedded robotics — here's what I work with, and how confidently.</p>
         </div>
         <div class="ph-right">
           <span class="ph-number">5+</span>
@@ -1137,11 +1299,7 @@
               <div class="sbi-track"><div class="sbi-fill" style="--w:72%;--c:var(--rose);"></div></div>
             </div>
             <div class="skill-bar-item">
-              <div class="sbi-head"><span class="sbi-name">Catia</span></div>
-              <div class="sbi-track"><div class="sbi-fill" style="--w:58%;--c:var(--rose);"></div></div>
-            </div>
-            <div class="skill-bar-item">
-              <div class="sbi-head"><span class="sbi-name">Vi-Grade / rFpro / ADAMS Car</span></div>
+              <div class="sbi-head"><span class="sbi-name">VI-CarRealTime / rFpro / Adams Car / DIL</span></div>
               <div class="sbi-track"><div class="sbi-fill" style="--w:45%;--c:var(--rose);"></div></div>
             </div>
           </div>
@@ -1325,7 +1483,7 @@
 
         <div class="about-content">
           <p>I'm Ruodi Yuan, a Mechanical Engineering student at the University of Toronto St. George, pursuing a Certificate in Engineering Business and a minor in Bioengineering and Robotics &amp; Mechatronics. I transferred into engineering from Life Sciences, and I believe that cross-disciplinary background gives me a unique perspective — blending biological intuition with rigorous mechanical and systems thinking. I'm proficient in industry-standard tools including SolidWorks (Certified SOLIDWORKS Associate), MATLAB, Simulink, ANSYS FEA, and Catia, which I apply regularly to real-world design and simulation challenges.</p>
-          <p>As Vehicle Dynamics Lead, and previously Drivetrain Lead, for the University of Toronto Formula SAE Racing team, I oversee mechanical design, manufacturing documentation, and thermal system simulation, including developing a standalone cooling loop model and working on motor assembly with permanent magnets. My work extends well beyond the computer — I'm actively involved in hands-on machining and manufacturing, coordinating fabrication processes and ensuring designs translate effectively from CAD to physical components. I also lead payload design for the UofT Aerospace team's SAE Aero Design entry, building on prior work designing arming housings and a modular nose landing gear subassembly for a hybrid V/STOL aircraft. Beyond hardware, I have strong programming skills in Python, C/C++, JavaScript, HTML, and MySQL, with experience in machine learning, data preprocessing, and web application development through both academic competitions and professional work.</p>
+          <p>I'm currently a Mechanical Engineering Intern on the Capture Systems team at Peripheral Labs, designing enclosures and mounts for camera and LiDAR sensor pods and deploying them in the field. On the University of Toronto Formula SAE Racing team I'm Vehicle Dynamics Lead — running lap-time sensitivity and mass-target studies in VI-CarRealTime, Adams Car, and MATLAB — after serving as Drivetrain Lead, where I co-led the team's first AWD EV drivetrain, designed a PM rotor-alignment tool, and built the cooling-loop thermal model used to size the system. My work extends well beyond the computer — I'm actively involved in hands-on machining and manufacturing, coordinating fabrication processes and ensuring designs translate effectively from CAD to physical components. I also lead payload design for the UofT Aerospace team's SAE Aero Design entry, building on prior work designing arming housings and a modular nose landing gear subassembly for a hybrid V/STOL aircraft. Beyond hardware, I have strong programming skills in Python, C/C++, JavaScript, HTML, and MySQL, with experience in machine learning, data preprocessing, and web application development through both academic competitions and professional work.</p>
           <div class="about-stats">
             <div class="stat"><div class="stat-num">2+</div><div class="stat-label">Years in FSAE</div></div>
             <div class="stat"><div class="stat-num">3+</div><div class="stat-label">Competition awards</div></div>
@@ -1386,10 +1544,10 @@
       <div class="contact-hero-inner">
         <p class="contact-eyebrow">Open to opportunities</p>
         <h2 class="contact-big-title">Let's build something<br><em>interesting</em> together.</h2>
-        <p class="contact-hero-sub">I'm seeking engineering internships for May – Sept 2027. Whether it's mechanical design, thermal systems, robotics, or anything that involves making things go fast — I'd love to chat.</p>
+        <p class="contact-hero-sub">I'm seeking engineering internships from May 2028 to Sept 2029. Whether it's mechanical design, thermal systems, robotics, or anything that involves making things go fast — I'd love to chat.</p>
         <div class="contact-avail-chips">
           <span class="cac">📍 Toronto, Canada</span>
-          <span class="cac">🗓️ Available May 2027 – Sept 2028</span>
+          <span class="cac">🗓️ Available May 2028 – Sept 2029</span>
           <span class="cac cac-green">🟢 Open to internships</span>
         </div>
       </div>
@@ -1444,7 +1602,7 @@
           <span class="ccn-arrow">→</span>
         </a>
 
-        <a class="ccn-card ccn-resume" href="Ruodi_Tinah_Yuan_Resume.pdf" download>
+        <a class="ccn-card ccn-resume" href="Ruodi (Tinah) Yuan - Resume.pdf" download>
           <div class="ccn-icon-wrap">
             <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><line x1="10" y1="9" x2="8" y2="9"/></svg>
           </div>
@@ -1484,23 +1642,25 @@
     </div><!-- /section-shell -->
     <div class="ticker-strip">
       <div class="ticker-inner">
+        <span>Mechanical Engineering Intern @ Peripheral Labs</span>
         <span>Vehicle Dynamics Lead @ UofT FSAE</span>
         <span>AWD Formula SAE EV</span>
         <span>UAS Payload Specialist</span>
         <span>Mechanical Engineering + PEY Co-op</span>
-        <span>MATLAB · Simulink · ANSYS · SolidWorks</span>
+        <span>MATLAB · Simulink · ANSYS · SolidWorks · Adams Car</span>
         <span>UofTHacks 2nd Place 2026</span>
         <span>Formula SAE Michigan 2026</span>
-        <span>Seeking Internships May 2027–Sept 2028</span>
+        <span>Seeking Internships May 2028–Sept 2029</span>
         <!-- duplicate for seamless loop -->
+        <span>Mechanical Engineering Intern @ Peripheral Labs</span>
         <span>Vehicle Dynamics Lead @ UofT FSAE</span>
         <span>AWD Formula SAE EV</span>
         <span>UAS Payload Specialist</span>
         <span>Mechanical Engineering + PEY Co-op</span>
-        <span>MATLAB · Simulink · ANSYS · SolidWorks</span>
+        <span>MATLAB · Simulink · ANSYS · SolidWorks · Adams Car</span>
         <span>UofTHacks 2nd Place 2026</span>
         <span>Formula SAE Michigan 2026</span>
-        <span>Seeking Internships May 2027–Sept 2028</span>
+        <span>Seeking Internships May 2028–Sept 2029</span>
       </div>
     </div>
     <footer>
@@ -1509,7 +1669,7 @@
         <a href="mailto:ruodi.yuan@mail.utoronto.ca">Email</a>
         <a href="https://www.linkedin.com/in/ruodiyuan" target="_blank">LinkedIn</a>
         <a href="https://devpost.com/tinayuan060123" target="_blank">Devpost</a>
-        <a href="Ruodi_Tinah_Yuan_Resume.pdf" download>Resume</a>
+        <a href="Ruodi (Tinah) Yuan - Resume.pdf" download>Resume</a>
       </div>
     </footer>
   </section>
@@ -1548,6 +1708,19 @@
             <p class="section-label">Overview</p>
             <h3 class="pd-section-title">Project <em>Overview</em></h3>
             <p class="pd-overview" id="pdOverview"></p>
+          </section>
+
+          <section class="pd-section" id="pdSpecsSection">
+            <p class="section-label">Spec sheet</p>
+            <h3 class="pd-section-title">Key <em>Numbers</em></h3>
+            <table class="pd-spec-table"><tbody id="pdSpecs"></tbody></table>
+          </section>
+
+          <section class="pd-section" id="pdDecisionsSection">
+            <p class="section-label">Decision log</p>
+            <h3 class="pd-section-title">Design <em>Decisions</em></h3>
+            <p class="pd-dec-intro">Each entry: the question, what was chosen, and why. Alternatives are listed where they were actually evaluated.</p>
+            <div class="pd-decisions" id="pdDecisions"></div>
           </section>
 
           <section class="pd-section" id="pdGallerySection">
@@ -1590,6 +1763,8 @@
         </aside>
       </div>
 
+      <div class="pd-title-block" id="pdTitleBlock" aria-hidden="true"></div>
+
       <div class="pd-related">
         <p class="section-label">Explore more</p>
         <h3 class="section-title">Related <em>Projects</em></h3>
@@ -1603,7 +1778,7 @@
         <a href="mailto:ruodi.yuan@mail.utoronto.ca">Email</a>
         <a href="https://www.linkedin.com/in/ruodiyuan" target="_blank">LinkedIn</a>
         <a href="https://devpost.com/tinayuan060123" target="_blank">Devpost</a>
-        <a href="Ruodi_Tinah_Yuan_Resume.pdf" download>Resume</a>
+        <a href="Ruodi (Tinah) Yuan - Resume.pdf" download>Resume</a>
       </div>
     </footer>
   </section>
@@ -1634,9 +1809,28 @@
   <button class="lightbox-nav lightbox-next">›</button>
 </div>
 
+<!-- ============ COMMAND PALETTE ============ -->
+<div class="cmdk" id="cmdk" role="dialog" aria-modal="true" aria-label="Quick search" hidden>
+  <div class="cmdk-backdrop" data-close></div>
+  <div class="cmdk-panel">
+    <div class="cmdk-input-row">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+      <input id="cmdkInput" type="text" placeholder="Jump to a page, project, or action…" autocomplete="off" spellcheck="false">
+      <kbd>esc</kbd>
+    </div>
+    <ul class="cmdk-list" id="cmdkList" role="listbox"></ul>
+    <div class="cmdk-foot"><span><kbd>↑</kbd><kbd>↓</kbd> navigate</span><span><kbd>↵</kbd> open</span><span><kbd>/</kbd> or <kbd>⌘K</kbd> anytime</span></div>
+  </div>
+</div>
+
+<!-- CAD-style cursor readout -->
+<div class="cad-readout" id="cadReadout" aria-hidden="true">X <b id="cadX">0.0</b> &nbsp; Y <b id="cadY">0.0</b> <span>mm</span></div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
 <script src="js/site.js"></script>
 <script src="js/projects-data.js"></script>
 <script src="js/project-detail.js"></script>
 <script src="js/mascot.js"></script>
+<script src="js/enhancements.js"></script>
 </body>
 </html>

@@ -22,7 +22,7 @@ function goToPage(name, skipHash) {
       current.classList.remove('leaving');
       // restore original enter direction
       current.setAttribute('data-enter', ['home','project-detail'].indexOf(current.getAttribute('data-page')) >= 0 ? 'scale' :
-        ['projects','awards','contact'].indexOf(current.getAttribute('data-page')) >= 0 ? 'left' : 'right');
+        ['projects','lab','awards','contact'].indexOf(current.getAttribute('data-page')) >= 0 ? 'left' : 'right');
     }, 420);
   }
 
@@ -57,7 +57,7 @@ function closeBurger() {
 
 document.addEventListener('DOMContentLoaded', function () {
   var initial = (location.hash || '#home').replace('#', '');
-  var valid = ['home','projects','experience','awards','skills','about','contact'];
+  var valid = ['home','projects','lab','experience','awards','skills','about','contact'];
   // Support deep links like #project-cooling-sim straight into a project detail page
   if (initial.indexOf('project-') === 0 && typeof PROJECTS !== 'undefined') {
     var pid = initial.replace('project-', '');
