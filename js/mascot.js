@@ -20,6 +20,8 @@
     { text: "🐶🐺🦊🦝🐱 more projects incoming, allegedly." },
     { text: "New: the Lab page has a live heat-load calculator and a spinning planetary gearbox.", action: function () { goToPage('lab'); }, actionLabel: "Open the Lab →" },
     { text: "Pro tip: press ⌘K / Ctrl+K (or /) to jump anywhere on this site." },
+    { text: "Lights out and away we go! 🏁 Drive through every project in Grand Prix mode.", action: function () { goToPage('race'); }, actionLabel: "Start the race →" },
+    { text: "Psst… the trophy in the nav tracks your achievements. One of them is secret. ⬆⬆⬇⬇" },
     { text: "It's darker in here now — try the moon button in the nav. 🌙" }
   ];
 

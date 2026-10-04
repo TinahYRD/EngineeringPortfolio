@@ -16,12 +16,14 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/style.css">
-<link rel="stylesheet" href="css/project-detail.css">
-<link rel="stylesheet" href="css/mascot.css">
-<link rel="stylesheet" href="css/enhancements.css">
+<link rel="stylesheet" href="css/style.css?v=4">
+<link rel="stylesheet" href="css/project-detail.css?v=4">
+<link rel="stylesheet" href="css/mascot.css?v=4">
+<link rel="stylesheet" href="css/enhancements.css?v=4">
+<link rel="stylesheet" href="css/game.css?v=4">
 <!-- <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%239B8FC2'/%3E%3Cellipse cx='32' cy='29' rx='18' ry='13' fill='%23F9D58B'/%3E%3Crect x='14' y='34' width='36' height='5' rx='2.5' fill='%23E8B84B'/%3E%3Crect x='22' y='34' width='20' height='8' rx='2' fill='%23FAD5B5'/%3E%3Crect x='28' y='37' width='8' height='10' rx='3' fill='%23C8748A'/%3E%3Cellipse cx='32' cy='47' rx='5' ry='3' fill='%232C2520'/%3E%3C/svg%3E"> -->
-<!-- <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%232C2520'/><rect x='1' y='1' width='62' height='62' rx='15' fill='none' stroke='%23C8748A' stroke-width='2'/><text x='19' y='55' font-family='Georgia,serif' font-size='30' font-weight='bold' fill='%23C8748A' font-style='italic'>T</text><text x='37' y='55' font-family='Georgia,serif' font-size='22' font-weight='400' fill='%23C8748A' opacity='0.45' font-style='italic'>Y</text><ellipse cx='32' cy='22' rx='17' ry='10' fill='%23F9D58B'/><ellipse cx='32' cy='15' rx='10' ry='8' fill='%23F9D58B'/><rect x='15' y='25' width='34' height='5' rx='2.5' fill='%23E8B84B'/><ellipse cx='26' cy='16' rx='3' ry='1.8' fill='%23fff' opacity='0.28'/></svg>"> -->
+<!-- <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+<link rel="apple-touch-icon" href="assets/favicon.svg"> -->
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' rx='16' fill='%232C2520'/><rect x='1' y='1' width='62' height='62' rx='15' fill='none' stroke='%23C8748A' stroke-width='2'/><ellipse cx='32' cy='14' rx='13' ry='7' fill='%23F9D58B'/><ellipse cx='32' cy='9' rx='8' ry='6' fill='%23F9D58B'/><rect x='19' y='17' width='26' height='4' rx='2' fill='%23E8B84B'/><ellipse cx='27' cy='10' rx='2.5' ry='1.4' fill='%23fff' opacity='0.28'/><text x='10' y='57' font-family='Georgia,serif' font-size='39' font-weight='bold' fill='%23C8748A' font-style='italic'>T</text><text x='36' y='57' font-family='Georgia,serif' font-size='25.5' font-weight='400' fill='%23C8748A' opacity='0.7' font-style='italic'>Y</text></svg>">
 <!-- <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%232C2520'/%3E%3Crect x='1' y='1' width='62' height='62' rx='15' fill='none' stroke='%23C8748A' stroke-width='2'/%3E%3Ctext x='16' y='42' font-family='Georgia,serif' font-size='28' font-weight='bold' fill='%23C8748A' font-style='italic'%3ET%3C/text%3E%3Ctext x='34' y='42' font-family='Georgia,serif' font-size='20' font-weight='400' fill='rgba(200,116,138,0.55)' font-style='italic'%3EY%3C/text%3E%3Crect x='10' y='46' width='44' height='2' rx='1' fill='%23C8748A' opacity='0.4'/%3E%3C/svg%3E"> -->
 </head>
@@ -36,23 +38,36 @@
 
 <!-- LOADER -->
 <div id="loader">
-  <div class="loader-ring">
-    <svg viewBox="0 0 64 64">
-      <circle class="outer-c" cx="32" cy="32" r="26"></circle>
-      <circle class="inner-c" cx="32" cy="32" r="17" stroke-dasharray="80" stroke-dashoffset="50"></circle>
-    </svg>
-  </div>
+  <div class="loader-logo"><svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true">
+      <defs><linearGradient id="ryLoaderGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C8748A"/><stop offset="0.55" stop-color="#9B8FC2"/><stop offset="1" stop-color="#E39A6F"/></linearGradient></defs>
+      <path class="logo-gear" fill="url(#ryLoaderGrad)" d="M32.00 5.50 L33.66 5.55 L35.14 2.16 L39.00 2.83 L39.26 6.51 L45.25 9.05 L46.66 9.93 L49.63 7.73 L52.65 10.24 L51.03 13.56 L54.95 18.75 L55.74 20.22 L59.41 19.80 L60.76 23.48 L57.70 25.54 L58.50 32.00 L58.45 33.66 L61.84 35.14 L61.17 39.00 L57.49 39.26 L54.95 45.25 L54.07 46.66 L56.27 49.63 L53.76 52.65 L50.44 51.03 L45.25 54.95 L43.78 55.74 L44.20 59.41 L40.52 60.76 L38.46 57.70 L32.00 58.50 L30.34 58.45 L28.86 61.84 L25.00 61.17 L24.74 57.49 L18.75 54.95 L17.34 54.07 L14.37 56.27 L11.35 53.76 L12.97 50.44 L9.05 45.25 L8.26 43.78 L4.59 44.20 L3.24 40.52 L6.30 38.46 L5.50 32.00 L5.55 30.34 L2.16 28.86 L2.83 25.00 L6.51 24.74 L9.05 18.75 L9.93 17.34 L7.73 14.37 L10.24 11.35 L13.56 12.97 L18.75 9.05 L20.22 8.26 L19.80 4.59 L23.48 3.24 L25.54 6.30 Z"/>
+      <circle class="logo-disk" cx="32" cy="32" r="21.5"/>
+      <text class="logo-letters" x="31" y="39.5" text-anchor="middle">R<tspan fill="url(#ryLoaderGrad)">Y</tspan></text>
+      <path d="M15.5 45.5 C25 47.5 37 46.5 47.5 38.5" fill="none" stroke="url(#ryLoaderGrad)" stroke-width="1.8" stroke-linecap="round"/>
+      <circle cx="47.5" cy="38.5" r="1.9" fill="#E39A6F"/>
+    </svg></div>
   <p class="loader-word">Hi, I'm <em>Ruodi Yuan</em></p>
   <p class="loader-sub">Loading engineering portfolio</p>
 </div>
 
 <nav>
-  <button class="nav-logo" data-page="home" onclick="goToPage('home')">Hi, I'm Ruodi (Tinah) Yuan</button>
+  <button class="nav-logo" data-page="home" onclick="goToPage('home')" aria-label="Ruodi (Tinah) Yuan — home">
+    <svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true">
+      <defs><linearGradient id="ryLogoGrad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#C8748A"/><stop offset="0.55" stop-color="#9B8FC2"/><stop offset="1" stop-color="#E39A6F"/></linearGradient></defs>
+      <path class="logo-gear" fill="url(#ryLogoGrad)" d="M32.00 5.50 L33.66 5.55 L35.14 2.16 L39.00 2.83 L39.26 6.51 L45.25 9.05 L46.66 9.93 L49.63 7.73 L52.65 10.24 L51.03 13.56 L54.95 18.75 L55.74 20.22 L59.41 19.80 L60.76 23.48 L57.70 25.54 L58.50 32.00 L58.45 33.66 L61.84 35.14 L61.17 39.00 L57.49 39.26 L54.95 45.25 L54.07 46.66 L56.27 49.63 L53.76 52.65 L50.44 51.03 L45.25 54.95 L43.78 55.74 L44.20 59.41 L40.52 60.76 L38.46 57.70 L32.00 58.50 L30.34 58.45 L28.86 61.84 L25.00 61.17 L24.74 57.49 L18.75 54.95 L17.34 54.07 L14.37 56.27 L11.35 53.76 L12.97 50.44 L9.05 45.25 L8.26 43.78 L4.59 44.20 L3.24 40.52 L6.30 38.46 L5.50 32.00 L5.55 30.34 L2.16 28.86 L2.83 25.00 L6.51 24.74 L9.05 18.75 L9.93 17.34 L7.73 14.37 L10.24 11.35 L13.56 12.97 L18.75 9.05 L20.22 8.26 L19.80 4.59 L23.48 3.24 L25.54 6.30 Z"/>
+      <circle class="logo-disk" cx="32" cy="32" r="21.5"/>
+      <text class="logo-letters" x="31" y="39.5" text-anchor="middle">R<tspan fill="url(#ryLogoGrad)">Y</tspan></text>
+      <path d="M15.5 45.5 C25 47.5 37 46.5 47.5 38.5" fill="none" stroke="url(#ryLogoGrad)" stroke-width="1.8" stroke-linecap="round"/>
+      <circle cx="47.5" cy="38.5" r="1.9" fill="#E39A6F"/>
+    </svg>
+    <span class="logo-word">Ruodi <em>(Tinah)</em> Yuan</span>
+  </button>
   <ul class="nav-links" id="navLinks">
     <li><button class="nav-link" data-page="home" onclick="goToPage('home')">Home</button></li>
     <li><button class="nav-link" data-page="about" onclick="goToPage('about')">About</button></li>
     <li><button class="nav-link" data-page="projects" onclick="goToPage('projects')">Projects</button></li>
-    <li><button class="nav-link nav-link-lab" data-page="lab" onclick="goToPage('lab')">Lab <span class="nav-new">new</span></button></li>
+    <li><button class="nav-link nav-link-gp" data-page="race" onclick="goToPage('race')">Grand Prix <span class="nav-new">play</span></button></li>
+    <li><button class="nav-link nav-link-lab" data-page="lab" onclick="goToPage('lab')">Lab</button></li>
     <li><button class="nav-link" data-page="experience" onclick="goToPage('experience')">Experience</button></li>
     <li><button class="nav-link" data-page="awards" onclick="goToPage('awards')">Awards</button></li>
     <li><button class="nav-link" data-page="skills" onclick="goToPage('skills')">Skills</button></li>
@@ -61,10 +76,14 @@
     href="Ruodi (Tinah) Yuan - Resume.pdf"
     target="_blank"
     rel="noopener">
-    View Resume →
+    Resume →
   </a>
   </ul>
   <div class="nav-tools">
+    <button class="nav-tool-btn nav-trophy" id="achBtn" aria-label="Achievements" title="Achievements">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0z"/><path d="M17 5h3v2a3 3 0 0 1-3 3M7 5H4v2a3 3 0 0 0 3 3"/></svg>
+      <span class="ach-count" id="achCount">0</span>
+    </button>
     <button class="nav-tool-btn nav-cmdk" id="cmdkOpenBtn" aria-label="Open quick search" title="Quick search (Ctrl/⌘ + K)">
       <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
       <kbd class="cmdk-kbd">⌘K</kbd>
@@ -149,6 +168,7 @@
           </a>
           <div class="hero-ctas">
             <button class="btn-primary" onclick="goToPage('projects')">View Projects →</button>
+            <button class="btn-race" onclick="goToPage('race')"><span class="btn-race-flag">🏁</span> Race through my projects</button>
             <a href="https://www.linkedin.com/in/ruodiyuan" target="_blank" rel="noopener" class="btn-linkedin" aria-label="LinkedIn">
               <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
               LinkedIn
@@ -264,6 +284,12 @@
     </div>
     <div class="section-shell page-pad" style="padding-top:1.8rem;">
 
+      <button class="gp-banner" onclick="goToPage('race')">
+        <span class="gp-banner-lights"><i></i><i></i><i></i><i></i><i></i></span>
+        <span class="gp-banner-text"><b>Prefer driving?</b> Take the projects for a lap in <em>Grand Prix mode</em> — every pit board is a project.</span>
+        <span class="gp-banner-go">Lights out →</span>
+      </button>
+
       <div class="filter-tabs" id="filterTabs">
         <button class="filter-tab active" data-filter="all">All Projects</button>
         <button class="filter-tab" data-filter="fsae">Formula SAE</button>
@@ -351,7 +377,7 @@
             </div>
             <h3 class="card-title">Dual Series Cooling Loop</h3>
             <p class="card-org">University of Toronto Formula SAE Racing</p>
-            <p class="card-desc">Two independent series loops (L/R), ordered Pump → Radiator → Inverter → Motor jackets so the inverter sees the coldest coolant; pump upstream of the radiator to limit cavitation. Parallel topology evaluated and rejected. Built, primed, leak-checked, and flow-verified on the bench.</p>
+            <p class="card-desc">Two independent series loops (L/R), ordered Pump → Radiator → Inverter → Motor jackets to prioritize the temperature-sensitive inverter; pump upstream of the radiator to limit cavitation. Parallel topology evaluated and rejected. Built, primed, leak-checked, and flow-verified on the bench.</p>
             <div class="card-tags">
               <span class="card-tag">SolidWorks</span>
               <span class="card-tag">Thermal Management</span>
@@ -797,6 +823,117 @@
       </div>
     </div>
         <footer>
+      <span class="footer-sig">Ruodi (Tinah) Yuan · BASc Mechanical Engineering · UofT</span>
+      <div class="footer-links">
+        <a href="mailto:ruodi.yuan@mail.utoronto.ca">Email</a>
+        <a href="https://www.linkedin.com/in/ruodiyuan" target="_blank">LinkedIn</a>
+        <a href="https://devpost.com/tinayuan060123" target="_blank">Devpost</a>
+        <a href="Ruodi (Tinah) Yuan - Resume.pdf" download>Resume</a>
+      </div>
+    </footer>
+  </section>
+
+  <!-- ============ GRAND PRIX (game-style project explorer) ============ -->
+  <section class="page" id="page-race" data-page="race" data-enter="scale" data-leave="scale">
+    <div class="page-header bp-grid"><div class="ph-ring"></div><div class="ph-ring ph-ring-2"></div>
+      <div class="ph-top">
+        <div class="ph-left">
+          <p class="ph-eyebrow"><span class="ph-eyebrow-dot"></span>Game mode / Project explorer</p>
+          <h2 class="ph-title">
+            <span class="ph-word"><span>Project</span></span>&nbsp;<span class="ph-word"><span><em>Grand Prix</em></span></span>
+          </h2>
+          <p class="ph-sub">Drive the circuit — every pit board is one of my projects. Stop at a board to read the spec, press <kbd>Enter</kbd> to open the full write-up. Visit all ten for the chequered flag.</p>
+        </div>
+        <div class="ph-right">
+          <div class="ph-tags">
+            <span class="ph-tag">↑ / W  throttle</span>
+            <span class="ph-tag">↓ / S  brake</span>
+            <span class="ph-tag">Space  DRS</span>
+            <span class="ph-tag">↵  open</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section-shell page-pad" style="padding-top:1.4rem;">
+
+      <div class="race-hud" aria-live="off">
+        <div class="hud-cell"><span>Lap</span><b id="hudLap">0</b></div>
+        <div class="hud-cell"><span>Lap time</span><b id="hudTime">0:00.000</b></div>
+        <div class="hud-cell"><span>Best</span><b id="hudBest">—</b></div>
+        <div class="hud-cell hud-speed"><span>Speed</span><b id="hudSpeed">0</b><i>km/h*</i></div>
+        <div class="hud-cell"><span>Explored</span><b id="hudFound">0 / 10</b></div>
+        <div class="hud-cell hud-drs" id="hudDrs"><span>DRS</span><b>READY</b></div>
+      </div>
+
+      <div class="race-stage" id="raceStage">
+        <svg id="raceSvg" viewBox="0 0 1000 560" role="img" aria-label="Race circuit with ten project checkpoints">
+          <defs>
+            <linearGradient id="raceIris" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0" stop-color="#C8748A"/><stop offset="0.5" stop-color="#9B8FC2"/><stop offset="1" stop-color="#E39A6F"/>
+            </linearGradient>
+            <pattern id="raceGrid" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" class="race-gridline"/></pattern>
+          </defs>
+          <rect width="1000" height="560" fill="url(#raceGrid)"/>
+          <g id="raceSectors"></g>
+          <path id="trackPath" class="track-kerb" d=""/>
+          <path class="track-asphalt" id="trackAsphalt" d=""/>
+          <path class="track-center" id="trackCenter" d=""/>
+          <path class="track-trail" id="trackTrail" d=""/>
+          <g id="raceStartLine"></g>
+          <g id="raceBoards"></g>
+          <g id="raceCar">
+            <g class="car-body">
+              <rect x="-15" y="-9" width="6" height="18" rx="1.5" class="car-wing"/>
+              <rect x="11" y="-8" width="5" height="16" rx="1.5" class="car-wing"/>
+              <rect x="-9" y="-11" width="7" height="4" rx="1.5" class="car-tyre"/>
+              <rect x="-9" y="7" width="7" height="4" rx="1.5" class="car-tyre"/>
+              <rect x="4" y="-10.5" width="6" height="3.5" rx="1.5" class="car-tyre"/>
+              <rect x="4" y="7" width="6" height="3.5" rx="1.5" class="car-tyre"/>
+              <path d="M-13 -3.5 L8 -2.5 Q15 0 8 2.5 L-13 3.5 Z" class="car-chassis"/>
+              <ellipse cx="-2" cy="0" rx="3.4" ry="2.2" class="car-cockpit"/>
+            </g>
+          </g>
+        </svg>
+
+        <div class="race-lights" id="raceLights">
+          <div class="rl-box">
+            <div class="rl-row"><i></i><i></i><i></i><i></i><i></i></div>
+            <p class="rl-msg" id="rlMsg">Press <kbd>↑</kbd> / tap <b>GO</b> to start the lights</p>
+          </div>
+        </div>
+
+        <div class="race-card" id="raceCard" hidden>
+          <div class="rc-top"><span class="rc-sector" id="rcSector">S1</span><span class="rc-num" id="rcNum">01</span></div>
+          <h4 class="rc-title" id="rcTitle"></h4>
+          <p class="rc-org" id="rcOrg"></p>
+          <div class="rc-metrics" id="rcMetrics"></div>
+          <div class="rc-actions">
+            <button class="btn-primary rc-open" id="rcOpen">Open project ↵</button>
+            <span class="rc-hint">or keep driving</span>
+          </div>
+        </div>
+
+        <div class="race-flag" id="raceFlag" hidden>
+          <div class="rf-checker"></div>
+          <p class="rf-title">Chequered flag! 🏁</p>
+          <p class="rf-sub">You've seen all ten projects. Want to talk about any of them?</p>
+          <div class="rf-actions"><button class="btn-primary" onclick="goToPage('contact')">Get in touch →</button><button class="btn-secondary" id="rfClose">Keep racing</button></div>
+        </div>
+      </div>
+
+      <div class="race-touch" aria-label="Touch controls">
+        <button class="rt-btn rt-brake" id="rtBrake">◀ BRAKE</button>
+        <button class="rt-btn rt-drs" id="rtDrs">DRS</button>
+        <button class="rt-btn rt-go" id="rtGo">GO ▶</button>
+      </div>
+
+      <div class="race-pits">
+        <p class="section-label">Pit boards — tap to autopilot there</p>
+        <div class="race-pit-list" id="racePitList"></div>
+        <p class="race-foot">*Speed is for fun — the car is a cartoon, the projects are real. Progress and best lap are saved in this browser only.</p>
+      </div>
+    </div>
+    <footer>
       <span class="footer-sig">Ruodi (Tinah) Yuan · BASc Mechanical Engineering · UofT</span>
       <div class="footer-links">
         <a href="mailto:ruodi.yuan@mail.utoronto.ca">Email</a>
@@ -1809,6 +1946,22 @@
   <button class="lightbox-nav lightbox-next">›</button>
 </div>
 
+<!-- ============ ACHIEVEMENTS ============ -->
+<div class="ach-panel" id="achPanel" role="dialog" aria-modal="true" aria-label="Achievements" hidden>
+  <div class="ach-backdrop" data-close></div>
+  <div class="ach-sheet">
+    <div class="ach-head">
+      <div><p class="ach-eyebrow">Paddock pass</p><h3 class="ach-title">Achievements <span id="achSummary">0 / 0</span></h3></div>
+      <button class="ach-close" data-close aria-label="Close">×</button>
+    </div>
+    <div class="ach-bar"><div class="ach-bar-fill" id="achBarFill"></div></div>
+    <ul class="ach-grid" id="achGrid"></ul>
+    <p class="ach-foot">Explore the site to unlock them. There's one secret code, too. <button class="ach-reset" id="achReset">Reset progress</button></p>
+  </div>
+</div>
+<div class="ach-toast" id="achToast" role="status" aria-live="polite"></div>
+<div class="confetti-layer" id="confetti" aria-hidden="true"></div>
+
 <!-- ============ COMMAND PALETTE ============ -->
 <div class="cmdk" id="cmdk" role="dialog" aria-modal="true" aria-label="Quick search" hidden>
   <div class="cmdk-backdrop" data-close></div>
@@ -1827,10 +1980,11 @@
 <div class="cad-readout" id="cadReadout" aria-hidden="true">X <b id="cadX">0.0</b> &nbsp; Y <b id="cadY">0.0</b> <span>mm</span></div>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="js/site.js"></script>
-<script src="js/projects-data.js"></script>
-<script src="js/project-detail.js"></script>
-<script src="js/mascot.js"></script>
-<script src="js/enhancements.js"></script>
+<script src="js/site.js?v=4"></script>
+<script src="js/projects-data.js?v=4"></script>
+<script src="js/project-detail.js?v=4"></script>
+<script src="js/mascot.js?v=4"></script>
+<script src="js/enhancements.js?v=4"></script>
+<script src="js/game.js?v=4"></script>
 </body>
 </html>

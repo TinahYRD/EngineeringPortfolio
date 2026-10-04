@@ -331,3 +331,167 @@ body, nav, .card, .timeline-card, .trophy-card, .skill-section, .lab-card, .pd-s
 .tgt-note { font-size: 0.74rem; color: var(--ink-light); margin-top: 0.45rem; padding-right: 7.5rem; }
 @media (max-width: 540px) { .tgt-note { padding-right: 0; margin-top: 1.1rem; } }
 @media (prefers-reduced-motion: reduce) { .tgt-fill { width: var(--w); } }
+
+/* ===============================================================
+   HOME HERO — keep the photo columns on the viewport centreline
+   (sticky: they open centred and stay centred while the text scrolls)
+   =============================================================== */
+@media (min-width: 861px) {
+  .hero-photo-wrap {
+    align-self: start;
+    position: sticky;
+    top: max(1rem, calc((100vh - var(--nav-h)) / 2 - 190px));
+  }
+  .hero-small-photo-wrap {
+    align-self: start;
+    position: sticky;
+    top: max(1rem, calc((100vh - var(--nav-h)) / 2 - 235px));
+  }
+  .hero-bg { top: calc((100vh - var(--nav-h)) / 2); }
+  /* overflow:hidden would make .hero the sticky scroll container; clip doesn't */
+  .hero { overflow: clip; }
+}
+
+/* ===============================================================
+   LIGHT THEME — "pastel aurora"
+   Iridescent gradient background, grain, gradient type & borders.
+   Scoped so dark mode is untouched.
+   =============================================================== */
+:root:not([data-theme="dark"]) {
+  --aurora-1: #F7C9D4;   /* blush   */
+  --aurora-2: #D9D0F5;   /* lilac   */
+  --aurora-3: #FBE3C4;   /* peach   */
+  --aurora-4: #CFE8DD;   /* mint    */
+  --iris: linear-gradient(110deg, #C8748A 0%, #B07FC0 35%, #8F8FD8 60%, #E39A6F 100%);
+}
+
+/* 1 — layered background wash */
+:root:not([data-theme="dark"]) body {
+  background:
+    radial-gradient(1200px 700px at 8% -10%, rgba(247, 201, 212, 0.55), transparent 60%),
+    radial-gradient(900px 600px at 100% 0%, rgba(217, 208, 245, 0.55), transparent 60%),
+    radial-gradient(900px 700px at 90% 100%, rgba(251, 227, 196, 0.50), transparent 60%),
+    radial-gradient(800px 600px at 0% 100%, rgba(207, 232, 221, 0.45), transparent 60%),
+    #FBF8F5;
+}
+
+/* 2 — slowly drifting aurora behind everything */
+:root:not([data-theme="dark"]) body::before {
+  content: ''; position: fixed; inset: -20%; z-index: -1; pointer-events: none;
+  background:
+    conic-gradient(from 0deg at 30% 35%, var(--aurora-1), var(--aurora-2), var(--aurora-3), var(--aurora-4), var(--aurora-1));
+  filter: blur(90px) saturate(1.1);
+  opacity: 0.38;
+  animation: auroraSpin 38s linear infinite;
+}
+/* 3 — fine film grain so the gradients feel printed, not flat */
+:root:not([data-theme="dark"]) body::after {
+  content: ''; position: fixed; inset: 0; z-index: 9998; pointer-events: none; opacity: 0.06; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+@keyframes auroraSpin { to { transform: rotate(360deg); } }
+
+/* 4 — glassy nav with an iridescent hairline */
+:root:not([data-theme="dark"]) nav {
+  background: rgba(251, 248, 245, 0.72);
+  backdrop-filter: blur(18px) saturate(1.4);
+  border-bottom: 1px solid transparent;
+  border-image: linear-gradient(90deg, transparent, rgba(200,116,138,0.45), rgba(143,143,216,0.45), rgba(227,154,111,0.4), transparent) 1;
+}
+
+/* 5 — iridescent, shimmering headline type */
+:root:not([data-theme="dark"]) .hero-name-gradient,
+:root:not([data-theme="dark"]) .ph-title em,
+:root:not([data-theme="dark"]) .section-title em,
+:root:not([data-theme="dark"]) .pd-section-title em {
+  background: var(--iris); background-size: 220% 100%;
+  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;
+  animation: irisShift 9s ease-in-out infinite alternate;
+  padding-right: 0.08em;
+}
+@keyframes irisShift { from { background-position: 0% 50%; } to { background-position: 100% 50%; } }
+
+/* 6 — hero photo: rotating iridescent halo */
+:root:not([data-theme="dark"]) .hero-photo-wrap { position: sticky; }
+:root:not([data-theme="dark"]) .hero-photo-wrap::before {
+  content: ''; position: absolute; inset: -22px; z-index: -1; border-radius: 140px 140px 30px 30px;
+  background: conic-gradient(from 0deg, #F7C9D4, #D9D0F5, #BFD8F2, #CFE8DD, #FBE3C4, #F7C9D4);
+  filter: blur(26px); opacity: 0.85;
+  animation: auroraSpin 14s linear infinite;
+}
+:root:not([data-theme="dark"]) .hero-photo { border-color: rgba(255,255,255,0.9); box-shadow: 0 18px 50px rgba(176,127,192,0.25), 0 0 0 1px rgba(200,116,138,0.25); }
+:root:not([data-theme="dark"]) .hero-floating-img2 { box-shadow: 0 14px 34px rgba(143,143,216,0.28); outline: 3px solid rgba(255,255,255,0.85); }
+
+/* 7 — primary buttons: gradient + light sweep */
+:root:not([data-theme="dark"]) .btn-primary,
+:root:not([data-theme="dark"]) .nav-resume-btn {
+  background: linear-gradient(120deg, #C8748A, #B07FC0 55%, #9B8FC2);
+  background-size: 160% 100%; position: relative; overflow: hidden;
+  box-shadow: 0 6px 18px rgba(176,127,192,0.30);
+  transition: background-position .5s ease, transform .15s, box-shadow .25s;
+}
+:root:not([data-theme="dark"]) .btn-primary:hover,
+:root:not([data-theme="dark"]) .nav-resume-btn:hover { background-position: 100% 0; box-shadow: 0 10px 26px rgba(176,127,192,0.40); }
+:root:not([data-theme="dark"]) .btn-primary::after,
+:root:not([data-theme="dark"]) .nav-resume-btn::after {
+  content: ''; position: absolute; top: 0; bottom: 0; width: 40%; left: -60%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.45), transparent);
+  transform: skewX(-18deg); transition: left .6s ease;
+}
+:root:not([data-theme="dark"]) .btn-primary:hover::after,
+:root:not([data-theme="dark"]) .nav-resume-btn:hover::after { left: 120%; }
+
+/* 8 — cards & panels: frosted glass with an iridescent border on hover */
+:root:not([data-theme="dark"]) .card,
+:root:not([data-theme="dark"]) .timeline-card,
+:root:not([data-theme="dark"]) .trophy-card,
+:root:not([data-theme="dark"]) .skill-section,
+:root:not([data-theme="dark"]) .lab-card,
+:root:not([data-theme="dark"]) .pd-sidebar-card,
+:root:not([data-theme="dark"]) .hero-resume-card {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(10px);
+}
+:root:not([data-theme="dark"]) .card:hover,
+:root:not([data-theme="dark"]) .timeline-card:hover,
+:root:not([data-theme="dark"]) .lab-card:hover {
+  border-color: transparent;
+  background:
+    linear-gradient(rgba(255,255,255,0.92), rgba(255,255,255,0.92)) padding-box,
+    linear-gradient(120deg, #E7A3B4, #BDB0E8, #F2C49E, #A9D3C1) border-box;
+  box-shadow: 0 18px 44px rgba(176,127,192,0.18);
+}
+
+/* 9 — page headers get a soft aurora wash under the blueprint grid */
+:root:not([data-theme="dark"]) .page-header {
+  background-image:
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(var(--grid-line-strong) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line-strong) 1px, transparent 1px),
+    radial-gradient(600px 260px at 15% 20%, rgba(247,201,212,0.55), transparent 70%),
+    radial-gradient(520px 240px at 85% 10%, rgba(217,208,245,0.6), transparent 70%),
+    radial-gradient(480px 220px at 60% 100%, rgba(251,227,196,0.45), transparent 70%);
+  background-size: 16px 16px, 16px 16px, 80px 80px, 80px 80px, auto, auto, auto;
+}
+
+/* 10 — ticker strip: iridescent band */
+:root:not([data-theme="dark"]) .ticker-strip {
+  background: linear-gradient(90deg, #C8748A, #B07FC0, #8F8FD8, #E39A6F, #C8748A);
+  background-size: 300% 100%;
+  animation: irisShift 18s linear infinite alternate;
+}
+
+/* 11 — hero tags & chips pick up a whisper of gradient */
+:root:not([data-theme="dark"]) .fun-tag {
+  background: linear-gradient(135deg, rgba(255,255,255,0.9), rgba(247,240,250,0.9));
+  box-shadow: 0 2px 10px rgba(176,127,192,0.10);
+}
+:root:not([data-theme="dark"]) .scroll-progress, :root:not([data-theme="dark"]) #scrollProgress {
+  background: var(--iris);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root:not([data-theme="dark"]) body::before,
+  :root:not([data-theme="dark"]) .hero-photo-wrap::before { animation: none; }
+}

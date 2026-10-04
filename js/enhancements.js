@@ -60,6 +60,7 @@
       ['home', 'Home', '🏠', 'start intro'],
       ['about', 'About', '👋', 'background education'],
       ['projects', 'Projects', '🛠️', 'work portfolio'],
+      ['race', 'Project Grand Prix', '🏁', 'game race drive play track'],
       ['lab', 'Engineering Lab', '🧪', 'interactive calculator gear widgets'],
       ['experience', 'Experience', '🏁', 'roles peripheral labs fsae utat'],
       ['awards', 'Awards', '🏆', 'honors hackathon'],
